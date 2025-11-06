@@ -1,0 +1,61 @@
+.overlay {
+    /* Posicionamiento y Capa */
+    position: fixed; /* Fijo a la ventana del navegador */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Fondo con Transparencia al 25% */
+    /* RGBA: 0.25 es la opacidad */
+    background-color: rgba(0, 0, 0, 0.25);
+
+    /* Centrado del Spinner */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;   /* Centrado vertical */
+
+    /* Asegurar que esté por encima de todo */
+    z-index: 10000;
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1010; /*999*/
+  /*background: rgba(8, 29, 58, 0.65) url(/images/precarga.png) no-repeat;*/
+  background: rgba(8, 29, 58, 0.65) url(/images/logoMuni.svg) no-repeat;
+  background-position: center center;
+  background-size: 100px 100px;
+
+  top: 0;
+  left: 0;
+  opacity: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preloader {
+  width: 140px;
+  height: 140px;
+  border: 6px solid var(--molina-white-primary);
+  border-top: 6px solid var(--molina-green-default);
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+}
+
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

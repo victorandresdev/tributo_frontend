@@ -1,1 +1,337 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+//@forward 'variables' as vb-*;
+@import 'bootstrap-icons/font/bootstrap-icons.min.css';
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/public/fonts/Roboto/Roboto.woff2);
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0px !important;
+  padding: 0px !important;
+  font-family: Roboto;
+  background-color: var(--molina-white-default) !important;
+  font-size: 12px !important;
+}
+
+.cuerpo{
+  height: calc(100vh - 34px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .login{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    width: 50%;
+  }
+}
+
+.cuerpoSistema{
+  height: calc(100vh - 94px);
+  .row{
+    margin: 0px;
+  }
+}
+
+.cabToolbar{
+  img{
+    height: 50px;
+  }
+  height: 60px;
+  background-color: var(--molina-green-primary) !important;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+  align-items: center;
+  div :first-child{
+    content: " ";
+  }
+  .texto{
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--molina-blue-primary);
+  }
+  .version{
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--molina-blue-primary);
+  }
+  padding-left: 40px;
+  padding-right: 40px;
+  border-color: var(--molina-blue-primary);
+  border-top: 1px inset;
+  background-color: var(--molina-white-primary);
+}
+
+/* ANIMACION GENERAL DE BOTONES */
+
+.btnAnimado{
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  width: 200px;
+  height: 60px;
+  border-color: var(--molina-white-backHover);
+  border: 1px outset;
+  border-radius: 8px;
+  color: var(--molina-green-primary);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-left: 60px;
+  padding-right: 10px;
+  background-color: var(--molina-white-primary);
+  background-size: auto 70%;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.btnAnimado:hover{
+  background-color: var(--molina-green-hover);
+  color: var(--molina-white-primary);
+  font-weight: bold;
+}
+
+.readonly .mat-mdc-text-field-wrapper {
+  background-color: #C1E2EC;
+  border-radius: 4px;
+}
+
+// Custom White
+.custom-white .mat-mdc-text-field-wrapper {
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.mat-mdc-text-field-wrapper{
+  height: 26px !important;
+}
+
+mat-form-field.mat-mdc-form-field {
+  font-size: 12px;
+}
+.mat-mdc-form-field-wrapper {
+  margin: 0 !important;
+}
+.mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}
+.mat-mdc-form-field-bottom-align::before {
+  height: 0 !important;
+}
+.mat-mdc-form-field-infix {
+  min-height: inherit;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  font-weight: bold;
+}
+.mat-mdc-form-field-icon-suffix .mat-icon {
+  color: var(--warn-color);
+  padding: 0 4px !important;
+  display: inline;
+}
+
+.mat-mdc-icon-button .mat-mdc-button-touch-target {
+  position: absolute;
+  top: 50%;
+  height: 48px;
+  left: 50%;
+  width: 48px;
+  transform: translate(-50%, -50%);
+}
+.mat-mdc-form-field-icon-suffix{
+  top: -13px;
+}
+
+.tituloPagina{
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--molina-blue-primary);
+  text-align: center;
+  background-color: var(--molina-white-primary);
+  hr{
+    border-top: 1px solid var(--molina-blue-lightHover);
+    padding: 0px;
+    margin: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+/* Breadcrumb */
+
+.custom-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  content: none;
+}
+
+.custom-breadcrumb .breadcrumb-item:first-child {
+  padding: 0.5rem;
+  background-image: url("/images/breadcrumb/breadcrumb-first.png");
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.custom-breadcrumb .breadcrumb-item:not(:first-child):not(:last-child) {
+  padding: 0.5rem;
+  background-image: url("/images/breadcrumb/breadcrumb-middle.png");
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.custom-breadcrumb .breadcrumb-item:last-child {
+  padding: 0.5rem;
+  background-image: url("/images/breadcrumb/breadcrumb-last.png");
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.breadcrumb-first-text {
+  color: #4c7aff !important;
+  margin-left: 0.25rem;
+  margin-right: 0.5rem;
+}
+
+.breadcrumb-last-text {
+  color: #4c7aff !important;
+  margin-left: 1rem;
+  margin-right: 0.5rem;
+}
+
+/* End of breadcrumb */
+
+/* Inicio - Migaja de Pan */
+
+#contentPan{
+  display: flex;
+  flex-direction: row;
+  gap:0px;
+  background-color: var(--molina-white-lightblue);
+  margin: 0px;
+  padding: 5px 10px;
+}
+#contentPan>div{
+  background-color: transparent;
+  position: initial;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: -5px;
+}
+#contentPan>div>div{
+  position: relative;
+  height: 30px;
+  width: fit-content;
+  font-size: 12px;
+  background-color: var(--molina-white-primary);
+  color: var(--molina-blue-primary);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+#contentPan>div>div:hover{
+  background-color: var(--molina-green-hover);
+  color: var(--molina-white-primary);
+}
+#contentPan>div>div:hover::before{
+  background-color: var(--molina-green-hover);
+}
+#contentPan>div>div:hover::after{
+  background-color: var(--molina-green-hover);
+}
+#contentPan>div>div::before{
+  background-color: var(--molina-white-primary);
+}
+#contentPan>div>div::after{
+  background-color: var(--molina-white-primary);
+}
+#contentPan>div:first-child>div::before{
+  content: " ";
+  width: 20px;
+  height: 30px;
+  float: left;
+  position: absolute;
+  left: -20px;
+  top: 0px;
+}
+#contentPan>div:first-child>div::after{
+  content: " ";
+  width: 20px;
+  height: 30px;
+  clip-path: polygon(0% 0%, 50% 0, 100% 50%, 50% 100%, 0% 100%);
+  float: left;
+  position: absolute;
+  right: -20px;
+  top: 0px;
+}
+#contentPan>div:not(:first-child):not(:last-child)>div::after{
+  content: " ";
+  width: 20px;
+  height: 30px;
+  clip-path: polygon(0% 0%, 50% 0, 100% 50%, 50% 100%, 0% 100%);
+  float: left;
+  position: absolute;
+  right: -20px;
+  top: 0px;
+}
+#contentPan>div:not(:first-child):not(:last-child)>div::before{
+  content: " ";
+  width: 20px;
+  height: 30px;
+  clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 50% 50%, 0% 0%);
+  float: left;
+  position: absolute;
+  left: -20px;
+  top: 0px;
+}
+#contentPan>div:last-child>div::before{
+  content: " ";
+  width: 20px;
+  height: 30px;
+  clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 50% 50%, 0% 0%);
+  float: left;
+  position: absolute;
+  left: -20px;
+  top: 0px;
+}
+#contentPan>div:last-child>div::after{
+  content: " ";
+  width: 20px;
+  height: 30px;
+  float: left;
+  position: absolute;
+  right: -20px;
+  top: 0px;
+}
+#contentPan{
+  .active{
+    background-color: var(--molina-green-primary) !important;
+    color: var(--molina-white-primary) !important;
+    cursor: initial;
+  }
+}
+#contentPan{
+  .active::after{
+    background-color: var(--molina-green-primary) !important;
+  }
+}
+#contentPan{
+  .active::before{
+    background-color: var(--molina-green-primary) !important;
+  }
+}
+
+/* Fin - Migaja de Pan */

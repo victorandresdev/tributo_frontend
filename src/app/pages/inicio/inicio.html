@@ -1,0 +1,43 @@
+<app-migaja-pan [verMigaja]="4"></app-migaja-pan>
+<app-title-page [titulo]="'BIENVENIDO'"></app-title-page>
+<div class="bloque">
+  <form [formGroup]="frmDatos">
+    <div class="row">
+      <div class="col-sm-2">
+        <label class="d-flex justify-content-between">
+          Contribuyente :
+        </label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="contrib" autocomplete="off">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <label class="d-flex justify-content-between">
+          Nombres :
+        </label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="nombre" autocomplete="off">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <label class="d-flex justify-content-between">
+          Apellidos :
+        </label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="apellidos" autocomplete="off">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <label class="d-flex justify-content-between">
+          Dirección :
+        </label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="direccion" autocomplete="off">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-1">
+        <button type="button"></button>
+      </div>
+    </div>
+  </form>
+</div>

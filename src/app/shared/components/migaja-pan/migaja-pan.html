@@ -1,0 +1,10 @@
+<div id="contentPan">
+  @for(miga of migas; track miga.id){
+  <div>
+    <div (click)="ir(miga.RUTA)">{{miga.ETIQUETA}}</div>
+  </div>
+  }
+  <div>
+    <div class="active">{{ultimo.ETIQUETA}}</div>
+  </div>
+</div>

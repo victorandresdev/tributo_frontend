@@ -1,0 +1,93 @@
+.informativo{
+  height: calc(100vh - 34px);
+  width: 50%;
+  background-color: var(--molina-green-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--molina-white-primary);
+  background-image: url("/images/logoMuniHeadBlanco.svg");
+  background-repeat: no-repeat;
+  background-position: 50px 30px;
+  background-size: 300px;
+  div{
+    max-width: 50%;
+    text-align: justify;
+    font-size: 14px;
+  }
+}
+.block-login{
+  background-color: var(--molina-white-primary);
+  border-radius: 15px;
+  border-color: var(--molina-white-backHover);
+  padding: 15px;
+  mat-card-header{
+    padding: 0px;
+    color: var(--molina-green-default);
+    justify-content: center;
+  }
+  img{
+    width: -webkit-fill-available;
+    max-height: 200px;
+  }
+  mat-stepper{
+    width: 650px;
+    background-color: var(--molina-white-primary);
+  }
+  .agrupados, .bloques{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    div{
+      border: 0px;
+      background-color: var(--molina-green-disabled);
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      color: var(--molina-green-press);
+      padding: 2px 30px 2px 30px !important;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      gap: 10px;
+    }
+    div:hover{
+      background-color: var(--molina-green-hover);
+      color: var(--molina-white-primary);
+      cursor: pointer;
+    }
+    .activo{
+      background-color: var(--molina-green-primary) !important;
+      color: var(--molina-white-primary);
+      cursor: initial !important;
+    }
+  }
+  .agrupados, .contenidos{
+    padding: 15px;
+    border: var(--molina-green-primary) 1px solid !important;
+    border-top: 2px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    .contenido{
+      display: none;
+    }
+    .activo{
+      display: block;
+    }
+  }
+}
+app-footer-component{
+  height: 30px !important;
+}
+.acciones{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+}
+.btnLogin{
+  background-image: url("/images/icoLogin.svg");
+  background-size: auto 70%;
+}
+
+
