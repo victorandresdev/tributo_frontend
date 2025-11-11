@@ -1,6 +1,5 @@
 import { UsuarioService } from './../../services/usuario.service';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { HeadComponent } from '../../shared/components/head-component/head-component';
 import { FooterComponent } from '../../shared/components/footer-component/footer-component';
 import { MaterialModule } from '../../material/material/material-module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,7 +10,7 @@ import { APP_ROUTES } from '../../shared/constants/app.routes';
 
 @Component({
   selector: 'app-login-component',
-  imports: [HeadComponent, FooterComponent, MaterialModule],
+  imports: [FooterComponent, MaterialModule],
   templateUrl: './login-component.html',
   styleUrl: './login-component.scss',
   standalone: true,

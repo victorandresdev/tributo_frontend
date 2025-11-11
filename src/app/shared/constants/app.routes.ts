@@ -6,5 +6,6 @@ export const APP_ROUTES = {
       INICIO: '/pages/pagos',
       PENDIENTES: '/pages/pagos/pendientes',
       HISTORIA: 'pages/pagos/historial'
-    }
+    },
+    URL_ADMIN_INICIO: 'pages/admin/'
   }
