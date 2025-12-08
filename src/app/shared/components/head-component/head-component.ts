@@ -29,9 +29,10 @@ export class HeadComponent implements OnInit {
   ngOnInit(): void {
     let infoUsu:any = this.utilService.getSesionStorage(APP_CONSTANTS.VAR_USUARIO);
     if(infoUsu != undefined){
-      let infoUsuario:SesionData = JSON.parse(infoUsu);
-      this.usuSex = infoUsuario.usuario.sexo;
-      this.usuNombre = infoUsuario.usuario.nombres;
+      let infoUsuario:SesionData = new SesionData();
+      infoUsuario = JSON.parse(infoUsu);
+      this.usuSex = infoUsuario.usuario?.sexo || 0;
+      this.usuNombre = infoUsuario.usuario?.nombres || '';
     }else{
       this.usuSex = 1;
       this.usuNombre = 'Jhoane Lis, Piñeda Salas';

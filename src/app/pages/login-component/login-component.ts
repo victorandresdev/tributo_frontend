@@ -13,8 +13,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { APP_CONSTANTS, MY_DATE_FORMATS } from '../../shared/constants/app.constants';
-import { SesionData } from '../../shared/helpers/sesionData';
+import { SesionData, UsuarioData } from '../../shared/helpers/sesionData';
 import { PersonaRequest } from '../../shared/helpers/login/persona-request';
+import { ContribuyenteService } from '../../services/contribuyente.service';
 
 @Component({
   selector: 'app-login-component',
@@ -38,7 +39,8 @@ export class LoginComponent implements OnInit {
     private fb:FormBuilder,
     private cargaService: CargaService,
     private usuarioService: UsuarioService,/**/
-    private utilService: UtilService
+    private utilService: UtilService,
+    private contriSevices: ContribuyenteService
   ){}
 
   ngOnInit(): void {
@@ -78,12 +80,6 @@ export class LoginComponent implements OnInit {
   }
 
   validaUsuario(){
-    /*let usu: string ='ADMIN';
-    let pwd: string = '123456';
-    let credencial:any = {
-      "nick":usu,
-      "clave":pwd
-    }*/
     this.credencial = new PersonaRequest()
     if(this.nBloqueActivo = 1){
       this.credencial.nroDoc = this.frmDNI.get('nro')?.value;
@@ -91,38 +87,42 @@ export class LoginComponent implements OnInit {
     }else{
       this.credencial.codigoContribuyente = this.frmCont.get('cod')?.value;
     }
+    this.cargaService.show();
     this.usuarioService.getLoginContribuyente(this.nBloqueActivo, this.credencial).subscribe({
       next: (rstp:any) => {
-        console.log(rstp); return;
+        //console.log(rstp); return;
         if(rstp.token != undefined){
-          let dataUsu:any;
-          console.log("Bloque: ",this.nBloqueActivo);
-          if(this.nBloqueActivo == 1){
-            console.log("Fecha: ");
-            let fecha:any = this.utilService.formatoFecha(this.frmDNI.get('nac')?.value, 'fecha');
-            console.log("Fecha: ",fecha);
-            dataUsu = this.usuarioService.getDatosContribuyente(this.nBloqueActivo, this.frmDNI.get('nro')?.value, this.frmDNI.get('dig')?.value, fecha,'');
-          }else{
-            dataUsu = this.usuarioService.getDatosContribuyente(this.nBloqueActivo, '', 0, '',this.frmCont.get('cod')?.value);
-          }
-          console.log("Sesion: ",dataUsu);
-          let infoUsuario:SesionData = {
-            usuario: {
-              tipoUsuario: APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE,
-              login: dataUsu.login,
-              nombres: dataUsu.nombre,
-              sexo: dataUsu.sexo
-            }
-          }
-          this.utilService.setSesionStorage(APP_CONSTANTS.VAR_USUARIO, JSON.stringify(infoUsuario));
           this.utilService.setLocalStorage(APP_CONSTANTS.VAR_TOKEN, rstp.token);
-          this.utilService.link(APP_ROUTES.URL_INICIO);
+          this.contriSevices.datosGenerales().subscribe({
+            next: (rpta:any) => {
+              this.cargaService.hide();
+              let usuarioDt: UsuarioData = new UsuarioData();
+              usuarioDt = {
+                tipoUsuario: APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE,
+                login: "TAPIA",
+                nombres: rpta.apellidos + ', ' + rpta.nombres,
+                sexo: parseInt(rpta.sexo),
+                direccion: rpta.direccion,
+                codigoContribuyente: rpta.codigoContribuyente
+              }
+              let infoUsuario:SesionData = new SesionData();
+              infoUsuario = {
+                usuario: usuarioDt
+              }
+              this.utilService.setSesionStorage(APP_CONSTANTS.VAR_USUARIO, JSON.stringify(infoUsuario));
+              this.utilService.setLocalStorage(APP_CONSTANTS.VAR_TOKEN, rstp.token);
+              this.utilService.link(APP_ROUTES.URL_INICIO);
+            },
+            error: () => {
+              this.cargaService.hide();
+            }
+          });
         }else{
           this.utilService.getAlert("Fallo login.","Usuario o clave no válido.","error","Entendido");
         }
       },
       error: () => {
-
+        this.cargaService.hide();
       }
     });
   }

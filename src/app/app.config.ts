@@ -5,11 +5,11 @@ import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, HttpRequest, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { environment } from '../environments/environment.development';
-import { JwtInterceptor } from './interceptor/jwt.interceptor';
+import { jwtInterceptorFn } from './interceptor/jwt.interceptor';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { globalErrorInterceptor } from './interceptor/error.interceptor';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { globalErrorInterceptor } from './interceptor/error.interceptor';
 
 export function tokenGetter(){
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -22,11 +22,15 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     { provide: LOCALE_ID, useValue: 'es' },
-    provideHttpClient(
-      withInterceptors([globalErrorInterceptor])
-    ),
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
+    provideHttpClient(
+      withInterceptors([
+        jwtInterceptorFn,
+        globalErrorInterceptor
+      ])
+    ),
+
     importProvidersFrom(MatProgressSpinnerModule),
   ]
 };

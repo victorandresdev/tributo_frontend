@@ -5,7 +5,9 @@ export class SesionData{
 
 export class UsuarioData{
   tipoUsuario!:string;
-  login!: string;
-  nombres!: string;
-  sexo!: number;
+  login?: string;
+  nombres?: string;
+  sexo?: number;
+  direccion?: string;
+  codigoContribuyente?: string;
 }

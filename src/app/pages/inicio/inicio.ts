@@ -27,7 +27,6 @@ export class Inicio implements OnInit {
 
   }
 
-  frmDatos!: FormGroup;
   selected:Date = new Date();
   infoUsu!:any;
   APP_CONSTANTS = APP_CONSTANTS;
@@ -41,13 +40,7 @@ export class Inicio implements OnInit {
       let aux:any = this.utilService.getSesionStorage(APP_CONSTANTS.VAR_USUARIO);
       this.infoUsu = JSON.parse(aux);
       if(this.infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE){
-        this.frmDatos = this.fb.group({
-          contrib: [],
-          nombre: [],
-          apellidos: [],
-          direccion: []
-        });
-        this.frmDatos.disable();
+
       }
     }
   }

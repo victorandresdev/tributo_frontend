@@ -1,23 +1,38 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { SeguridadService } from "../services/segudidad.service";
+import { HttpInterceptorFn } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { UtilService } from "../services/util.services";
+import { APP_CONSTANTS } from "../shared/constants/app.constants";
 
-@Injectable()
-export class JwtInterceptor implements HttpInterceptor{
-  constructor(private seguridadService: SeguridadService){}
+export const jwtInterceptorFn: HttpInterceptorFn = (req, next) => {
+  const util = inject(UtilService);
+  const token = util.getLocalStorage(APP_CONSTANTS.VAR_TOKEN);
+
+  if (token) {
+    console.log("Entra seguridad: ", token);
+    req = req.clone({
+      setHeaders: { Authorization: `Bearer ${token}` }
+    });
+  }
+
+  return next(req);
+};
+/*export class JwtInterceptor implements HttpInterceptor{
+
+  constructor(private util: UtilService){}
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token;
-    token = this.seguridadService.getToken();
-    if(!request.headers.get('skip')){
-        if(token && token !== ''){
-            request = request.clone({
-                setHeaders: {
-                    Authorization: 'Beaver ${token}'
-                }
-            });
+    token = this.util.getLocalStorage(APP_CONSTANTS.VAR_TOKEN);
+    if (token != null) {
+      console.log("Entro a seguridad: ", token);
+      const authreq = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
         }
+      })
+      return next.handle(authreq);
     }
     return next.handle(request);
   }
 }
+*/
