@@ -1,0 +1,54 @@
+<div class="cuerpo">
+  <div class="informativo">
+    <div>
+      Estimado contribuyente, este canal de pago muestra únicamente información sobre las deudas correspondientes a los años 2021 - 2025.
+      <br/><br>
+      Si necesita su estado de cuenta general, puede solicitarlo fácilmente a traves de la plataforma de atención al ciudadano de la Municipalidad de la Molida.
+      <br/><br>
+      ¡Estado aquí para ayudarte!
+    </div>
+  </div>
+  <div class="login">
+    <mat-card class="block-login" appearance="outlined">
+      <mat-card-header class="mb-4">INGRESO - PERSONAL AUTORIZADO</mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <div class="mb-12 mb-3">
+                <label class="d-flex justify-content-between">
+                  Usuario:
+                </label>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput formControlName="usuario" autocomplete="off">
+                  @if(form.get('usuario')?.invalid){
+                    <mat-error>Indique Usuario.</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div class="mb-12 mb-3">
+                <label class="d-flex justify-content-between">
+                  Contraseña:
+                </label>
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput formControlName="clave" autocomplete="off" type="password">
+                  @if(form.get('clave')?.invalid){
+                    <mat-error>Indique Contraseña.</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="acciones">
+          <button type="button" class="btnAnimado btnLogin" (click)="validaUsuario()">
+            Validar Ingreso
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<app-footer-component></app-footer-component>

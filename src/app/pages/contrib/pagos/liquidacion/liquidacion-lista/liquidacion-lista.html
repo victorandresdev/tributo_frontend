@@ -1,0 +1,56 @@
+<ng-container>
+  <div class="row">
+    <div class="col-12 p-0">
+      <mat-card appearance="outlined" class="custom-card">
+        <div class="custom-table">
+          <table class="custom-table">
+            <tr class="mat-mdc-header-row">
+              <th class="mat-mdc-header-cell mat-header-cell mat-column-nro">N° de Liquidación</th>
+              <th class="mat-mdc-header-cell mat-header-cell">Fecha de Emisión</th>
+              <th class="mat-mdc-header-cell mat-header-cell">Código de Emisión</th>
+              <th class="mat-mdc-header-cell mat-header-cell">Estado</th>
+              <th class="mat-mdc-header-cell mat-header-cell">Monto</th>
+              <th class="mat-mdc-header-cell mat-header-cell mat-column-select">&nbsp;</th>
+            </tr>
+            @for (item of infoGrilla; track $index; let i = $index) {
+              @if(controlImpresion(item.tributo) == true){
+                <tr>
+                  <td class="mat-mdc-cell mat-column-nro cell-group" colspan="6">{{item.tributo}}</td>
+                </tr>
+              }
+              <tr>
+                <td class="mat-mdc-cell mat-column-nro">{{item.tributo}}</td>
+                <td class="mat-mdc-cell mat-column-emision">{{item.emision}}</td>
+                <td class="mat-mdc-cell mat-column-codigo">{{item.codigo}}</td>
+                <td class="mat-mdc-cell mat-column-estado">{{item.estado}}</td>
+                <td class="mat-mdc-cell mat-column-monto">S/ {{item.monto.toFixed(2)}}</td>
+                <td class="mat-mdc-cell mat-column-select">
+                  <mat-checkbox color="warn" (click)="$event.stopPropagation()" (change)="toggleRow(item)"
+                    [checked]="selection.isSelected(item)">
+                  </mat-checkbox>
+                </td>
+              </tr>
+            }
+          </table>
+          <app-paginator
+            [verPagina]="true"
+            [pageIndex]="indexIni"
+            [totalPaginas]="paginas"
+            (paginar)="pagina($event)"
+          ></app-paginator>
+        </div>
+      </mat-card>
+      @if(length == 0){
+      <mat-card class="tarjeta-sin-registros" appearance="outlined">
+        <mat-card-content>
+          <div class="row">
+            <div class="col-12 text-center">
+              <strong>{{message}}</strong>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      }
+    </div>
+  </div>
+</ng-container>

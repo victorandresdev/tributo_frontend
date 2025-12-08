@@ -1,0 +1,29 @@
+<app-head-component></app-head-component>
+<div class="cuerpoSistema">
+  <div [class.complete]="layoutService.myPanel() === VMENU.COMPLETO"
+            [class.compact]="layoutService.myPanel() === VMENU.COMPACTO" class="menu complete">
+    @for (item of lstMenu; track $index) {
+      @if(item.ESTADO == 1){
+        <div [class.activated]="layoutService.myIndicador() === item.NRO"
+            [class.activ]="layoutService.myIndicador() != item.NRO" class="option" (click)="ir(item.NRO,item.RUTA)">
+          <mat-icon
+            [matTooltipDisabled]="layoutService.myPanel() === VMENU.COMPLETO"
+            [matTooltip]="item.ETIQUETA"
+            matTooltipPosition="right">{{item.IMAGEN}}</mat-icon>
+          <label>{{item.ETIQUETA}}</label>
+        </div>
+      }
+      @else {
+        <div class="option bloqueado">
+          <mat-icon>{{item.IMAGEN}}</mat-icon>
+          <label>{{item.ETIQUETA}}</label>
+        </div>
+      }
+
+    }
+  </div>
+  <div class="ventana">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-footer-component></app-footer-component>

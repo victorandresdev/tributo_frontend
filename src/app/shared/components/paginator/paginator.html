@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-center">
+    @if(vPaginas){
+    <div class="align-content-center" style="font-size: 14px;">Página {{(pageIndex + 1)}} de {{totalPaginas | number:'1.0-0': 'en-US' }}</div>
+    }
+    <button mat-icon-button [disabled]="0 == pageIndex" (click)="goFirst()"><mat-icon>first_page</mat-icon></button>
+    <button mat-icon-button [disabled]="0 == pageIndex" (click)="goPrev()"><mat-icon>chevron_left</mat-icon></button>
+    <button mat-icon-button [disabled]="pageIndex == indexEnd" (click)="goNext()"><mat-icon>chevron_right</mat-icon></button>
+    <button mat-icon-button [disabled]="pageIndex == indexEnd" (click)="goLast()"><mat-icon>last_page</mat-icon></button>
+  </div>
+</div>

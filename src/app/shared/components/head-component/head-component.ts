@@ -1,0 +1,52 @@
+import { UtilService } from './../../../services/util.services';
+import { LayoutService } from './../../../services/layout.service';
+import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../../../services/usuario.service';
+import { APP_CONSTANTS } from '../../constants/app.constants';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { SesionData } from '../../helpers/sesionData';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-head-component',
+  imports: [MatIconModule, MatButtonModule, CommonModule],
+  templateUrl: './head-component.html',
+  styleUrl: './head-component.scss',
+  standalone: true,
+})
+export class HeadComponent implements OnInit {
+  constructor(
+    private usuarioService: UsuarioService,
+    private layoutService:LayoutService,
+    private utilService: UtilService
+  ){
+
+  }
+  usuSex!:number;
+  usuNombre!:string;
+
+  ngOnInit(): void {
+    let infoUsu:any = this.utilService.getSesionStorage(APP_CONSTANTS.VAR_USUARIO);
+    if(infoUsu != undefined){
+      let infoUsuario:SesionData = JSON.parse(infoUsu);
+      this.usuSex = infoUsuario.usuario.sexo;
+      this.usuNombre = infoUsuario.usuario.nombres;
+    }else{
+      this.usuSex = 1;
+      this.usuNombre = 'Jhoane Lis, Piñeda Salas';
+    }
+  }
+
+  cambiaMenu(){
+    if(this.layoutService.myPanel() == APP_CONSTANTS.VAL_MENU.COMPACTO){
+      this.layoutService.myPanel.set(APP_CONSTANTS.VAL_MENU.COMPLETO);
+    }else{
+      this.layoutService.myPanel.set(APP_CONSTANTS.VAL_MENU.COMPACTO);
+    }
+  }
+
+  salir(){
+    this.usuarioService.logout();
+  }
+}

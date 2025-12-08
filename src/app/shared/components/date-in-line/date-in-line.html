@@ -1,0 +1,9 @@
+<div class="listInLine" [formGroup]="form">
+  <div class="input-group input-group-sm mb-1">
+    <span class="input-group-text fondo-custom">{{etiqueta}}</span>
+    <input type="text" formControlName="fecha" [matDatepicker]="picker" readonly>
+    <mat-datepicker #picker></mat-datepicker>
+    <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+    <span class="input-group-text fondo-custom"><mat-icon (click)="picker.open()">calendar_today</mat-icon></span>
+  </div>
+</div>

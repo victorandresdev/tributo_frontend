@@ -1,0 +1,72 @@
+<ng-container>
+  <div class="row">
+    <div class="col-12 p-0">
+      <mat-card appearance="outlined" class="custom-card">
+        <div class="custom-table">
+          <mat-table [dataSource]="dataResult" class="custom-table">
+
+            <ng-container matColumnDef="local">
+              <mat-header-cell *matHeaderCellDef>Local</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.sLocal}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="direccion">
+              <mat-header-cell *matHeaderCellDef> Dirección </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.sDireccion}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+              <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                @if(element.nEstado == 1){
+                  <mat-icon class="activo" matTooltip="Sede Activa">domain</mat-icon>
+                }@else{
+                  <mat-icon class="inactivo" matTooltip="Sede Inactiva">domain_disabled</mat-icon>
+                }
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="estaciones">
+              <mat-header-cell *matHeaderCellDef> Equipos </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.terminales?.length}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="accion" #acciones stickyEnd>
+                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="light-theme">
+                    <button tabindex="-1" mat-icon-button [disabled]="element?.nEstado == 0" matTooltip="Editar" (click)="verDetalle(element)">
+                        <mat-icon>create</mat-icon>
+                    </button>
+                    <button tabindex="-1" mat-icon-button [disabled]="element?.nEstado == 0" matTooltip="Ver Terminales" (click)="verLan(element)">
+                        <mat-icon>lan</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns; let odd = odd;"
+                    [class]="{gray: odd}"></mat-row>
+          </mat-table>
+
+          <app-paginator
+            [verPagina]="true"
+            [pageIndex]="indexIni"
+            [totalPaginas]="paginas"
+            (paginar)="pagina($event)"
+          ></app-paginator>
+        </div>
+      </mat-card>
+      @if(length == 0){
+      <mat-card class="tarjeta-sin-registros" appearance="outlined">
+        <mat-card-content>
+          <div class="row">
+            <div class="col-12 text-center">
+              <strong>{{message}}</strong>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      }
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,40 @@
+.error404{
+  background-image: url("/images/404.png");
+  background-repeat: no-repeat;
+  background-position: right 100px bottom;
+  background-size: auto 100%;
+  height: 200px;
+  width: 100%;
+  margin-left: 150px;
+  margin-right: 150px;
+  border-bottom: 3px solid #545454;
+  padding-left: 150px;
+  vertical-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--molina-green-primary);
+}
+.error404::before{
+  content: "404";
+  float: right;
+  position: relative;
+  bottom: -151px;
+  padding: 0px 20px;
+  background-color: var(--molina-white-default) !important;
+  font-size: 50px;
+  font-weight: bold;
+  color: #545454;
+  right: 280px;
+  text-align: center;
+}
+.error404::after{
+  content: " ";
+  float: right;
+  position: relative;
+  bottom: -136px;
+  right: 36px;
+  width: 87px;
+  height: 5px;
+  background-color: var(--molina-white-default) !important;
+  border-radius: 10px;
+}

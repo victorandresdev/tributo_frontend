@@ -1,0 +1,25 @@
+<app-migaja-pan [verMigaja]="3"></app-migaja-pan>
+<app-title-page [titulo]="'PAGOS PENDIENTES'"></app-title-page>
+<div class="contenedorPrincipal">
+  <form [formGroup]="form"><!-- -->
+    <div class="pestanas">
+      <section>
+        <mat-button-toggle-group formControlName="impuesto" hideSingleSelectionIndicator="true">
+          <mat-button-toggle value="opt1">Impuesto Predial</mat-button-toggle>
+          <mat-button-toggle value="opt2">Fraccionamiento</mat-button-toggle>
+          <mat-button-toggle value="opt3">Liquidacion</mat-button-toggle>
+        </mat-button-toggle-group>
+      </section>
+      <div class="blocks">
+
+      </div>
+    </div>
+  </form>
+  <app-liquidacion-lista
+    [arrList]="lstDatos"
+  >
+  </app-liquidacion-lista>
+  <app-total-pagar
+    [montoTotal]="monto"
+  ></app-total-pagar>
+</div>

@@ -1,0 +1,15 @@
+<app-migaja-pan [verMigaja]="5"></app-migaja-pan>
+<app-title-page [titulo]="'SEDES'"></app-title-page>
+<div class="contenedorPrincipal">
+  <form [formGroup]="form">
+    <div class="operacion">
+      <button mat-flat-button class="mat-bg-pagar" (click)="agregaSede()">
+        <mat-icon>domain_add</mat-icon>
+        Agregar Sede
+      </button>
+    </div>
+  </form>
+  <app-sedes-lista
+    [arrList]="lstSedes">
+  </app-sedes-lista>
+</div>

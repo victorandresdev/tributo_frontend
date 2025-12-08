@@ -1,0 +1,44 @@
+<mat-card class="popUpCard">
+  <mat-card-header class="header-modal">
+    <mat-icon>domain</mat-icon>
+    {{(idSede == 0)?'Registro':'Actualiza'}} Sede
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form" class="margen">
+      <div class="row">
+        <div class="col-sm-12 mb-4">
+          <label class="d-flex justify-content-between">
+            Local:
+          </label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="local" autocomplete="off" maxlength="200">
+            @if(form.get('local')?.invalid && form.get('local')?.markAsTouched){
+              <mat-error>Indique Local.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 mb-4">
+          <label class="d-flex justify-content-between">
+            Dirección:
+          </label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="direccion" autocomplete="off" maxlength="200">
+            @if(form.get('direccion')?.invalid && form.get('direccion')?.markAsTouched){
+              <mat-error>Indique Dirección.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="footer-modal">
+    <button mat-flat-button class="mat-bg-error" (click)="cerrar()">
+      Cancelar
+    </button>
+    <button mat-flat-button class="mat-bg-ok" (click)="cerrar()">
+      {{(idSede == 0)?'Grabar':'Actualizar'}}
+    </button>
+  </mat-card-actions>
+</mat-card>

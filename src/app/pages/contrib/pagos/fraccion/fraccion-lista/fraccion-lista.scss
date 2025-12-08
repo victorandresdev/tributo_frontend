@@ -1,0 +1,98 @@
+.custom-card {
+  overflow-x: hidden;
+}
+
+.custom-table {
+  overflow-y: hidden;
+  height: -webkit-fill-available;
+  width: 100%;
+}
+
+.custom-date {
+  display: flex;
+  flex-direction: column;
+}
+.custom-date span {
+  display: flex;
+  align-items: baseline;
+}
+.custom-date span mat-icon {
+  width: auto;
+  height: auto;
+  margin-right: 5px;
+}
+
+::ng-deep .mat-mdc-paginator-range-label {
+  display: none;
+}
+
+mat-header-row.mat-mdc-header-row {
+  background-color: var(--molina-green-primary);
+  color: white;
+  width: 100%;
+}
+.mat-header-cell {
+  font-weight: 600;
+  font-size: .9rem;
+  color: #000;
+  text-align: center;
+}
+mat-cell.mat-mdc-cell {
+  font-style: normal;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+mat-header-cell.mat-mdc-header-cell {
+  color: var(--molina-white-primary);
+}
+
+.mdc-icon-button {
+  font-size: 18px;
+}
+
+.mat-column-select {
+  flex: 0 0 5%;
+  padding: 5px 5px 5px 10px;
+}
+
+.mat-column-convenio {
+  flex: 0 0 30%;
+  padding: 5px 5px 5px 10px;
+}
+
+.mat-column-anio {
+  flex: 0 0 5%;
+  padding: 5px 5px 5px 10px;
+}
+
+.mat-column-cuota {
+  flex: 0 0 5%;
+  padding: 5px 5px 5px 10px;
+}
+
+
+.mat-column-monto {
+  flex: 0 0 10%;
+  padding: 5px 5px 5px 10px;
+}
+
+.mat-column-interes {
+  flex: 0 0 10%;
+  padding: 5px 5px 5px 10px;
+}
+
+.mat-column-mora {
+  flex: 0 0 10%;
+  padding: 5px 5px 5px 10px;
+}
+
+.mat-column-vence {
+  flex: 0 0 15%;
+  padding: 5px 5px 5px 10px;
+}
+
+.mat-column-total {
+  flex: 0 0 10%;
+  padding: 5px 5px 5px 10px;
+}
