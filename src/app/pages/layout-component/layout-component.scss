@@ -1,0 +1,11 @@
+.tooltip-overrides{
+  background-color: var(--molina-blue-primary),
+}
+
+.tooltip-custom-bg {
+  /* La clase target de Angular Material */
+  background-color: var(--molina-blue-primary) !important; /* Ejemplo: Azul primario de Material */
+  color: var(--molina-white-primary) !important; /* Opcional: Asegúrate de que el texto sea legible */
+  opacity: 1; /* Opcional: Asegúrate de que no haya transparencia */
+  font-family: 'Roboto', sans-serif !important;
+}

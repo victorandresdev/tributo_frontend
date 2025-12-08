@@ -1,43 +1,75 @@
-<app-migaja-pan [verMigaja]="4"></app-migaja-pan>
+<app-migaja-pan [verMigaja]="1"></app-migaja-pan>
 <app-title-page [titulo]="'BIENVENIDO'"></app-title-page>
-<div class="bloque">
-  <form [formGroup]="frmDatos">
-    <div class="row">
-      <div class="col-sm-2">
-        <label class="d-flex justify-content-between">
-          Contribuyente :
-        </label>
-        <mat-form-field appearance="outline" class="w-100">
-          <input matInput formControlName="contrib" autocomplete="off">
-        </mat-form-field>
+<div class="contenedorPrincipal" [class.fondoAmin] = "infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.ADMINISTRADOR">
+  @if (infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE) {
+  <span>Bienvenido a la plataforma municipal de pagos. Aquí podrá gestionar sus trámites y realizar sus operaciones de manera rápida y segura.</span>
+  <mat-card appearance="outlined" class="custom-card mt-3">
+    <div class="row mt-2 mb-2">
+      <div class="col-9 mb-2 mt-2 listInLine">
+        <div class="row mb-3">
+          <div class="col-12">
+            <app-input-info
+              [etiqueta]="'Contribuyente'"
+              [valor]="'Javier Tapia Silva'"
+            ></app-input-info>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <app-input-info
+              [etiqueta]="'Dirección:'"
+              [valor]="'AV. FLORIPONDIO 6969'"
+            ></app-input-info>
+          </div>
+        </div>
+        <div class="row mb-3 mt-3">
+          <div class="col-12 sub-title">
+            :: UBIGEO ::
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-6">
+            <app-input-info
+              [etiqueta]="'Departamento:'"
+              [valor]="'LIMA'"
+            ></app-input-info>
+          </div>
+          <div class="col-6">
+            <app-input-info
+              [etiqueta]="'Provincia:'"
+              [valor]="'LIMA'"
+            ></app-input-info>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <app-input-info
+              [etiqueta]="'Distrito:'"
+              [valor]="'PUEBLO LIBRE'"
+            ></app-input-info>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-3">
-        <label class="d-flex justify-content-between">
-          Nombres :
-        </label>
-        <mat-form-field appearance="outline" class="w-100">
-          <input matInput formControlName="nombre" autocomplete="off">
-        </mat-form-field>
-      </div>
-      <div class="col-sm-3">
-        <label class="d-flex justify-content-between">
-          Apellidos :
-        </label>
-        <mat-form-field appearance="outline" class="w-100">
-          <input matInput formControlName="apellidos" autocomplete="off">
-        </mat-form-field>
-      </div>
-      <div class="col-sm-3">
-        <label class="d-flex justify-content-between">
-          Dirección :
-        </label>
-        <mat-form-field appearance="outline" class="w-100">
-          <input matInput formControlName="direccion" autocomplete="off">
-        </mat-form-field>
-      </div>
-      <div class="col-sm-1">
-        <button type="button"></button>
+      <div class="col-3">
+        Calendario del mes:
+
+        <mat-card class="demo-inline-calendar-card">
+          <mat-calendar [(selected)]="selected"></mat-calendar>
+        </mat-card>
       </div>
     </div>
-  </form>
+  </mat-card>
+  }@else {
+    <mat-card>
+        <mat-card-header>
+           <mat-card-title>Hola</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+        </mat-card-content>
+        <mat-card-footer>
+
+        </mat-card-footer>
+    </mat-card>
+  }
 </div>

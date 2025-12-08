@@ -1,0 +1,77 @@
+<ng-container>
+  <div class="row">
+    <div class="col-12 p-0">
+      <mat-card appearance="outlined" class="custom-card">
+        <div class="custom-table">
+          <mat-table [dataSource]="dataResult" class="custom-table">
+
+            <ng-container matColumnDef="recibo">
+              <mat-header-cell *matHeaderCellDef>Recibo</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.recibo}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoTramite">
+              <mat-header-cell *matHeaderCellDef> Tipo Tramite </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.tipoTramite}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="periodo">
+              <mat-header-cell *matHeaderCellDef> Periodo </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.periodo}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="pagado">
+              <mat-header-cell *matHeaderCellDef> Pagado </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.pagado.toFixed(2)}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fecha">
+                <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.fecha}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="anio">
+                <mat-header-cell *matHeaderCellDef> Año</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.anio}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lugar">
+                <mat-header-cell *matHeaderCellDef> Lugar </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.lugar}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="detalle" #acciones stickyEnd>
+                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="light-theme">
+                    <button tabindex="-1" mat-icon-button [disabled]="element?.estado == 0" matTooltip="Ver Detalle" (click)="verDetalle(element)">
+                        <mat-icon>cloud_download</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns; let odd = odd;"
+                    [class]="{gray: odd}"></mat-row>
+          </mat-table>
+
+          <app-paginator
+            [verPagina]="true"
+            [pageIndex]="indexIni"
+            [totalPaginas]="paginas"
+            (paginar)="pagina($event)"
+          ></app-paginator>
+        </div>
+      </mat-card>
+      @if(length == 0){
+      <mat-card class="tarjeta-sin-registros" appearance="outlined">
+        <mat-card-content>
+          <div class="row">
+            <div class="col-12 text-center">
+              <strong>{{message}}</strong>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      }
+    </div>
+  </div>
+</ng-container>

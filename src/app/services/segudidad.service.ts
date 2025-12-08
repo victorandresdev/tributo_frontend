@@ -1,4 +1,3 @@
-import { environment } from './../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
@@ -9,6 +8,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { APP_ROUTES } from "../shared/constants/app.routes";
 import { MatDialog } from "@angular/material/dialog";
 import Swal from 'sweetalert2';
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'

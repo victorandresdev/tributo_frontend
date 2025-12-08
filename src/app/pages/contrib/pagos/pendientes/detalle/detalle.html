@@ -1,0 +1,34 @@
+<mat-card class="popUpCard">
+  <mat-card-header>
+    <div class="logo"></div>
+    <div>
+      <div>La Molina</div>
+      <div>Una ciudad que brilla</div>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="title">Detalle del Tributo</div>
+    <table>
+      <tr>
+        <th class="mat-mdc-header-row mat-header-cell mat-column-texto" colspan="2">Concepto</th>
+        <th class="mat-mdc-header-row mat-header-cell mat-column-monto">Monto</th>
+      </tr>
+      @for (item of adicionales; track $index) {
+      <tr>
+        <td class="mat-mdc-cell mat-column-icono">
+          <mat-icon>{{item.icono}}</mat-icon>
+        </td>
+        <td class="mat-mdc-cell mat-column-texto">
+          {{item.texto}}
+        </td>
+        <td class="mat-mdc-cell mat-column-monto">S/ {{item.monto.toFixed(2)}}</td>
+      </tr>
+      }
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-flat-button class="mat-bg-ok" (click)="cerrar()">
+      OK
+    </button>
+  </mat-card-actions>
+</mat-card>

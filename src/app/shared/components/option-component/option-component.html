@@ -1,0 +1,44 @@
+<form [formGroup]="form">
+  <label>{{label}}</label>
+  <mat-form-field appearance="outline" class="w-100" [class.readonly]="readonly" *ngIf="!datoUnico">
+    <mat-select #cbo
+                *ngIf="!blUseOptionWithIdString"
+                formControlName="id"
+                class="custom-list"
+                (selectionChange)="emit(cbo.value)"
+                [placeholder]="placeholder ? placeholder : '-- Seleccione --'">
+      <mat-option *ngIf="optionSelect" [value]="''" [disabled]="readonly">{{placeholder ? placeholder : '-- Seleccione --'}}</mat-option>
+      <mat-option *ngFor="let item of options" [value]="item.nId" [disabled]="readonly">
+        <label *ngIf="showConcatCodigo">{{item.sCodigo | uppercase}} - {{item.sDescripcion | uppercase}}</label>
+        <label *ngIf="!showConcatCodigo">{{item.sDescripcion | uppercase}}</label>
+      </mat-option>
+    </mat-select>
+    <mat-select #cbo
+                *ngIf="blUseOptionWithIdString"
+                formControlName="id"
+                class="custom-list"
+                (selectionChange)="emit(cbo.value)"
+                [placeholder]="placeholder ? placeholder : '-- Seleccione --'">
+      <mat-option *ngIf="optionSelect" [value]="''" [disabled]="readonly">{{placeholder ? placeholder : '-- Seleccione --'}}</mat-option>
+      <mat-select-trigger *ngIf="showDisplayValue && displayValue.length > 0">
+        {{displayValue}}
+      </mat-select-trigger>
+      <mat-option *ngFor="let item of optionsWithIdString" [value]="item.sId" [disabled]="readonly">
+        {{item.sId | uppercase}} - {{item.sDescripcion | uppercase}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('id')?.invalid">{{validMsjError()}}</mat-error>
+  </mat-form-field>
+
+  <!--PARA QUE SOLO MUESTRE UN VALOR POR DEFECTO, SIN EL PLACEHOLDER-->
+  <mat-form-field appearance="outline" class="w-100" [class.readonly]="readonly" *ngIf="datoUnico">
+    <mat-select #cbo
+                formControlName="id"
+                class="custom-list"
+                (selectionChange)="emit(cbo.value)">
+      <mat-option *ngFor="let item of options" [value]="item.nId" [disabled]="readonly">
+        <label>{{item.sDescripcion | uppercase}}</label>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

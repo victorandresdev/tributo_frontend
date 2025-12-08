@@ -1,18 +1,39 @@
-import { Injectable } from "@angular/core";
+import { LayoutService } from './layout.service';
+import { inject, Inject, Injectable, LOCALE_ID } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import { APP_ROUTES } from "../shared/constants/app.routes";
+import { APP_CONSTANTS } from '../shared/constants/app.constants';
+import { FormGroup } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService{
-
+  public snackBar = inject(MatSnackBar);
   constructor(
     private route: Router,
     public dialog: MatDialog,
+    private layoutService: LayoutService,
+    @Inject(LOCALE_ID) private locale: string
   ){
 
+  }
+
+  getSesionStorage(item:any):any{
+    return sessionStorage.getItem(item);
+  }
+
+  setSesionStorage(id:string, value:any):void{
+    sessionStorage.setItem(id,value);
+  }
+
+  removeSesionStorage(item:any){
+    sessionStorage.removeItem(item);
   }
 
   getLocalStorage(item:any):any{
@@ -25,6 +46,13 @@ export class UtilService{
 
   removeLocalStorage(item:any){
     localStorage.removeItem(item);
+  }
+
+  removeAllStorage(){
+    localStorage.removeItem(APP_CONSTANTS.VAR_TOKEN);
+    localStorage.removeItem(APP_CONSTANTS.VAR_LOCAL);
+    localStorage.removeItem(APP_CONSTANTS.VAR_PAGE_ACTIVA);
+    sessionStorage.removeItem(APP_CONSTANTS.VAR_USUARIO);
   }
 
   link(url: string, param?: string) {
@@ -48,5 +76,83 @@ export class UtilService{
       icon: type, // Iconos disponibles: 'success', 'error', 'warning', 'info', 'question'
       confirmButtonText: textButton
     });
+    /*return this.snackBar.open(message, title, {
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['snackbar-' + type] // opcional
+    });*/
+  }
+
+  cambiaMenu(id:number){
+    this.layoutService.myIndicador.set(id);
+    this.setLocalStorage(APP_CONSTANTS.VAR_PAGE_ACTIVA,id)
+  }
+
+  pestanaPagos(llamada:string, local:string){
+    if(llamada != local){
+      this.cambiaMenu(2);
+      if(llamada == 'opt1'){
+        this.link(APP_ROUTES.URL_PAGOS.PENDIENTES.PREDIAL);
+      }else if(llamada == 'opt2'){
+        this.link(APP_ROUTES.URL_PAGOS.PENDIENTES.FRACCION);
+      }else if(llamada == 'opt3'){
+        this.link(APP_ROUTES.URL_PAGOS.PENDIENTES.LIQUIDACION);
+      }
+    }
+  }
+
+  public getErrorMessage(formName: FormGroup, formControl: any, min?: number, max?: number, onlyNumber?: boolean, mail?: boolean): string {
+    let message = '';
+    if (formName.get(formControl)?.hasError('required')) {
+      message = 'Este campo es requerido';
+    }
+
+    if (formName.get(formControl)?.hasError('minlength')) {
+      message = `Mínimo ${min} caracteres`;
+    }
+
+    if (formName.get(formControl)?.hasError('maxlength')) {
+      message = `Máximo ${max} caracteres`;
+    }
+
+    if (formName.get(formControl)?.hasError('min')) {
+      message = `Mínimo ${min}`;
+    }
+
+    if (formName.get(formControl)?.hasError('max')) {
+      message = `Máximo ${max}`;
+    }
+
+    if (formName.get(formControl)?.hasError('pattern') && onlyNumber) {
+      message = 'Sólo se aceptan números';
+    }
+
+    if (formName.get(formControl)?.hasError('pattern') && !onlyNumber) {
+      message = 'Se aceptan letras y números sin espacios al inicio y final';
+    }
+
+    if (formName.get(formControl)?.hasError('pattern') && mail) {
+      message = 'Debe ingresar un correo electrónico válido';
+    }
+
+    return message;
+  }
+
+  formatoFecha(fecha:Date, tipoFormato?: 'fecha' | 'fechaHora' | 'hora' | 'fechaData'){
+    let formato:any;
+    if(tipoFormato == 'fecha'){
+      formato = APP_CONSTANTS.FORMATO_FECHA.FECHA;
+    }
+    if(tipoFormato == 'fechaHora'){
+      formato = APP_CONSTANTS.FORMATO_FECHA.FECHA_HORA;
+    }
+    if(tipoFormato == 'hora'){
+      formato = APP_CONSTANTS.FORMATO_FECHA.HORA;
+    }
+    if(tipoFormato == 'fechaData'){
+      formato = APP_CONSTANTS.FORMATO_FECHA.FECHA_DATA;
+    }
+    return formatDate(new Date(fecha), formato, 'en-US')
   }
 }

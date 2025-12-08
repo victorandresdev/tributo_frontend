@@ -1,0 +1,11 @@
+<div class="listInLine" [formGroup]="form">
+  <div class="input-group input-group-sm mb-1">
+    <span class="input-group-text fondo-custom">{{etiqueta}}</span>
+    <select class="form-select" id="inputGroupSelect02">
+      @for (item of options; track $index) {
+        <option [value]="item.nId">{{item.sDescripcion}}</option>
+      }
+    </select>
+    <span class="input-group-text fondo-custom"><mat-icon>{{icon}}</mat-icon></span>
+  </div>
+</div>

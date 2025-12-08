@@ -24,6 +24,7 @@ export class ServerErrorsInterceptor implements HttpInterceptor{
                     }*/
                 }
             })).pipe(catchError( (err) => {
+              console.log("Error!!!", err);
                 if(err.status === 400){
                     //console.log(err);
                     this.snackBar.open(err.message, 'ERROR 400', { duration: 5000 });
@@ -41,6 +42,7 @@ export class ServerErrorsInterceptor implements HttpInterceptor{
                     this.snackBar.open(err.error.message, 'ERROR 500', { duration: 5000 });
                 }
                 else {
+                  console.log("Error!!!");
                     this.snackBar.open(err.error.message, 'ERROR', { duration: 5000 });
                 }
 

@@ -1,0 +1,49 @@
+<app-migaja-pan [verMigaja]="3"></app-migaja-pan>
+<app-title-page [titulo]="'PAGOS PENDIENTES'"></app-title-page>
+<div class="contenedorPrincipal">
+  <form [formGroup]="form"><!-- -->
+    <div class="pestanas mb-1">
+      <section>
+        <mat-button-toggle-group formControlName="impuesto" hideSingleSelectionIndicator="true">
+          <mat-button-toggle value="opt1">Impuesto Predial</mat-button-toggle>
+          <mat-button-toggle value="opt2">Fraccionamiento</mat-button-toggle>
+          <mat-button-toggle value="opt3">Liquidacion</mat-button-toggle>
+        </mat-button-toggle-group>
+      </section>
+      <div class="blocks">
+        <div class="fieldset">
+          <div class="legend">Seleccione su tributo</div>
+          <section>
+            <mat-button-toggle-group multiple formControlName="tipo" hideMultipleSelectionIndicator="false">
+              <mat-button-toggle value="1">Impuesto Predial</mat-button-toggle>
+              <mat-button-toggle value="2">Arbitrios</mat-button-toggle>
+              <mat-button-toggle value="3">Costas</mat-button-toggle>
+            </mat-button-toggle-group>
+          </section>
+        </div>
+        <div class="fieldset">
+          <div class="legend">Seleccione rango de año</div>
+          <div class="campos">
+            <app-list-in-line
+              [options]="lstAnios"
+              [icon]="'calendar_today'"
+              [etiqueta]="'Desde'"
+            ></app-list-in-line>
+            <app-list-in-line
+              [options]="lstAnios"
+              [icon]="'calendar_today'"
+              [etiqueta]="'Hasta'"
+            ></app-list-in-line>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <app-pendientes-lista
+    [arrList]="lstDatos"
+  >
+  </app-pendientes-lista>
+  <app-total-pagar
+    [montoTotal]="monto"
+  ></app-total-pagar>
+</div>

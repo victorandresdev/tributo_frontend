@@ -1,5 +1,9 @@
 <div class="footer">
-  <div></div>
+  <div class="terminal">
+    @if(layoutService.myLocal().tipo == 1){<mat-icon>cloud_done</mat-icon>}
+    @else{<mat-icon>domain</mat-icon>}
+    {{layoutService.myLocal().nombre}}
+  </div>
   <div class="texto">
     © 2024 Copyright Municipalidad - La Molina Todos los derechos reservados
   </div>

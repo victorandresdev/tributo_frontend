@@ -1,6 +1,21 @@
 <div class="cabToolbar">
-  <img src="/images/logoMuniHeadBlanco.svg" />
   <div>
-    <button (click)="salir()">Salir</button>
+    <mat-icon (click)="cambiaMenu()">menu</mat-icon>
+    <img src="/images/logoMuniHeadBlanco.svg" />
+  </div>
+  <div>
+    <div class="retrato"
+      [class.mujer]="usuSex === 1"
+      [class.hombre]="usuSex === 2"
+      [class.otro]="usuSex === 0"
+    >
+    </div>
+    <div>Contribuyente:<br/>
+      {{usuNombre}}
+    </div>
+    <button mat-flat-button class="mat-bg-error" (click)="salir()">
+      <mat-icon>exit_to_app</mat-icon>
+      Salir
+    </button>
   </div>
 </div>

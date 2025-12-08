@@ -1,0 +1,17 @@
+<div class="row mb-3 mt-2">
+  <div class="col-8"></div>
+  <div class="col-4">
+    <div class="totalPago">
+      <div>
+        Total a pagar:
+      </div>
+      <div class="monto">
+        S/ {{montoTotal.toFixed(2)}}
+      </div>
+      <button mat-flat-button class="mat-bg-pagar" (click)="pagar()">
+        <mat-icon>payment</mat-icon>
+        Pagar
+      </button>
+    </div>
+  </div>
+</div>

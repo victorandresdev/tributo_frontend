@@ -7,4 +7,5 @@ export interface EnvironmentsInterface {
 
   // ⬅️ ¡Agrega la propiedad API_AUTH aquí!
   API_AUTH: string;
+  URL_WEBSOCKET_DEVICE_INFO: string,
 }

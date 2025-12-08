@@ -1,0 +1,64 @@
+<mat-card class="popUpCard">
+  <mat-card-header class="header-modal">
+    <mat-icon>lan</mat-icon>
+    Administración de terminales
+  </mat-card-header>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-4 lado-izquierdo">
+        <!-- Listado Equipos -->
+        <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+          @for (item of lstPcs; track $index) {
+          <input type="radio" class="btn-check" name="vbtn-radio" [id]="'vbtn-radio' + item.nId" autocomplete="off">
+          <label [class.btn-outline-danger]="item.nEstado == 0"
+                [class.btn-outline-primary]="item.nEstado == 1" class="btn" [for]="'vbtn-radio' + item.nId">
+            <mat-icon>devices</mat-icon> {{item.sNombre}} - {{item.sIp}}
+          </label>
+          }
+        </div>
+      </div>
+      <div class="col-8">
+        <!-- Formulario -->
+        <h4>Detalle Terminal</h4>
+        <form [formGroup]="form" class="margen">
+          <div class="row">
+            <div class="col-sm-12 mb-4">
+              <label class="d-flex justify-content-between">
+                IP:
+              </label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="ip" autocomplete="off" maxlength="200">
+                @if(form.get('ip')?.invalid && form.get('ip')?.markAsTouched){
+                  <mat-error>Indique IP.</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 mb-4">
+              <label class="d-flex justify-content-between">
+                Nombre:
+              </label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput formControlName="nombre" autocomplete="off" maxlength="200">
+                @if(form.get('nombre')?.invalid && form.get('nombre')?.markAsTouched){
+                  <mat-error>Indique Nombre.</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="d-flex justify-content-between">
+                Estado:
+              </label>
+              <p><mat-slide-toggle formControlName="estado">
+                {{form.get('estado')?.value==true?'Activo':'Inactivo'}}
+              </mat-slide-toggle></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,32 +1,54 @@
+import { UtilService } from './../../services/util.services';
+import { MatCardModule } from '@angular/material/card';
 import { Component, OnInit } from '@angular/core';
-import { MaterialModule } from '../../material/material/material-module';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MigajaPan } from '../../shared/components/migaja-pan/migaja-pan';
 import { TitlePage } from '../../shared/components/title-page/title-page';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { InputInfo } from "../../shared/components/input-info/input-info";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { APP_CONSTANTS } from '../../shared/constants/app.constants';
+import { APP_ROUTES } from '../../shared/constants/app.routes';
 
 @Component({
   selector: 'app-inicio',
-  imports: [MaterialModule, TitlePage, MigajaPan],
+  imports: [TitlePage, MigajaPan,
+    CommonModule, ReactiveFormsModule, FormsModule, MatInputModule, MatCardModule, InputInfo, MatDatepickerModule],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
   standalone: true,
 })
 export class Inicio implements OnInit {
   constructor(
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private utilService: UtilService
   ){
 
   }
 
   frmDatos!: FormGroup;
+  selected:Date = new Date();
+  infoUsu!:any;
+  APP_CONSTANTS = APP_CONSTANTS;
 
   ngOnInit(): void {
-    this.frmDatos = this.fb.group({
-      contrib: [],
-      nombre: [],
-      apellidos: [],
-      direccion: []
-    });
-    this.frmDatos.disable();
+
+    if(this.utilService.getSesionStorage(APP_CONSTANTS.VAR_USUARIO) == undefined){
+      this.utilService.removeAllStorage();
+      this.utilService.link(APP_ROUTES.URL_LOGIN);
+    }else{
+      let aux:any = this.utilService.getSesionStorage(APP_CONSTANTS.VAR_USUARIO);
+      this.infoUsu = JSON.parse(aux);
+      if(this.infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE){
+        this.frmDatos = this.fb.group({
+          contrib: [],
+          nombre: [],
+          apellidos: [],
+          direccion: []
+        });
+        this.frmDatos.disable();
+      }
+    }
   }
 }

@@ -1,0 +1,101 @@
+<ng-container>
+  <div class="row">
+    <div class="col-12 p-0">
+      <mat-card appearance="outlined" class="custom-card">
+        <div class="custom-table">
+          <mat-table [dataSource]="dataResult" class="custom-table">
+
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox color="warn" (change)="$event ? toggleAllRows() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-checkbox color="warn" (click)="$event.stopPropagation()" (change)="toggleRow(row)"
+                  [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="convenio">
+              <mat-header-cell *matHeaderCellDef>Convenio.</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.tributo}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="anio">
+              <mat-header-cell *matHeaderCellDef> Año </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.anio}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="cuota">
+              <mat-header-cell *matHeaderCellDef> Cuota </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.cuota.toFixed(2)}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="monto">
+              <mat-header-cell *matHeaderCellDef> Monto </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.afecto.toFixed(2)}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="interes">
+              <mat-header-cell *matHeaderCellDef> Interes </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element?.interes.toFixed(2)}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="mora">
+                <mat-header-cell *matHeaderCellDef> Mora </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.mora.toFixed(2)}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="vence">
+                <mat-header-cell *matHeaderCellDef> Vencimiento</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.vencimiento}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef> Totales </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.totales.toFixed(2)}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns; let odd = odd;"
+                    [class]="{gray: odd}"></mat-row>
+          </mat-table>
+
+          <!--<div class="row" *ngIf="length >= 1">
+            <div class="col-12 d-flex justify-content-center">
+              <mat-paginator [hidePageSize]="true"
+                            [pageSize]="APP_CONSTANTS.PAGE_SIZE"
+                            [pageIndex]="indexIni"
+                            color="accent"
+                            (page)="getLista($event)"
+                            showFirstLastButtons
+                            [length]="length"
+                            >
+              </mat-paginator>
+            </div>
+          </div>-->
+          <app-paginator
+            [verPagina]="true"
+            [pageIndex]="indexIni"
+            [totalPaginas]="paginas"
+            (paginar)="pagina($event)"
+          ></app-paginator>
+        </div>
+      </mat-card>
+      @if(length == 0){
+      <mat-card class="tarjeta-sin-registros" appearance="outlined">
+        <mat-card-content>
+          <div class="row">
+            <div class="col-12 text-center">
+              <strong>{{message}}</strong>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      }
+    </div>
+  </div>
+</ng-container>
