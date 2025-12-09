@@ -21,52 +21,52 @@
 
             <ng-container matColumnDef="periodo">
               <mat-header-cell *matHeaderCellDef>Periodo.</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.periodo}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.PERIODO}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="tributo">
               <mat-header-cell *matHeaderCellDef> Tributo </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.tributo}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.TRIBUTO}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="predio">
               <mat-header-cell *matHeaderCellDef> Periodo </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.predio}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.PREDIO}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="afecto">
               <mat-header-cell *matHeaderCellDef> Afecto </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.afecto.toFixed(2)}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.AFECTO.toFixed(2)}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="pagado">
               <mat-header-cell *matHeaderCellDef> Pagado </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.pagado.toFixed(2)}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.PAGADO.toFixed(2)}} </mat-cell>
             </ng-container>
 
               <ng-container matColumnDef="saldo">
                   <mat-header-cell *matHeaderCellDef> Saldo </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element?.saldo.toFixed(2)}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element?.SALDO.toFixed(2)}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="reajuste">
                   <mat-header-cell *matHeaderCellDef> Reajuste</mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element?.reajuste}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element?.REAJUSTE}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="mora">
                   <mat-header-cell *matHeaderCellDef> Mora </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element?.mora.toFixed(2)}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element?.MORA.toFixed(2)}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="emision" >
                   <mat-header-cell *matHeaderCellDef> Emisión </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element?.emision}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element?.EMISION}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="totales" #usuUltMod >
                   <mat-header-cell *matHeaderCellDef class="text-center"> Totales </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element?.totales.toFixed(2)}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element?.TOTALES.toFixed(2)}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="detalle" #acciones stickyEnd>
@@ -81,26 +81,14 @@
             <mat-row *matRowDef="let row; columns: displayedColumns; let odd = odd;"
                     [class]="{gray: odd}"></mat-row>
           </mat-table>
-
-          <!--<div class="row" *ngIf="length >= 1">
-            <div class="col-12 d-flex justify-content-center">
-              <mat-paginator [hidePageSize]="true"
-                            [pageSize]="APP_CONSTANTS.PAGE_SIZE"
-                            [pageIndex]="indexIni"
-                            color="accent"
-                            (page)="getLista($event)"
-                            showFirstLastButtons
-                            [length]="length"
-                            >
-              </mat-paginator>
-            </div>
-          </div>-->
+          @if(length > 0){
           <app-paginator
             [verPagina]="true"
             [pageIndex]="indexIni"
             [totalPaginas]="paginas"
             (paginar)="pagina($event)"
           ></app-paginator>
+          }
         </div>
       </mat-card>
       @if(length == 0){

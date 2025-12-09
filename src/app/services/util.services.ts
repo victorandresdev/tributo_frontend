@@ -63,6 +63,16 @@ export class UtilService{
     }
   }
 
+  validaSesion(){
+    if(this.getSesionStorage(APP_CONSTANTS.VAR_USUARIO) == undefined){
+      this.removeAllStorage();
+      this.link(APP_ROUTES.URL_LOGIN);
+    }else{
+      let aux:any = this.getSesionStorage(APP_CONSTANTS.VAR_USUARIO);
+      return JSON.parse(aux);
+    }
+  }
+
   getAlert(title: string, message: string, type?: 'success' | 'info' | 'error', textButton?: string) {
     /*return this.dialog.open(AlertComponent, {
       width: width || '450px',

@@ -103,7 +103,8 @@ export class LoginComponent implements OnInit {
                 nombres: rpta.apellidos + ', ' + rpta.nombres,
                 sexo: parseInt(rpta.sexo),
                 direccion: rpta.direccion,
-                codigoContribuyente: rpta.codigoContribuyente
+                codigoContribuyente: rpta.codigoContribuyente,
+                idContribuyente: parseInt(rpta.idContribuyente)
               }
               let infoUsuario:SesionData = new SesionData();
               infoUsuario = {

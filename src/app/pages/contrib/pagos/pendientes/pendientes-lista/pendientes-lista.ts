@@ -27,7 +27,7 @@ export class PendientesLista implements OnInit, OnChanges {
     'select',
     'periodo',
     'tributo',
-    'periodo',
+    'predio',
     'afecto',
     'pagado',
     'saldo',
@@ -53,6 +53,7 @@ export class PendientesLista implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.getLista();
+    this.message = 'Cargando...';
   }
 
   ngOnChanges(changes: SimpleChanges): void {

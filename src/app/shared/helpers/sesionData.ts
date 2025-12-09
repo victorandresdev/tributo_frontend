@@ -10,4 +10,5 @@ export class UsuarioData{
   sexo?: number;
   direccion?: string;
   codigoContribuyente?: string;
+  idContribuyente?: number;
 }

@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { DetallePendiente } from '../../../../../shared/helpers/detallePendiente';
+import { DetallePendiente } from '../../../../../shared/helpers/detalle-pendiente';
 
 @Component({
   selector: 'app-detalle',

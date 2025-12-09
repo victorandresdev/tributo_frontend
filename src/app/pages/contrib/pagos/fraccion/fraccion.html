@@ -18,11 +18,15 @@
               [options]="lstAnios"
               [icon]="'calendar_today'"
               [etiqueta]="'Desde'"
+              (selected)="seleccionaAnio($event, 1)"
+              [select]="dtConsulta.anioInicio || 0"
             ></app-list-in-line>
             <app-list-in-line
               [options]="lstAnios"
               [icon]="'calendar_today'"
               [etiqueta]="'Hasta'"
+              (selected)="seleccionaAnio($event, 1)"
+              [select]="dtConsulta.anioFin || 0"
             ></app-list-in-line>
           </div>
         </div>
@@ -30,7 +34,7 @@
     </div>
   </form>
   <app-fraccion-lista
-    [arrList]="lstDatos"
+    [arrList]="lstDatos || []"
   >
   </app-fraccion-lista>
   <app-total-pagar

@@ -21,68 +21,56 @@
 
             <ng-container matColumnDef="convenio">
               <mat-header-cell *matHeaderCellDef>Convenio.</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.tributo}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.CONVENIO}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="anio">
               <mat-header-cell *matHeaderCellDef> Año </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.anio}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.ANIO}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="cuota">
               <mat-header-cell *matHeaderCellDef> Cuota </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.cuota.toFixed(2)}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.CUOTA.toFixed(2)}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="monto">
               <mat-header-cell *matHeaderCellDef> Monto </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.afecto.toFixed(2)}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.MONTO.toFixed(2)}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="interes">
               <mat-header-cell *matHeaderCellDef> Interes </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.interes.toFixed(2)}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.INTERES.toFixed(2)}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="mora">
                 <mat-header-cell *matHeaderCellDef> Mora </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.mora.toFixed(2)}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element?.MORA.toFixed(2)}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="vence">
                 <mat-header-cell *matHeaderCellDef> Vencimiento</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.vencimiento}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element?.VENCE}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="total">
                 <mat-header-cell *matHeaderCellDef> Totales </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.totales.toFixed(2)}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element?.TOTALES.toFixed(2)}} </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns; let odd = odd;"
                     [class]="{gray: odd}"></mat-row>
           </mat-table>
-
-          <!--<div class="row" *ngIf="length >= 1">
-            <div class="col-12 d-flex justify-content-center">
-              <mat-paginator [hidePageSize]="true"
-                            [pageSize]="APP_CONSTANTS.PAGE_SIZE"
-                            [pageIndex]="indexIni"
-                            color="accent"
-                            (page)="getLista($event)"
-                            showFirstLastButtons
-                            [length]="length"
-                            >
-              </mat-paginator>
-            </div>
-          </div>-->
+          @if(length > 0){
           <app-paginator
             [verPagina]="true"
             [pageIndex]="indexIni"
             [totalPaginas]="paginas"
             (paginar)="pagina($event)"
           ></app-paginator>
+          }
         </div>
       </mat-card>
       @if(length == 0){

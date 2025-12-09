@@ -48,6 +48,8 @@ export class FraccionLista implements OnInit, OnChanges{
   }
 
   ngOnInit(): void {
+    this.length = 0;
+    this.message = 'Cargando...';
     this.getLista();
   }
 

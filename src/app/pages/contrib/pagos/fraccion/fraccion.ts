@@ -1,3 +1,4 @@
+import { FraccionamientoService } from './../../../../services/fraccionamiento.service';
 import { Component, OnInit } from '@angular/core';
 import { MigajaPan } from '../../../../shared/components/migaja-pan/migaja-pan';
 import { TitlePage } from '../../../../shared/components/title-page/title-page';
@@ -12,6 +13,8 @@ import { Options } from '../../../../shared/helpers/options';
 import { FraccionLista } from "./fraccion-lista/fraccion-lista";
 import { TotalPagar } from "../../../../shared/components/total-pagar/total-pagar";
 import { CargaService } from '../../../../services/carga.service';
+import { FraccionamientoRequest } from '../../../../shared/helpers/fraccionamiento-request';
+import { FraccionamientoResponse } from '../../../../shared/helpers/fraccionamiento-response';
 
 @Component({
   selector: 'app-fraccion',
@@ -27,6 +30,7 @@ export class Fraccion implements OnInit{
     private fb: FormBuilder,
     private utilService: UtilService,
     private cargaService: CargaService,
+    private fraccionamientoService: FraccionamientoService,
   ){
 
   }
@@ -34,24 +38,50 @@ export class Fraccion implements OnInit{
       {nId:2024, sDescripcion:'2024'},
       {nId:2025, sDescripcion:'2025'},
   ];
-  lstDatos:any[] = [
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-    {tributo:'Arbitrio Demo',anio:2024, cuota: 1, afecto:200, interes:0, mora:0, vencimiento:'15/11/2025', totales:0, estado:1 },
-  ];
+  idContriB!:number;
+  dtConsulta!:FraccionamientoRequest;
+  lstDatos?:Array<FraccionamientoResponse> = [];
 
   ngOnInit(): void {
+    let info:any = this.utilService.validaSesion();
     this.form = this.fb.group({
       impuesto:["opt2"]
     });
     this.form.get('impuesto')?.valueChanges.subscribe(val => {
       this.utilService.pestanaPagos(val,"opt2");
     });
+    this.dtConsulta = new FraccionamientoRequest();
+    this.idContriB = info.usuario.idContribuyente;
+    let fecha:Date = new Date()
+    this.dtConsulta.anioInicio = fecha.getFullYear();
+    this.dtConsulta.anioFin = fecha.getFullYear();
+    this.dtConsulta.idContribuyente = this.idContriB;
+    this.consultaImpuestos();
+  }
+
+  seleccionaAnio(event:any, indicador:number){
+    if(indicador == 1){
+      this.dtConsulta.anioInicio = event;
+    }else{
+      this.dtConsulta.anioFin = event;
+    }
+    this.consultaImpuestos();
+  }
+
+  consultaImpuestos(){
+    this.cargaService.show();
+    this.fraccionamientoService.getImpuestosPendientes(this.dtConsulta).subscribe({
+      next: (rpta:any) => {
+        this.cargaService.hide();
+        console.log("Data Impuestos: ",rpta);
+        this.lstDatos = rpta;
+        this.lstDatos?.map((item:any) => {
+          item.TOTALES = item.MONTO + item.MORA + item.INTERES;
+        });
+      },
+      error: () => {
+        this.cargaService.hide();
+      }
+    })
   }
 }
