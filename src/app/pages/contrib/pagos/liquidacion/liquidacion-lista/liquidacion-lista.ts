@@ -24,6 +24,7 @@ export class LiquidacionLista {
   @Input() paginas!: number;
   @Output() cambiaPagina: EventEmitter<number> = new EventEmitter();
   @Output() seleccionCambio: EventEmitter<boolean> = new EventEmitter();
+  @Output() seleccionados: EventEmitter<any> = new EventEmitter();
 
   grupoImpreso!:string;
 
@@ -73,6 +74,6 @@ export class LiquidacionLista {
 
   toggleRow(row: any) {
     this.selection.toggle(row);
-    this.seleccionCambio.emit(this.selection.hasValue());
+    this.seleccionados.emit(this.selection.selected);
   }
 }

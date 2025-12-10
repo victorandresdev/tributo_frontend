@@ -42,6 +42,7 @@ export class FraccionLista implements OnInit, OnChanges{
   @Input() paginas!: number;
   @Output() cambiaPagina: EventEmitter<number> = new EventEmitter();
   @Output() seleccionCambio: EventEmitter<boolean> = new EventEmitter();
+  @Output() seleccionados: EventEmitter<any> = new EventEmitter();
 
   constructor(){
 
@@ -92,7 +93,7 @@ export class FraccionLista implements OnInit, OnChanges{
 
   toggleRow(row: any) {
     this.selection.toggle(row);
-    this.seleccionCambio.emit(this.selection.hasValue());
+    this.seleccionados.emit(this.selection.selected);
   }
 
   toggleAllRows() {
@@ -101,6 +102,6 @@ export class FraccionLista implements OnInit, OnChanges{
     } else {
       this.selection.select(...this.dataResult.data);
     }
-    this.seleccionCambio.emit(this.selection.hasValue());
+    this.seleccionados.emit(this.selection.selected);
   }
 }

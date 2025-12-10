@@ -35,6 +35,7 @@
   </form>
   <app-fraccion-lista
     [arrList]="lstDatos || []"
+    (seleccionados)="muestraMarcados($event)"
   >
   </app-fraccion-lista>
   <app-total-pagar

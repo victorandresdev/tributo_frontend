@@ -1,5 +1,5 @@
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, output, Output, SimpleChanges } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Paginator } from "../../../../../shared/components/paginator/paginator";
@@ -45,7 +45,8 @@ export class PendientesLista implements OnInit, OnChanges {
   @Input() totalFilas!: number;
   @Input() paginas!: number;
   @Output() cambiaPagina: EventEmitter<number> = new EventEmitter();
-  @Output() seleccionCambio: EventEmitter<boolean> = new EventEmitter();
+  @Output() seleccionCambio: EventEmitter<any> = new EventEmitter();
+  @Output() seleccionados: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private dialog: MatDialog,
@@ -95,7 +96,7 @@ export class PendientesLista implements OnInit, OnChanges {
 
   toggleRow(row: any) {
     this.selection.toggle(row);
-    this.seleccionCambio.emit(this.selection.hasValue());
+    this.seleccionados.emit(this.selection.selected);
   }
 
   toggleAllRows() {
@@ -104,7 +105,7 @@ export class PendientesLista implements OnInit, OnChanges {
     } else {
       this.selection.select(...this.dataResult.data);
     }
-    this.seleccionCambio.emit(this.selection.hasValue());
+    this.seleccionados.emit(this.selection.selected);
   }
 
   verDetalle(fila:any){

@@ -13,17 +13,17 @@
               <th class="mat-mdc-header-cell mat-header-cell mat-column-select">&nbsp;</th>
             </tr>
             @for (item of infoGrilla; track $index; let i = $index) {
-              @if(controlImpresion(item.tributo) == true){
+              @if(controlImpresion(item.TRIBUTO) == true){
                 <tr>
-                  <td class="mat-mdc-cell mat-column-nro cell-group" colspan="6">{{item.tributo}}</td>
+                  <td class="mat-mdc-cell mat-column-nro cell-group" colspan="6">{{item.TRIBUTO}}</td>
                 </tr>
               }
               <tr>
-                <td class="mat-mdc-cell mat-column-nro">{{item.tributo}}</td>
-                <td class="mat-mdc-cell mat-column-emision">{{item.emision}}</td>
-                <td class="mat-mdc-cell mat-column-codigo">{{item.codigo}}</td>
-                <td class="mat-mdc-cell mat-column-estado">{{item.estado}}</td>
-                <td class="mat-mdc-cell mat-column-monto">S/ {{item.monto.toFixed(2)}}</td>
+                <td class="mat-mdc-cell mat-column-nro">{{item.TRIBUTO}}</td>
+                <td class="mat-mdc-cell mat-column-emision">{{item.EMISION}}</td>
+                <td class="mat-mdc-cell mat-column-codigo">{{item.CODIGO}}</td>
+                <td class="mat-mdc-cell mat-column-estado">{{item.ESTADO}}</td>
+                <td class="mat-mdc-cell mat-column-monto">S/ {{item.MONTO.toFixed(2)}}</td>
                 <td class="mat-mdc-cell mat-column-select">
                   <mat-checkbox color="warn" (click)="$event.stopPropagation()" (change)="toggleRow(item)"
                     [checked]="selection.isSelected(item)">
@@ -32,12 +32,14 @@
               </tr>
             }
           </table>
+          @if(length > 0){
           <app-paginator
             [verPagina]="true"
             [pageIndex]="indexIni"
             [totalPaginas]="paginas"
             (paginar)="pagina($event)"
           ></app-paginator>
+          }
         </div>
       </mat-card>
       @if(length == 0){

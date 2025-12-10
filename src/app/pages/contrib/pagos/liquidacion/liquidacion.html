@@ -16,7 +16,8 @@
     </div>
   </form>
   <app-liquidacion-lista
-    [arrList]="lstDatos"
+    [arrList]="lstDatos || []"
+    (seleccionados)="muestraMarcados($event)"
   >
   </app-liquidacion-lista>
   <app-total-pagar

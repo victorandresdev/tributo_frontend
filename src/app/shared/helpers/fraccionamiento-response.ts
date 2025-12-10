@@ -8,4 +8,5 @@ export class FraccionamientoResponse{
   MORA?:number;
   PAGADO?:number;
   VENCE?:string;
+  TOTALES?:number;
 }

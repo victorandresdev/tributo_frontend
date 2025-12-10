@@ -81,11 +81,21 @@ export class LoginComponent implements OnInit {
 
   validaUsuario(){
     this.credencial = new PersonaRequest()
-    if(this.nBloqueActivo = 1){
-      this.credencial.nroDoc = this.frmDNI.get('nro')?.value;
-      this.credencial.fechaNacimiento = this.utilService.formatoFecha(this.frmDNI.get('nac')?.value,"fecha");
+    if(this.nBloqueActivo == 1){
+      if(this.frmDNI.valid){
+        this.credencial.nroDoc = this.frmDNI.get('nro')?.value;
+        this.credencial.fechaNacimiento = this.utilService.formatoFecha(this.frmDNI.get('nac')?.value,"fecha");
+      }else{
+        this.frmDNI.markAllAsTouched();
+        return;
+      }
     }else{
-      this.credencial.codigoContribuyente = this.frmCont.get('cod')?.value;
+      if(this.frmCont.valid){
+        this.credencial.codigoContribuyente = this.frmCont.get('cod')?.value;
+      }else{
+        this.frmCont.markAllAsTouched();
+        return;
+      }
     }
     this.cargaService.show();
     this.usuarioService.getLoginContribuyente(this.nBloqueActivo, this.credencial).subscribe({

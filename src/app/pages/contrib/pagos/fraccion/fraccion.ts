@@ -56,6 +56,7 @@ export class Fraccion implements OnInit{
     this.dtConsulta.anioInicio = fecha.getFullYear();
     this.dtConsulta.anioFin = fecha.getFullYear();
     this.dtConsulta.idContribuyente = this.idContriB;
+    this.monto = 0;
     this.consultaImpuestos();
   }
 
@@ -76,12 +77,21 @@ export class Fraccion implements OnInit{
         console.log("Data Impuestos: ",rpta);
         this.lstDatos = rpta;
         this.lstDatos?.map((item:any) => {
-          item.TOTALES = item.MONTO + item.MORA + item.INTERES;
+          item.TOTALES = (item.MONTO + item.MORA + item.INTERES) - item.PAGADO ;
         });
       },
       error: () => {
         this.cargaService.hide();
       }
     })
+  }
+
+  muestraMarcados(dtFilas:any){
+    this.monto = 0;
+    if(dtFilas.length > 0){
+      dtFilas.forEach((item:FraccionamientoResponse) => {
+        this.monto += item.TOTALES || 0;
+      });
+    }
   }
 }

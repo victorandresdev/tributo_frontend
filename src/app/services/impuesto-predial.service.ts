@@ -8,7 +8,7 @@ import { ImpuestoPredialRequest } from "../shared/helpers/impuesto-predial-reque
 })
 export class ImpuestoPredialService {
 
-private httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Content-Length': 52098

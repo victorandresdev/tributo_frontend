@@ -108,4 +108,13 @@ export class Pendientes implements OnInit {
       }
     })
   }
+
+  muestraMarcados(dtFilas:any){
+    this.monto = 0;
+    if(dtFilas.length > 0){
+      dtFilas.forEach((item:ImpuestoPredialResponse) => {
+        this.monto += item.SALDO || 0;
+      });
+    }
+  }
 }

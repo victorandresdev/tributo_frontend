@@ -45,6 +45,7 @@
   </form>
   <app-pendientes-lista
     [arrList]="lstDatos || []"
+    (seleccionados)="muestraMarcados($event)"
   >
   </app-pendientes-lista>
   <app-total-pagar

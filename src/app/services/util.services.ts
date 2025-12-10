@@ -94,6 +94,24 @@ export class UtilService{
     });*/
   }
 
+  getConfirm(question:string){
+    return Swal.fire({
+      title: question,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Confirmado",
+      denyButtonText: "No"
+    });
+    /*.then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+    */
+  }
+
   cambiaMenu(id:number){
     this.layoutService.myIndicador.set(id);
     this.setLocalStorage(APP_CONSTANTS.VAR_PAGE_ACTIVA,id)
