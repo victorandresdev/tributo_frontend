@@ -36,7 +36,7 @@ export class FooterComponent implements OnInit {
     if(info != undefined){
       this.local = info;
     }
-    this.capturaIP();
+    //this.capturaIP();
   }
 
   capturaIP(){
