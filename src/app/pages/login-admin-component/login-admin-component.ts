@@ -9,7 +9,9 @@ import { UtilService } from '../../services/util.services';
 import { APP_ROUTES } from '../../shared/constants/app.routes';
 import { APP_CONSTANTS } from '../../shared/constants/app.constants';
 import { CommonModule } from '@angular/common';
-import { SesionData } from '../../shared/helpers/sesionData';
+import { SesionData, UsuarioData } from '../../shared/helpers/sesionData';
+import { AdminRequest } from '../../shared/helpers/login/admin-request';
+import { ContribuyenteService } from '../../services/contribuyente.service';
 
 @Component({
   selector: 'app-login-admin-component',
@@ -25,7 +27,8 @@ export class LoginAdminComponent implements OnInit{
     private fb:FormBuilder,
     private cargaService: CargaService,
     private usuarioService: UsuarioService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private contriSevices: ContribuyenteService
   ){
 
   }
@@ -38,28 +41,57 @@ export class LoginAdminComponent implements OnInit{
   }
 
   validaUsuario(){
-    let usu: string ='ADMIN';
-    let pwd: string = '123456';
-    let credencial:any = {
-      "nick":usu,
-      "clave":pwd
-    }
+    let credencial:AdminRequest = new AdminRequest();
+    credencial.username = this.form.get('usuario')?.value;
+    credencial.password = this.form.get('clave')?.value;
     if(this.form.invalid){
       this.form.markAllAsTouched();
       return;
     }
-    this.usuarioService.getLogin(credencial).subscribe({
+    this.usuarioService.getLoginAdmin(credencial).subscribe({
       next: (rstp:any) => {
-        let dataUsu:any;
-        dataUsu = this.usuarioService.getDatosUsuario(this.form.get('usuario')?.value);
-        if(rstp.token != undefined && dataUsu != undefined){
-          let infoUsuario:SesionData = {
-            usuario: {
-              tipoUsuario: APP_CONSTANTS.TIPO_USUARIO.ADMINISTRADOR,
-              login: dataUsu.login,
-              nombres: dataUsu.nombre,
-              sexo: dataUsu.sexo
+        if(rstp.token != undefined){
+          this.utilService.setLocalStorage(APP_CONSTANTS.VAR_TOKEN, rstp.token);
+          /*this.contriSevices.datosGenerales().subscribe({
+            next: (rpta:any) => {
+              this.cargaService.hide();
+              let usuarioDt: UsuarioData = new UsuarioData();
+              usuarioDt = {
+                tipoUsuario: APP_CONSTANTS.TIPO_USUARIO.ADMINISTRADOR,
+                login: "TAPIA",
+                nombres: rpta.apellidos + ', ' + rpta.nombres,
+                sexo: parseInt(rpta.sexo),
+                direccion: rpta.direccion,
+                codigoContribuyente: rpta.codigoContribuyente,
+                idContribuyente: parseInt(rpta.idContribuyente)
+              }
+              let infoUsuario:SesionData = new SesionData();
+              infoUsuario = {
+                usuario: usuarioDt
+              }
+              this.utilService.setSesionStorage(APP_CONSTANTS.VAR_USUARIO, JSON.stringify(infoUsuario));
+              this.utilService.setLocalStorage(APP_CONSTANTS.VAR_TOKEN, rstp.token);
+              this.utilService.link(APP_ROUTES.URL_INICIO);
+            },
+            error: () => {
+              this.cargaService.hide();
             }
+          });*/
+
+          this.cargaService.hide();
+          let usuarioDt: UsuarioData = new UsuarioData();
+          usuarioDt = {
+            tipoUsuario: APP_CONSTANTS.TIPO_USUARIO.ADMINISTRADOR,
+            login: "ADMIN",
+            nombres: "ADMIN",
+            sexo: 0,
+            direccion: "MUNICIPALIDAD",
+            codigoContribuyente: "00000000",
+            idContribuyente: 0
+          }
+          let infoUsuario:SesionData = new SesionData();
+          infoUsuario = {
+            usuario: usuarioDt
           }
           this.utilService.setSesionStorage(APP_CONSTANTS.VAR_USUARIO, JSON.stringify(infoUsuario));
           this.utilService.setLocalStorage(APP_CONSTANTS.VAR_TOKEN, rstp.token);

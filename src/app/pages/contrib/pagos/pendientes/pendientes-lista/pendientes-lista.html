@@ -65,12 +65,12 @@
               </ng-container>
 
               <ng-container matColumnDef="totales" #usuUltMod >
-                  <mat-header-cell *matHeaderCellDef class="text-center"> Totales </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef class="text-center"> Total </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element?.TOTALES.toFixed(2)}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="detalle" #acciones stickyEnd>
-                  <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
                   <mat-cell *matCellDef="let element" class="light-theme">
                       <button tabindex="-1" mat-icon-button [disabled]="element?.estado == 0" matTooltip="Ver Detalle" (click)="verDetalle(element)">
                           <mat-icon>assignment</mat-icon>

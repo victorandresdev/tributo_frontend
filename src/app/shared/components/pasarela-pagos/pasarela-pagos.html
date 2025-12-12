@@ -4,5 +4,155 @@
     Registro de Pagos
   </mat-card-header>
   <mat-card-content>
+    <div class="pestanas mb-1">
+      <form [formGroup]="form">
+        <section>
+          <mat-button-toggle-group formControlName="pest" hideSingleSelectionIndicator="true">
+            <mat-button-toggle value="1">Resumen de Pago</mat-button-toggle>
+            <mat-button-toggle value="2">Registro de Pago</mat-button-toggle>
+          </mat-button-toggle-group>
+        </section>
+      </form>
+      <div class="blocks">
+        @if (pest == 1) {
+          <div class="contentOpt">
+            <div class="custom-table">
+              <table class="custom-table">
+                <thead>
+                  <tr class="mat-mdc-header-row">
+                    <th class="mat-mdc-header-cell mat-header-cell mat-column-nro">ITEM</th>
+                    <th class="mat-mdc-header-cell mat-header-cell mat-column-concepto">CONCEPTO</th>
+                    <th class="mat-mdc-header-cell mat-header-cell mat-column-monto">MONTO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of lstDetalle; track $index) {
+                  <tr>
+                    <td class="mat-mdc-cell mat-column-nro">{{($index + 1)}}</td>
+                    <td class="mat-mdc-cell mat-column-concepto">{{item.sConcepto}}</td>
+                    <td class="mat-mdc-cell mat-column-monto">S/ {{item.nPagara.toFixed(2)}}</td>
+                  </tr>
+                  }
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="2" class=" mat-column-monto">TOTAL A PAGAR:</td>
+                    <td class="mat-column-monto">S/ {{nMonto.toFixed(2)}}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        }@else {
+          <div class="contentOpt">
+            <form [formGroup]="formPago">
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="d-flex justify-content-between">
+                    Número de Tarjeta:
+                  </label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput formControlName="nro" autocomplete="off" maxlength="8">
+                    <mat-icon matSuffix>payment</mat-icon>
+                    @if(formPago.get('nro')?.invalid && formPago.get('nro')?.markAsTouched){
+                      <mat-error>Indique Número de Tarjeta.</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label class="d-flex justify-content-between">
+                        Fecha de Vencimiento:
+                  </label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput formControlName="nro" autocomplete="off" maxlength="10" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    @if(formPago.get('fecha')?.invalid && formPago.get('fecha')?.markAsTouched){
+                      <mat-error>Indique Fecha.</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <label class="d-flex justify-content-between">
+                        Código de Seguridad:
+                  </label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput formControlName="codigo" autocomplete="off" maxlength="8">
+                    <mat-icon matSuffix>key</mat-icon>
+                    @if(formPago.get('codigo')?.invalid && formPago.get('codigo')?.markAsTouched){
+                      <mat-error>Indique Código de Seguridad.</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="d-flex justify-content-between">
+                    Nombres y Apellidos:
+                  </label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput formControlName="nro" autocomplete="off" maxlength="8">
+                    <mat-icon matSuffix>search</mat-icon>
+                    @if(formPago.get('nombre')?.invalid && formPago.get('nombre')?.markAsTouched){
+                      <mat-error>Indique Nombres y Apellidos.</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12">
+                  <label class="d-flex justify-content-between">
+                    Correo:
+                  </label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput formControlName="nro" autocomplete="off" maxlength="8">
+                    <mat-icon matSuffix>mail</mat-icon>
+                    @if(formPago.get('correo')?.invalid && formPago.get('correo')?.markAsTouched){
+                      <mat-error>Indique Correo.</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <img src="/images/tarjetas.svg" />
+                </div>
+                <div class="col-7">
+                  <div class="row mb-3">
+                    <div class="col-12">
+                      <label class="d-flex justify-content-between">
+                        Total a Pagar:
+                      </label>
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput formControlName="total" autocomplete="off" maxlength="8">
+                        <mat-icon matSuffix>currency_exchange</mat-icon>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="botonera">
+                      <div>
+                        <button mat-flat-button class="mat-bg-error" (click)="cancelar()">
+                          <mat-icon>close</mat-icon>
+                          Cancelar
+                        </button>
+                      </div>
+                      <div>
+                        <button mat-flat-button (click)="grabar()">
+                          <mat-icon>payment</mat-icon>
+                          Pagar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        }
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>

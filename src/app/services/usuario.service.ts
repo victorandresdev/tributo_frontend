@@ -9,6 +9,7 @@ import { UtilService } from "./util.services";
 import { APP_ROUTES } from "../shared/constants/app.routes";
 import { APP_CONSTANTS } from "../shared/constants/app.constants";
 import { PersonaRequest } from "../shared/helpers/login/persona-request";
+import { AdminRequest } from "../shared/helpers/login/admin-request";
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,11 @@ export class UsuarioService {
   getLogin(data:any):Observable<any>{
     this.util.removeAllStorage();
     return this.http.post<any>(this.baseUrl + "/login-persona",data);
+  }
+
+  getLoginAdmin(data:AdminRequest):Observable<any>{
+    this.util.removeAllStorage();
+    return this.http.post<any>(this.baseUrl + "/login-admin",data);
   }
 
   getLoginContribuyente(tipo:number, data:PersonaRequest){

@@ -1,0 +1,95 @@
+.custom-card {
+  overflow-x: hidden;
+}
+
+.custom-table {
+  overflow-y: hidden;
+  height: -webkit-fill-available;
+  width: 100%;
+}
+
+.custom-date {
+  display: flex;
+  flex-direction: column;
+}
+.custom-date span {
+  display: flex;
+  align-items: baseline;
+}
+.custom-date span mat-icon {
+  width: auto;
+  height: auto;
+  margin-right: 5px;
+}
+
+::ng-deep .mat-mdc-paginator-range-label {
+  display: none;
+}
+
+.mat-mdc-header-row {
+  background-color: var(--molina-green-primary);
+  color: white;
+  width: 100%;
+  height: 30px !important;
+}
+.mat-header-cell {
+  font-weight: 600;
+  font-size: .9rem;
+  color: #000;
+  text-align: center;
+  height: 30px !important;
+}
+.mat-mdc-cell {
+  font-style: normal;
+  height: 30px !important;
+  border-bottom: 1px solid;
+  border-bottom-color: var(--mat-table-row-item-outline-color, var(--mat-sys-outline, rgba(0, 0, 0, 0.12))
+#74777f
+  );
+}
+
+.cell-group{
+  background-color: var(--molina-white-disabled);
+  //color: var(--molina-white-primary)
+}
+
+.mat-mdc-header-cell {
+  color: var(--molina-white-primary);
+}
+
+.mdc-icon-button {
+  font-size: 18px;
+}
+
+.mat-column-nro {
+  width: 10%;
+  padding: 5px 5px 5px 10px;
+  text-align: center;
+}
+
+.mat-column-concepto {
+  width: 60%;
+  padding: 5px 5px 5px 10px;
+  text-align: left;
+}
+
+.mat-column-monto {
+  width: 30%;
+  text-align: right;
+  padding: 5px 5px 5px 10px;
+}
+
+.contentOpt{
+  width: 100%;
+}
+
+.blocks{
+  padding: 5px;
+  background-color: var(--molina-white-primary);
+}
+
+.botonera{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

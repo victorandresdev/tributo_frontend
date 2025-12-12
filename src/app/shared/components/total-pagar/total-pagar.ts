@@ -14,6 +14,7 @@ import { PasarelaPagos } from '../pasarela-pagos/pasarela-pagos';
 })
 export class TotalPagar {
   @Input() montoTotal!:number;
+  @Input() lstDetalle!:any[];
 
   constructor(
     private dialog: MatDialog,
@@ -26,8 +27,11 @@ export class TotalPagar {
     if(this.montoTotal > 0){
       let ventana:any = this.dialog.open(PasarelaPagos, {
         width: '600px',
-        height: 'auto',
-        data:null
+        height: '500px',
+        data: {
+          info: this.lstDetalle,
+          total: this.montoTotal
+        }
       });
       ventana.afterClosed().subscribe({
         next: (rpta:any) => {

@@ -570,6 +570,7 @@ mat-form-field.mat-mdc-form-field {
   display: flex;
   flex-direction: column;
   gap: 0px;
+  font-family: 'Roboto', sans-serif;
   .mat-button-toggle-group-appearance-standard{
     border: 0px;
     border-radius: 0px;
@@ -590,6 +591,9 @@ mat-form-field.mat-mdc-form-field {
   }
   .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after{
     color: var(--molina-white-primary);
+  }
+  .mat-button-toggle-label-content{
+    font-family: 'Roboto', sans-serif;
   }
 }
 .blocks{

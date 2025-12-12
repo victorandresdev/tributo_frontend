@@ -37,6 +37,7 @@ export class Pendientes implements OnInit {
   ];
   idContriB!:number;
   lstDatos?:Array<ImpuestoPredialResponse> = [];
+  lstMarcados?:any[] = [];
   constructor(
     private fb: FormBuilder,
     private utilService: UtilService,
@@ -111,9 +112,16 @@ export class Pendientes implements OnInit {
 
   muestraMarcados(dtFilas:any){
     this.monto = 0;
+    this.lstMarcados = [];
     if(dtFilas.length > 0){
       dtFilas.forEach((item:ImpuestoPredialResponse) => {
         this.monto += item.SALDO || 0;
+        this.lstMarcados?.push(
+          {
+            sConcepto: item.TRIBUTO,
+            nPagara: item.SALDO
+          }
+        )
       });
     }
   }
