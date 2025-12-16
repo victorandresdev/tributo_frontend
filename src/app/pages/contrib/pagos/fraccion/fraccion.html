@@ -40,5 +40,8 @@
   </app-fraccion-lista>
   <app-total-pagar
     [montoTotal]="monto"
+    [lstDetalle]="lstMarcados || []"
+    [tipoDeuda]="2"
+    (lanza)="accion($event)"
   ></app-total-pagar>
 </div>

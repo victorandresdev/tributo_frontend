@@ -51,5 +51,7 @@
   <app-total-pagar
     [montoTotal]="monto"
     [lstDetalle]="lstMarcados || []"
+    [tipoDeuda]="1"
+    (lanza)="accion($event)"
   ></app-total-pagar>
 </div>

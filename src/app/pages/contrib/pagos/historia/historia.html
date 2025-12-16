@@ -1,7 +1,7 @@
 <app-migaja-pan [verMigaja]="4"></app-migaja-pan>
 <app-title-page [titulo]="'HISTORIAL DE PAGOS'"></app-title-page>
 <div class="contenedorPrincipal">
-  <div class="blocks">
+  <!--<div class="blocks">
     <div class="fieldset">
       <div class="legend">Seleccione rango de año</div>
       <div class="campos">
@@ -15,9 +15,9 @@
         ></app-date-in-line>
       </div>
     </div>
-  </div>
+  </div>-->
   <app-historia-lista
-    [arrList]="lstDatos"
+    [arrList]="lstDatos || []"
   >
   </app-historia-lista>
 </div>

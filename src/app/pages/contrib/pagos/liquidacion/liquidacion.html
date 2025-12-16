@@ -22,5 +22,8 @@
   </app-liquidacion-lista>
   <app-total-pagar
     [montoTotal]="monto"
+    [lstDetalle]="lstMarcados || []"
+    [tipoDeuda]="3"
+    (lanza)="accion($event)"
   ></app-total-pagar>
 </div>

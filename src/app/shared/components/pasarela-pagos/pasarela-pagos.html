@@ -52,7 +52,7 @@
                     Número de Tarjeta:
                   </label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput formControlName="nro" autocomplete="off" maxlength="8">
+                    <input matInput formControlName="nro" autocomplete="off" maxlength="16">
                     <mat-icon matSuffix>payment</mat-icon>
                     @if(formPago.get('nro')?.invalid && formPago.get('nro')?.markAsTouched){
                       <mat-error>Indique Número de Tarjeta.</mat-error>
@@ -66,7 +66,7 @@
                         Fecha de Vencimiento:
                   </label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput formControlName="nro" autocomplete="off" maxlength="10" [matDatepicker]="picker">
+                    <input matInput formControlName="fecha" autocomplete="off" maxlength="10" [matDatepicker]="picker">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     @if(formPago.get('fecha')?.invalid && formPago.get('fecha')?.markAsTouched){
@@ -76,10 +76,10 @@
                 </div>
                 <div class="col-6">
                   <label class="d-flex justify-content-between">
-                        Código de Seguridad:
+                        Código de Seguridad (CVC):
                   </label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput formControlName="codigo" autocomplete="off" maxlength="8">
+                    <input matInput formControlName="codigo" autocomplete="off" maxlength="3">
                     <mat-icon matSuffix>key</mat-icon>
                     @if(formPago.get('codigo')?.invalid && formPago.get('codigo')?.markAsTouched){
                       <mat-error>Indique Código de Seguridad.</mat-error>
@@ -93,7 +93,7 @@
                     Nombres y Apellidos:
                   </label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput formControlName="nro" autocomplete="off" maxlength="8">
+                    <input matInput formControlName="nombre" autocomplete="off" maxlength="150">
                     <mat-icon matSuffix>search</mat-icon>
                     @if(formPago.get('nombre')?.invalid && formPago.get('nombre')?.markAsTouched){
                       <mat-error>Indique Nombres y Apellidos.</mat-error>
@@ -107,7 +107,7 @@
                     Correo:
                   </label>
                   <mat-form-field appearance="outline" class="w-100">
-                    <input matInput formControlName="nro" autocomplete="off" maxlength="8">
+                    <input matInput formControlName="correo" autocomplete="off" maxlength="200">
                     <mat-icon matSuffix>mail</mat-icon>
                     @if(formPago.get('correo')?.invalid && formPago.get('correo')?.markAsTouched){
                       <mat-error>Indique Correo.</mat-error>

@@ -14,7 +14,7 @@
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <mat-checkbox color="warn" (click)="$event.stopPropagation()" (change)="toggleRow(row)"
-                  [checked]="selection.isSelected(row)">
+                  [checked]="selection.isSelected(row)" [disabled]="row?.SALDO <= 0">
                 </mat-checkbox>
               </mat-cell>
             </ng-container>

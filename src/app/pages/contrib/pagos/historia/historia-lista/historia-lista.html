@@ -12,7 +12,7 @@
 
             <ng-container matColumnDef="tipoTramite">
               <mat-header-cell *matHeaderCellDef> Tipo Tramite </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.tipoTramite}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.tramite}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="periodo">
@@ -22,12 +22,12 @@
 
             <ng-container matColumnDef="pagado">
               <mat-header-cell *matHeaderCellDef> Pagado </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.pagado.toFixed(2)}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{(element?.pagado || 0).toFixed(2)}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="fecha">
                 <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.fecha}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element?.fechaMuestra}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="anio">

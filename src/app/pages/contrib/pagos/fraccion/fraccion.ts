@@ -41,6 +41,7 @@ export class Fraccion implements OnInit{
   idContriB!:number;
   dtConsulta!:FraccionamientoRequest;
   lstDatos?:Array<FraccionamientoResponse> = [];
+  lstMarcados?:any[] = [];
 
   ngOnInit(): void {
     let info:any = this.utilService.validaSesion();
@@ -88,10 +89,23 @@ export class Fraccion implements OnInit{
 
   muestraMarcados(dtFilas:any){
     this.monto = 0;
+    this.lstMarcados = [];
     if(dtFilas.length > 0){
       dtFilas.forEach((item:FraccionamientoResponse) => {
         this.monto += item.TOTALES || 0;
+        this.lstMarcados?.push(
+          {
+            sConcepto: item.CONVENIO,
+            nPagara: item.TOTALES
+          }
+        )
       });
+    }
+  }
+
+  accion(sigue:boolean){
+    if(sigue == true){
+      this.consultaImpuestos();
     }
   }
 }

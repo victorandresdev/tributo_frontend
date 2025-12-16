@@ -167,7 +167,7 @@ export class UtilService{
     return message;
   }
 
-  formatoFecha(fecha:Date, tipoFormato?: 'fecha' | 'fechaHora' | 'hora' | 'fechaData'){
+  formatoFecha(fecha:Date, tipoFormato?: 'fecha' | 'fechaHora' | 'hora' | 'fechaData' | 'soloAnio'){
     let formato:any;
     if(tipoFormato == 'fecha'){
       formato = APP_CONSTANTS.FORMATO_FECHA.FECHA;
@@ -181,6 +181,13 @@ export class UtilService{
     if(tipoFormato == 'fechaData'){
       formato = APP_CONSTANTS.FORMATO_FECHA.FECHA_DATA;
     }
+    if(tipoFormato == 'soloAnio'){
+      formato = APP_CONSTANTS.FORMATO_FECHA.SOLO_ANIO;
+    }
     return formatDate(new Date(fecha), formato, 'en-US')
+  }
+
+  getNumeroAleatorio(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }

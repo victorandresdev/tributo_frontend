@@ -74,14 +74,20 @@ export const APP_CONSTANTS = {
     FECHA: 'dd/MM/yyyy',
     FECHA_HORA: 'dd/MM/yyyy HH:mm:ss',
     HORA: 'HH:mm:ss',
-    FECHA_DATA: 'yyyy-MM-dd'
+    FECHA_DATA: 'yyyy-MM-dd',
+    SOLO_ANIO: 'yyyy'
   },
   TIME_ZONE: 'UTC',
   TIPO_USUARIO: {
     CONTRIBUYENTE: '01',
     SUPERVISOR: '02',
     ADMINISTRADOR: '03'
-  }
+  },
+  TIPO_TRAMITE:[
+    {NID: 1, NOMBRE: 'Impuesto Predial'},
+    {NID: 2, NOMBRE: 'Fraccionamiento'},
+    {NID: 3, NOMBRE: 'Liquidación'},
+  ]
 };
 
 export const MY_DATE_FORMATS = {

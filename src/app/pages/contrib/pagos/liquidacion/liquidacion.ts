@@ -26,6 +26,7 @@ export class Liquidacion implements OnInit{
   public monto!:number;
   dtConsulta!:LiquidacionRequest;
   lstDatos?:Array<LiquidacionResponse> = [];
+  lstMarcados?:any[] = [];
   constructor(
     private fb: FormBuilder,
     private utilService: UtilService,
@@ -64,10 +65,24 @@ export class Liquidacion implements OnInit{
 
   muestraMarcados(dtFilas:any){
     this.monto = 0;
+    this.lstMarcados = [];
     if(dtFilas.length > 0){
       dtFilas.forEach((item:LiquidacionResponse) => {
         this.monto += item.MONTO || 0;
+        this.lstMarcados?.push(
+          {
+            sConcepto: item.TRIBUTO,
+            nPagara: item.MONTO,
+            nIdDeuda: item.IDDEUDA
+          }
+        )
       });
+    }
+  }
+
+  accion(sigue:boolean){
+    if(sigue == true){
+      this.consultaImpuestos();
     }
   }
 }

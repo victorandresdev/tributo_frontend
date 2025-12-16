@@ -119,10 +119,17 @@ export class Pendientes implements OnInit {
         this.lstMarcados?.push(
           {
             sConcepto: item.TRIBUTO,
-            nPagara: item.SALDO
+            nPagara: item.SALDO,
+            nIdDeuda: item.IDDEUDA
           }
         )
       });
+    }
+  }
+
+  accion(sigue:boolean){
+    if(sigue == true){
+      this.consultaImpuestos();
     }
   }
 }
