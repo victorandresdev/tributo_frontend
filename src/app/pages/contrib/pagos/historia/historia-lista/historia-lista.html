@@ -17,7 +17,7 @@
 
             <ng-container matColumnDef="periodo">
               <mat-header-cell *matHeaderCellDef> Periodo </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.periodo}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.periodo || 1}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="pagado">

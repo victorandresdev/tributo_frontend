@@ -49,7 +49,7 @@ export class Historia implements OnInit {
           let fechaActiva = new Date(item.fecha);
           item.anio = this.utilService.formatoFecha(fechaActiva,"soloAnio");
           item.fechaMuestra = this.utilService.formatoFecha(fechaActiva,"fecha");
-          item.tramite = tiposTram.find((iTip:any) => iTip.NID == item.tipoTramite)?.NOMBRE;
+          item.tramite = tiposTram.find((iTip:any) => iTip.NID == (item.tipoTramite || 1))?.NOMBRE;
         });
       },
       error: () => {
