@@ -12,7 +12,7 @@ export class NiubizService {
     private http: HttpClient,
   ) { }
 
-  private sessionUrl = environment.API_AUTH + '/pago-online/session';
+  private sessionUrl = environment.API_AUTH + '/pago-online/niubiz/session';
 
   getSession(importe: number): Observable<any> {
     const sessionRequest = new SessionRequest();

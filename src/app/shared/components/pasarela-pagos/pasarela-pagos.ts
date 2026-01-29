@@ -15,7 +15,6 @@ import { DeudaRequest } from '../../helpers/deuda-request';
 import { CargaService } from '../../../services/carga.service';
 import {NiubizService} from '../../../services/niubiz.service';
 import {SessionResponse} from '../../helpers/niubiz/sessionResponse';
-import {PagoNiubiz} from '../pago-niubiz/pago-niubiz';
 
 @Component({
   selector: 'app-pasarela-pagos',
@@ -32,6 +31,7 @@ export class PasarelaPagos implements OnInit {
   lstDetalle:any[] = [];
   nMonto:number = 0;
   sessionResponse?:SessionResponse;
+  urlRespuestaNiubiz: string = '';
   constructor(
     private fb:FormBuilder,
     private utilService:UtilService,
@@ -41,7 +41,7 @@ export class PasarelaPagos implements OnInit {
     private niubizService: NiubizService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ){}
 
   ngOnInit(): void {
@@ -67,7 +67,10 @@ export class PasarelaPagos implements OnInit {
 
     this.niubizService.getSession(this.nMonto).subscribe((res:any)=>{
       this.sessionResponse = res as SessionResponse;
-      this.loadNiubizScript();
+      this.urlRespuestaNiubiz = "http://localhost:8085/pago-online/niubiz/callback/" + (this.sessionResponse?.purchaseNumber || '');
+      setTimeout(()=>{
+        this.loadNiubizScript();
+      }, 50)
     });
 
   }
@@ -135,12 +138,25 @@ export class PasarelaPagos implements OnInit {
     script.setAttribute('data-timeouturl', 'about:blank');
     script.setAttribute('data-formbuttoncolor', '#000000');
 
+    // Configurar el callback de respuesta
+    (window as any).onAuthorize = (response: any) => {
+      console.log('Niubiz response:', response);
+      // Aquí manejas la respuesta de Niubiz y procesas el pago
+      this.procesarRespuestaNiubiz(response);
+    };
+
     const form = document.getElementById('niubiz-payment-form');
     console.log('Loading Niubiz script with amount:', this.sessionResponse?.amount);
     console.log("script:", script);
     if (form) {
       console.log('Loading Niubiz script with session token:', this.sessionResponse?.sessionKey);
+      form.innerHTML = ''; // Limpiar el formulario antes de inyectar el script
+      this.renderer.setAttribute(form, 'action', this.urlRespuestaNiubiz);
       this.renderer.appendChild(form, script);
     }
+  }
+
+  private procesarRespuestaNiubiz(response: any): void {
+    console.log('Procesando respuesta Niubiz:', response);
   }
 }
