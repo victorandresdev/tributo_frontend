@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
+import { Sede } from "../shared/helpers/sede";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SedeService {
   private baseUrl = environment.API_AUTH;
-  sedes:any = [
+  sedes:Sede[] = [
     {nId:1, sLocal: 'Wong - La Planicie', sDireccion:'Av. Ricardo Elías Aparicio 715, La Molina 15026', nEstado: 1,
       terminales:[
         {nId:1, sNombre: 'Pc1', sIp: '192.168.1.15', nEstado: 1},

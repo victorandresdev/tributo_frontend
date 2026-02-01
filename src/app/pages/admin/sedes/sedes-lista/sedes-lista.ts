@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalSede } from '../modal-sede/modal-sede';
 import { ModalTerminal } from '../modal-terminal/modal-terminal';
+import { Sede } from '../../../../shared/helpers/sede';
 
 @Component({
   selector: 'app-sedes-lista',
@@ -31,11 +32,11 @@ export class SedesLista implements OnInit, OnChanges {
     'estaciones',
     'accion',
   ];
-  infoGrilla:any[] = [];
-  arrListFiltrada:any[] = [];
+  infoGrilla:Sede[] = [];
+  arrListFiltrada:Sede[] = [];
   existData:boolean = false;
 
-  @Input() arrList!: any[];
+  @Input() arrList!: Sede[];
   @Input() totalFilas!: number;
   @Input() paginas!: number;
   @Output() cambiaPagina: EventEmitter<number> = new EventEmitter();

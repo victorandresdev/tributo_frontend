@@ -12,6 +12,7 @@ import { SedesLista } from "./sedes-lista/sedes-lista";
 import { SedeService } from '../../../services/sede.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalSede } from './modal-sede/modal-sede';
+import { Sede } from '../../../shared/helpers/sede';
 
 @Component({
   selector: 'app-sedes',
@@ -22,7 +23,7 @@ import { ModalSede } from './modal-sede/modal-sede';
 })
 export class Sedes implements OnInit{
   form!:FormGroup;
-  lstSedes:any[] = [];
+  lstSedes:Sede[] = [];
   constructor(
     private fb:FormBuilder,
     private sedeService: SedeService,
@@ -43,7 +44,7 @@ export class Sedes implements OnInit{
       data:null
     });
     ventana.afterClosed().subscribe({
-      next: (rpta:any) => {
+      next: (rpta:boolean) => {
 
       },
       error: () => {

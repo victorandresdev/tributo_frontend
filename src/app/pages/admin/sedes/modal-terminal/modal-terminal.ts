@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ModalSede } from '../modal-sede/modal-sede';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { Terminal } from '../../../../shared/helpers/terminal';
 
 @Component({
   selector: 'app-modal-terminal',
@@ -21,7 +22,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 export class ModalTerminal implements OnInit{
   form!: FormGroup;
   idSede!: number;
-  lstPcs:any[] = [];
+  lstPcs:Terminal[] = [];
 
   constructor(
     private fb: FormBuilder,
