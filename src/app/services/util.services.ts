@@ -9,6 +9,7 @@ import { APP_CONSTANTS } from '../shared/constants/app.constants';
 import { FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Options } from '../shared/helpers/options';
 
 @Injectable({
   providedIn: 'root'
@@ -189,5 +190,16 @@ export class UtilService{
 
   getNumeroAleatorio(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  getListaAnios(){
+    let anioInicio:number = APP_CONSTANTS.ANIO_INICIO;
+    let anioFin:number = (new Date()).getFullYear();
+    let lstAnios:Array<Options> = [];
+    for(let anio:number = anioInicio; anio <= anioFin; anio++){
+      let optAnio:Options = {nId:anio, sDescripcion:anio.toString()};
+      lstAnios.push(optAnio);
+    }
+    return lstAnios;
   }
 }

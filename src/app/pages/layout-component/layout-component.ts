@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UtilService } from '../../services/util.services';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { APP_ROUTES } from '../../shared/constants/app.routes';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-layout-component',
@@ -21,7 +22,8 @@ export class LayoutComponent implements OnInit{
 
   constructor(
     private utilService: UtilService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    private usuarioService: UsuarioService,
   ){
 
   }
@@ -62,5 +64,9 @@ export class LayoutComponent implements OnInit{
     this.utilService.cambiaMenu(idPage);
     this.utilService.setLocalStorage(APP_CONSTANTS.VAR_PAGE_ACTIVA,idPage.toString());
     this.utilService.link(ruta);
+  }
+
+  salir(){
+    this.usuarioService.logout();
   }
 }

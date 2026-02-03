@@ -8,7 +8,6 @@ export const jwtInterceptorFn: HttpInterceptorFn = (req, next) => {
   const token = util.getLocalStorage(APP_CONSTANTS.VAR_TOKEN);
 
   if (token) {
-    console.log("Entra seguridad: ", token);
     req = req.clone({
       setHeaders: { Authorization: `Bearer ${token}` }
     });

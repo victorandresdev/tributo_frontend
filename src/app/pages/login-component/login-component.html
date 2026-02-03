@@ -21,7 +21,7 @@
             <div [class]="'contenido' + (nBloqueActivo == 1?' activo':'')">
               <form [formGroup]="frmDNI">
                 <div class="row">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                     <div class="mb-4">
                       <label class="d-flex justify-content-between">
                         Número de DNI:
@@ -33,6 +33,7 @@
                         }
                       </mat-form-field>
                     </div>
+                    <!--
                     <div class="mb-4">
                       <label class="d-flex justify-content-between">
                         Dígito de Verificación:
@@ -59,9 +60,11 @@
                         }
                       </mat-form-field>
                     </div>
-
+                    -->
                   </div>
-                  <div class="col-sm-6">
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
                     <img src="/images/dni.svg"/>
                   </div>
                 </div>
@@ -70,7 +73,7 @@
             <div [class]="'contenido' + (nBloqueActivo == 2?' activo':'')">
               <form [formGroup]="frmCont">
                 <div class="row">
-                  <div class="col-sm-12 col-md-6">
+                  <div class="col-sm-12 col-md-12">
                     <div class="mb-4">
                       <label class="d-flex justify-content-between">
                         Código de contribuyente:
@@ -83,7 +86,9 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  <div class="col-sm-12 col-md-6">
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-12">
                     <img src="/images/qrLogin.svg"/>
                   </div>
                 </div>

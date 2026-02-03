@@ -41,7 +41,7 @@ export class ListInLine implements OnInit {
     }
   }
 
-  emit(value: any) { console.log("Marcado: ",value);
-    if(this.options.length > 0) this.selected.emit(value ? value : 0);
+  emit(evento: any) {
+    if(this.options.length > 0) this.selected.emit(evento.srcElement.value ? evento.srcElement.value : 0);
   }
 }

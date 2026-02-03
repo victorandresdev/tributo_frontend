@@ -15,9 +15,9 @@
           <div class="legend">Seleccione su tributo</div>
           <section>
             <mat-button-toggle-group multiple formControlName="tipo" hideMultipleSelectionIndicator="false">
-              <mat-button-toggle value="1">Impuesto Predial</mat-button-toggle>
-              <mat-button-toggle value="2">Arbitrios</mat-button-toggle>
-              <mat-button-toggle value="3">Costas</mat-button-toggle>
+              <mat-button-toggle value="I">Impuesto Predial</mat-button-toggle>
+              <mat-button-toggle value="A">Arbitrios</mat-button-toggle>
+              <mat-button-toggle value="C">Costas</mat-button-toggle>
             </mat-button-toggle-group>
           </section>
         </div>
@@ -29,14 +29,14 @@
               [icon]="'calendar_today'"
               [etiqueta]="'Desde'"
               (selected)="seleccionaAnio($event, 1)"
-              [select]="dtConsulta.anioInicio || 0"
+              [select]="dtConsulta.inicio || 0"
             ></app-list-in-line>
             <app-list-in-line
               [options]="lstAnios"
               [icon]="'calendar_today'"
               [etiqueta]="'Hasta'"
-              (selected)="seleccionaAnio($event, 1)"
-              [select]="dtConsulta.anioFin || 0"
+              (selected)="seleccionaAnio($event, 2)"
+              [select]="dtConsulta.fin || 0"
             ></app-list-in-line>
           </div>
         </div>

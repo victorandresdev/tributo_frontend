@@ -10,10 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Detalle } from '../detalle/detalle';
+import { ResumenRegistro } from '../../../../../shared/components/resumen-registro/resumen-registro';
 
 @Component({
   selector: 'app-pendientes-lista',
-  imports: [MatCardModule, MatTableModule, MatIconModule, Paginator, MatCheckboxModule, MatButtonModule, CommonModule],
+  imports: [MatCardModule, MatTableModule, MatIconModule, Paginator, MatCheckboxModule, MatButtonModule, CommonModule, ResumenRegistro],
   templateUrl: './pendientes-lista.html',
   styleUrl: './pendientes-lista.scss'
 })

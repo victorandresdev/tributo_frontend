@@ -3,6 +3,7 @@ import { APP_ROUTES } from "./app.routes";
 export const APP_CONSTANTS = {
   VERSION: 1.0,
   PAGE_SIZE: 8,
+  ANIO_INICIO: 2024,
   VAL_MENU:{
     COMPLETO: 1,
     COMPACTO: 0
@@ -87,7 +88,17 @@ export const APP_CONSTANTS = {
     {NID: 1, NOMBRE: 'Impuesto Predial'},
     {NID: 2, NOMBRE: 'Fraccionamiento'},
     {NID: 3, NOMBRE: 'Liquidación'},
-  ]
+  ],
+  LOGIN_USUARIO:{
+    DNI: 'DNI',
+    CONTRIBUYENTE: 'CNT'
+  },
+  TIPO_IMPUESTO:{
+    TODOS: 'T',
+    IMPUESTOS: 'I',
+    ARBITRIOS: 'A',
+    COSTAS: 'C'
+  }
 };
 
 export const MY_DATE_FORMATS = {
