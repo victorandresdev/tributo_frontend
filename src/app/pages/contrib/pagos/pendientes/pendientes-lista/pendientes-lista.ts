@@ -109,6 +109,11 @@ export class PendientesLista implements OnInit, OnChanges {
     this.seleccionados.emit(this.selection.selected);
   }
 
+  verMarcados(marcados:any){
+    console.log("Marcados en lista: ", marcados);
+    this.seleccionados.emit(marcados);
+  }
+
   verDetalle(fila:any){
     this.dialog.open(Detalle, {
       width: '400px',

@@ -87,6 +87,8 @@
             @for (item of infoGrilla; track $index) {
             <app-resumen-registro
               [datosItem]="item.DATOSITEM"
+              [infoItem]="item"
+              (marcados)="toggleRow($event)"
             ></app-resumen-registro>
             }
           </div>
