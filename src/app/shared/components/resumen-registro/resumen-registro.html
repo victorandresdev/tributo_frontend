@@ -1,7 +1,7 @@
 <div class="moduloRegistro">
   <div class="bloqueItems">
     @for (item of datosItem.visibles; track $index) {
-    <div class="itemVisible">
+    <div class="itemVisible" [class.linea]="item.sentido == '1'">
       <div class="concepto">{{item.concepto}}:</div>
       @if (item.tipo == '1') {
         <div class="valor">{{item.valor}}</div>

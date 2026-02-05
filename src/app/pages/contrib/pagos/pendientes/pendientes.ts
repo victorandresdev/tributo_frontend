@@ -110,8 +110,10 @@ export class Pendientes implements OnInit {
           item.SALDO = item.AFECTO - item.PAGADO;
           item.ENVIO = this.utilService.formatoFecha(new Date(item.FECHVENC),"fecha");
           let datosItem:ListaResumenRegistro = new ListaResumenRegistro();
-          datosItem.visibles?.push({concepto:"TRIBUTO",valor:item.TRIBUTDESC, tipo:'1'});
-          datosItem.visibles?.push({concepto:"TOTAL",valor:item.TOTAL, tipo:'2'});
+          datosItem.visibles?.push({concepto:"CODIGO",valor:item.ANYOIMP + '.' + item.TRIBUTCODI, tipo:'1', sentido:'1'});
+          datosItem.visibles?.push({concepto:"PERIODO",valor:item.PERIODO, tipo:'1',sentido:'1'});
+          datosItem.visibles?.push({concepto:"TRIBUTO",valor:item.TRIBUTDESC, tipo:'1',sentido:'2'});
+          datosItem.visibles?.push({concepto:"TOTAL",valor:item.TOTAL, tipo:'2',sentido:'2'});
           item.DATOSITEM = datosItem;
         });
 

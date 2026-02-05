@@ -1052,9 +1052,15 @@ mat-card-title{
       .bloqueItems{
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 3px;
         .itemVisible{
 
+        }
+        .linea{
+          display: flex;
+          flex-direction: row !important;
+          align-items: center;
+          justify-content: space-between;
         }
         .concepto{
           font-size: 0.8rem;
