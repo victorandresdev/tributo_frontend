@@ -5,16 +5,16 @@
   </mat-card-header>
   <mat-card-content>
     <div class="pestanas mb-1">
-      <form [formGroup]="form">
+      <!--<form [formGroup]="form">
         <section>
           <mat-button-toggle-group formControlName="pest" hideSingleSelectionIndicator="true">
             <mat-button-toggle value="1">Resumen de Pago</mat-button-toggle>
             <mat-button-toggle value="2">Registro de Pago</mat-button-toggle>
           </mat-button-toggle-group>
         </section>
-      </form>
+      </form>-->
       <div class="blocks">
-        @if (pest == 1) {
+        <!-- @if (pest == 1) { -->
           <div class="contentOpt">
             <div class="custom-table">
               <table class="custom-table">
@@ -47,7 +47,7 @@
               </div>
             </div>
           </div>
-        }@else {
+        <!-- }@else {
           <div class="contentOpt">
             <form [formGroup]="formPago">
               <div class="row mb-3">
@@ -155,7 +155,7 @@
               </div>
             </form>
           </div>
-        }
+        } -->
       </div>
     </div>
   </mat-card-content>

@@ -125,16 +125,17 @@ export class Pendientes implements OnInit {
   }
 
   muestraMarcados(dtFilas:any){
+    console.log("Ver: ",dtFilas)
     this.monto = 0;
     this.lstMarcados = [];
     if(dtFilas.length > 0){
-      dtFilas.forEach((item:ImpuestoPredialResponse) => {
-        this.monto += item.SALDO || 0;
+      dtFilas.forEach((item:DtImpuesto) => {
+        this.monto += item.TOTAL || 0;
         this.lstMarcados?.push(
           {
-            sConcepto: item.TRIBUTO,
-            nPagara: item.SALDO,
-            nIdDeuda: item.IDDEUDA
+            sConcepto: item.TRIBUTDESC + " - " + item.ANYOIMP + '.' + item.TRIBUTCODI,
+            nPagara: item.TOTAL,
+            nIdDeuda: item.RECIBO
           }
         )
       });
