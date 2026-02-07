@@ -126,6 +126,7 @@ export class PasarelaPagos implements OnInit {
   }
 
   private loadNiubizScript(): void {
+    let amount = this.sessionResponse?.amount?.toFixed(2).toString() || '';
     const script = this.renderer.createElement('script');
     script.type = 'text/javascript';
     script.src = 'https://static-content-qas.vnforapps.com/env/sandbox/js/checkout.js';
@@ -133,7 +134,7 @@ export class PasarelaPagos implements OnInit {
     script.setAttribute('data-channel', 'web');
     script.setAttribute('data-merchantid', this.sessionResponse?.merchantId || '');
     script.setAttribute('data-purchasenumber', this.sessionResponse?.purchaseNumber || '');
-    script.setAttribute('data-amount', this.sessionResponse?.amount?.toString() || '');
+    script.setAttribute('data-amount', amount);
     script.setAttribute('data-expirationminutes', '20');
     script.setAttribute('data-timeouturl', 'about:blank');
     script.setAttribute('data-formbuttoncolor', '#000000');
