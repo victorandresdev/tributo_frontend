@@ -29,7 +29,7 @@ export class TotalPagar {
     if(this.montoTotal > 0){
       let ventana:any = this.dialog.open(PasarelaPagos, {
         width: '600px',
-        height: '500px',
+        height: 'auto',
         data: {
           info: this.lstDetalle,
           total: this.montoTotal,

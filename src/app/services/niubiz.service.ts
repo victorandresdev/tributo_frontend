@@ -14,9 +14,10 @@ export class NiubizService {
 
   private sessionUrl = environment.API_AUTH + '/pago-online/niubiz/session';
 
-  getSession(importe: number): Observable<any> {
+  getSession(importe: number, lstImpuestos:Array<string>): Observable<any> {
     const sessionRequest = new SessionRequest();
     sessionRequest.importe = importe;
+    sessionRequest.ctaidentif = lstImpuestos
     return this.http.post(this.sessionUrl, sessionRequest);
   }
 }

@@ -71,7 +71,7 @@ export class PasarelaPagos implements OnInit {
       this.pest = chng;
     });
 
-    this.niubizService.getSession(this.nMonto).subscribe((res:any)=>{
+    this.niubizService.getSession(this.nMonto, this.lstIdentif).subscribe((res:any)=>{
       this.sessionResponse = res as SessionResponse;
       this.urlRespuestaNiubiz = "http://localhost:8085/pago-online/niubiz/callback/" + (this.sessionResponse?.purchaseNumber || '');
       setTimeout(()=>{
@@ -132,7 +132,7 @@ export class PasarelaPagos implements OnInit {
   }
 
   private loadNiubizScript(): void {
-    let info:LiquidacionPago = new LiquidacionPago();
+    /*let info:LiquidacionPago = new LiquidacionPago();
     info.ctaidentif = this.lstIdentif;
     this.contriService.setLiquidacionPagos(info).subscribe({
       next: (rpta:any)=>{
@@ -141,7 +141,7 @@ export class PasarelaPagos implements OnInit {
       error: () => {
 
       }
-    })
+    })*/
     let amount = this.sessionResponse?.amount?.toFixed(2).toString() || '';
     const script = this.renderer.createElement('script');
     script.type = 'text/javascript';

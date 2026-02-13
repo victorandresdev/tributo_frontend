@@ -116,20 +116,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.cuerpo{
-  height: calc(100vh - 34px);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  .login{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-    width: 50%;
-  }
-}
+
 
 
 
@@ -295,7 +282,7 @@ body {
     max-height: calc(100vh - 178px);
     height: calc(100vh - 178px);
     overflow-y: auto;
-    /*min-width: calc(100vw - 150px);*/
+    min-width: calc(100vw - 150px);
     max-width: calc(100vw - 40px);
     width: -webkit-fill-available;
     .operacion{
@@ -315,6 +302,20 @@ body {
     .totalPago{
       width: auto;
 
+    }
+  }
+  .cuerpo{
+    height: calc(100vh - 34px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .login{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-items: center;
+      justify-content: center;
+      width: 50%;
     }
   }
 }
@@ -519,6 +520,51 @@ body {
     button{
       div{
         display: none;
+      }
+    }
+  }
+  .cuerpo{
+    height: calc(100vh - 34px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .informativo{
+      background-image: none !important;
+      div{
+        display: none !important;
+      }
+    }
+    .informativo::after{
+      content: " ";
+      background-image: url(/images/logoMuniHeadBlanco.svg);
+      background-repeat: no-repeat;
+      background-position: 0px 0px;
+      background-size: 500px;
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 110px;
+      height: 80px;
+    }
+    .login{
+      /*
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-items: center;
+      justify-content: center;
+      width: 50%;
+      */
+      display: flex;
+      justify-items: center;
+      /* width: 50%; */
+      position: absolute;
+      float: right;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      mat-card{
+        padding: 5px !important;
+        margin: calc((100vw - 365px) / 2);
       }
     }
   }
@@ -1052,15 +1098,9 @@ mat-card-title{
       .bloqueItems{
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 6px;
         .itemVisible{
 
-        }
-        .linea{
-          display: flex;
-          flex-direction: row !important;
-          align-items: center;
-          justify-content: space-between;
         }
         .concepto{
           font-size: 0.8rem;
