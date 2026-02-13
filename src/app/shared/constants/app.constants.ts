@@ -97,7 +97,8 @@ export const APP_CONSTANTS = {
     TODOS: 'T',
     IMPUESTOS: 'I',
     ARBITRIOS: 'A',
-    COSTAS: 'C'
+    COSTAS: 'C',
+    FRACCION: 'F'
   }
 };
 
