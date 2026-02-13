@@ -39,6 +39,7 @@ export class Pendientes implements OnInit {
   idContriB!:number;
   lstDatos?:Array<DtImpuesto> = [];
   lstMarcados?:any[] = [];
+  lstIdentif?:Array<string> = [];
   constructor(
     private fb: FormBuilder,
     private utilService: UtilService,
@@ -128,6 +129,7 @@ export class Pendientes implements OnInit {
     console.log("Ver: ",dtFilas)
     this.monto = 0;
     this.lstMarcados = [];
+    this.lstIdentif = [];
     if(dtFilas.length > 0){
       dtFilas.forEach((item:DtImpuesto) => {
         this.monto += item.TOTAL || 0;
@@ -137,7 +139,8 @@ export class Pendientes implements OnInit {
             nPagara: item.TOTAL,
             nIdDeuda: item.RECIBO
           }
-        )
+        );
+        this.lstIdentif?.push(item.CTAIDENTIF);
       });
     }
   }

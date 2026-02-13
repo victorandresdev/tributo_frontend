@@ -3,7 +3,7 @@ import { APP_ROUTES } from "./app.routes";
 export const APP_CONSTANTS = {
   VERSION: 1.0,
   PAGE_SIZE: 8,
-  ANIO_INICIO: 2024,
+  ANIO_INICIO: 2020,
   VAL_MENU:{
     COMPLETO: 1,
     COMPACTO: 0

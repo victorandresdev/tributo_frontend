@@ -3,6 +3,7 @@
     <div class="col-12 p-0">
       <mat-card appearance="outlined" class="custom-card">
         <div class="custom-table">
+          <!--
           <mat-table [dataSource]="dataResult" class="custom-table">
 
             <ng-container matColumnDef="select">
@@ -63,6 +64,16 @@
             <mat-row *matRowDef="let row; columns: displayedColumns; let odd = odd;"
                     [class]="{gray: odd}"></mat-row>
           </mat-table>
+          -->
+          <div class="custom-table-det">
+            @for (item of infoGrilla; track $index) {
+            <app-resumen-registro
+              [datosItem]="item.DATOSITEM"
+              [infoItem]="item"
+              (marcados)="toggleRow($event)"
+            ></app-resumen-registro>
+            }
+          </div>
           @if(length > 0){
           <app-paginator
             [verPagina]="true"

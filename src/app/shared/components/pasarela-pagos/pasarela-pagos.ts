@@ -15,6 +15,8 @@ import { DeudaRequest } from '../../helpers/deuda-request';
 import { CargaService } from '../../../services/carga.service';
 import {NiubizService} from '../../../services/niubiz.service';
 import {SessionResponse} from '../../helpers/niubiz/sessionResponse';
+import { ContribuyenteService } from '../../../services/contribuyente.service';
+import { LiquidacionPago } from '../../helpers/liquidacion-pago';
 
 @Component({
   selector: 'app-pasarela-pagos',
@@ -32,6 +34,7 @@ export class PasarelaPagos implements OnInit {
   nMonto:number = 0;
   sessionResponse?:SessionResponse;
   urlRespuestaNiubiz: string = '';
+  lstIdentif:Array<string> = [];
   constructor(
     private fb:FormBuilder,
     private utilService:UtilService,
@@ -42,6 +45,7 @@ export class PasarelaPagos implements OnInit {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private renderer: Renderer2,
+    private contriService: ContribuyenteService
   ){}
 
   ngOnInit(): void {
@@ -58,6 +62,8 @@ export class PasarelaPagos implements OnInit {
     });
     this.lstDetalle = this.data.info;
     this.nMonto = this.data.total;
+    this.lstIdentif = this.data.lstIdentif;
+    console.log("LLEGAN IDENTIF: ", this.lstIdentif);
     this.formPago.get('total')?.disable();
     this.formPago.get('total')?.setValue('S/ ' + this.nMonto.toFixed(2));
     this.pest = 1;
@@ -126,6 +132,16 @@ export class PasarelaPagos implements OnInit {
   }
 
   private loadNiubizScript(): void {
+    let info:LiquidacionPago = new LiquidacionPago();
+    info.ctaidentif = this.lstIdentif;
+    this.contriService.setLiquidacionPagos(info).subscribe({
+      next: (rpta:any)=>{
+        console.log("VER CODIGO OPERACION: ",rpta);
+      },
+      error: () => {
+
+      }
+    })
     let amount = this.sessionResponse?.amount?.toFixed(2).toString() || '';
     const script = this.renderer.createElement('script');
     script.type = 'text/javascript';

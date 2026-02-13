@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { UtilService } from "./util.services";
 import { ImpuestoPredialRequest } from "../shared/helpers/impuesto-predial-request";
+import { LiquidacionPago } from "../shared/helpers/liquidacion-pago";
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,10 @@ export class ContribuyenteService {
 
   getImpuestosPendientes(data:ImpuestoPredialRequest){
     return this.http.post<any>(this.baseUrl + "/saldos",data);
+  }
+
+  setLiquidacionPagos(data:LiquidacionPago){
+    return this.http.post<any>(this.baseUrl + "/liguidacionPagos",data);
   }
 
 }
