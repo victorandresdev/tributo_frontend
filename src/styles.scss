@@ -359,16 +359,17 @@ body {
         background-color: var(--molina-green-disabled);
       }
       .salir{
-        width: 100%;
+        width: 100px;
         display: flex;
         align-items: center;
         flex-direction: row;
         border: 0px;
         border-radius: 5px;
         padding: 5px;
-        justify-content: right;
-        padding-right: 15px;
+        justify-content: center;
+        /* padding-right: 15px; */
         font-weight: bold;
+        margin: 0 auto;
       }
     }
     .complete{
@@ -447,7 +448,7 @@ body {
       color: var(--molina-white-primary);
       display: flex;
       align-items: anchor-center;
-      gap: 10px;
+      //gap: 10px;
       text-transform: uppercase;
       justify-content: center;
       border-bottom: 1px white dotted;
@@ -471,7 +472,7 @@ body {
       justify-content: center;
       padding-top: 10px;
     }
-    gap:10px;
+    //gap:10px;
     padding-left: 25px;
     padding-right: 25px;
     border-color: var(--molina-green-dark);
@@ -588,7 +589,7 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding-left: 60px;
+  padding-left: 10px;
   padding-right: 10px;
   background-color: var(--molina-white-primary);
   background-size: auto 70%;

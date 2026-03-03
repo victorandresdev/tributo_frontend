@@ -1,0 +1,32 @@
+@media only screen and (max-width: 699px) {
+  .footer {
+    background-color: var(--molina-green-primary) !important;
+    color: var(--molina-white-primary) !important;
+    height: auto !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    
+    .terminal, .texto, .version {
+      color: var(--molina-white-primary) !important;
+      width: 100%;
+      text-align: center;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .terminal {
+      border-bottom: 1px dotted var(--molina-white-primary);
+    }
+
+    .texto {
+      border-bottom: 1px dotted var(--molina-white-primary);
+    }
+
+    mat-icon {
+        color: var(--molina-white-primary) !important;
+        margin-right: 5px;
+    }
+  }
+}

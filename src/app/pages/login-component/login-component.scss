@@ -90,4 +90,149 @@ app-footer-component{
   background-size: auto 70%;
 }
 
+@media only screen and (max-width: 699px) {
+  .cuerpo {
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--molina-white-primary);
+  }
+
+  .informativo {
+    display: none;
+  }
+
+  .login {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: var(--molina-white-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .logo-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    
+    img {
+      height: 80px;
+      margin-bottom: 10px;
+      /* Ajustes para logoMuni.svg */
+      width: auto;
+      object-fit: contain;
+    }
+    
+    span {
+      color: var(--molina-green-primary);
+      font-weight: bold;
+      font-size: 1.5rem; /* Aumentado tamaño */
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+  }
+
+  .block-login {
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid var(--molina-green-primary) !important;
+    box-shadow: none !important;
+    
+    mat-card-header {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--molina-green-primary);
+      margin-bottom: 10px;
+    }
+
+    .bloques {
+      justify-content: center;
+      
+      div {
+        flex: 1;
+        justify-content: center;
+        padding: 8px !important;
+        font-size: 0.9rem;
+      }
+    }
+
+    mat-form-field {
+      width: 100% !important;
+
+      ::ng-deep .mat-mdc-text-field-wrapper {
+        padding-top: 0;
+        width: 100% !important;
+        height: auto !important;
+        padding: 0 !important;
+      }
+
+      ::ng-deep .mat-mdc-form-field-flex {
+        align-items: center;
+        padding: 0 10px;
+        width: 100% !important;
+        height: 50px !important; /* Forzar altura fija */
+        box-sizing: border-box;
+      }
+
+      ::ng-deep .mat-mdc-form-field-infix {
+        width: 100% !important;
+        width: -webkit-fill-available;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        min-height: unset !important;
+        border-top: 0 !important;
+      }
+
+      input {
+        font-size: 1rem;
+        height: 50px !important; /* Altura de 50px para móviles */
+        width: 100% !important;
+        text-overflow: ellipsis;
+        padding: 0 !important;
+        margin: 0 !important;
+        line-height: 50px !important; /* Centrado vertical del texto */
+      }
+      
+      ::ng-deep .mat-mdc-floating-label {
+        display: none;
+      }
+      
+      /* Eliminar espacios adicionales del outline */
+      ::ng-deep .mdc-notched-outline__leading,
+      ::ng-deep .mdc-notched-outline__notch,
+      ::ng-deep .mdc-notched-outline__trailing {
+        border-color: var(--molina-green-primary) !important;
+      }
+    }
+    
+    /* Eliminar etiqueta de texto encima del input */
+    label.d-flex {
+      display: none !important;
+    }
+
+    .acciones {
+      margin-top: 10px;
+      width: 100% !important;
+      
+      .btnLogin {
+        width: 100% !important;
+        height: 50px;
+        border-radius: 10px; /* Menos redondeado */
+        font-size: 1.1rem;
+        font-weight: bold;
+        background-image: none !important; /* Quitar imagen */
+        background-color: var(--molina-green-primary); /* Fondo verde */
+        border: 2px solid var(--molina-green-primary);
+        color: var(--molina-white-primary); /* Texto blanco */
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
 

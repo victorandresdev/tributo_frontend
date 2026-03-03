@@ -24,6 +24,7 @@ export class LayoutComponent implements OnInit{
     private utilService: UtilService,
     public layoutService: LayoutService,
     private usuarioService: UsuarioService,
+    private breakpointObserver: BreakpointObserver
   ){
 
   }
@@ -37,6 +38,10 @@ export class LayoutComponent implements OnInit{
   VMENU = APP_CONSTANTS.VAL_MENU;
 
   ngOnInit(): void {
+    if(this.breakpointObserver.isMatched('(max-width: 800px)')){
+      this.layoutService.myPanel.set(APP_CONSTANTS.VAL_MENU.COMPACTO);
+    }
+    
     if(this.utilService.getSesionStorage(APP_CONSTANTS.VAR_USUARIO) == undefined){
       this.utilService.removeAllStorage();
       this.utilService.link(APP_ROUTES.URL_LOGIN);

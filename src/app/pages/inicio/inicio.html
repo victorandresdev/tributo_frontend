@@ -2,38 +2,60 @@
 <app-title-page [titulo]="'BIENVENIDO'"></app-title-page>
 <div class="contenedorPrincipal" [class.fondoAmin] = "infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.ADMINISTRADOR">
   @if (infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE) {
-  <span>Bienvenido a la plataforma municipal de pagos. Aquí podrá gestionar sus trámites y realizar sus operaciones de manera rápida y segura.</span>
-  <mat-card appearance="outlined" class="custom-card mt-3">
-    <div class="row mt-2 mb-2">
-      <div class="col-12 mb-2 mt-2 listInLine">
-        <div class="row mb-3">
-          <div class="col-12">
-            <app-input-info
-              [etiqueta]="'Contribuyente'"
-              [valor]="infoUsu.usuario.nombres"
-            ></app-input-info>
+  <div class="desktop-view">
+    <span>Bienvenido a la plataforma municipal de pagos. Aquí podrá gestionar sus trámites y realizar sus operaciones de manera rápida y segura.</span>
+    <mat-card appearance="outlined" class="custom-card mt-3">
+      <div class="row mt-2 mb-2">
+        <div class="col-12 mb-2 mt-2 listInLine">
+          <div class="row mb-3">
+            <div class="col-12">
+              <app-input-info
+                [etiqueta]="'Contribuyente'"
+                [valor]="infoUsu.usuario.nombres"
+              ></app-input-info>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <app-input-info
+                [etiqueta]="'Dirección:'"
+                [valor]="infoUsu.usuario.direccion"
+              ></app-input-info>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12">
-            <app-input-info
-              [etiqueta]="'Dirección:'"
-              [valor]="infoUsu.usuario.direccion"
-            ></app-input-info>
-          </div>
+        <!--
+        <div class="col-3">
+          Calendario del mes:
+          
+          <mat-card class="demo-inline-calendar-card">
+            <mat-calendar [(selected)]="selected"></mat-calendar>
+          </mat-card>
         </div>
+        -->
       </div>
-      <!--
-      <div class="col-3">
-        Calendario del mes:
+    </mat-card>
+  </div>
 
-        <mat-card class="demo-inline-calendar-card">
-          <mat-calendar [(selected)]="selected"></mat-calendar>
-        </mat-card>
-      </div>
-      -->
+  <div class="mobile-view">
+    <div class="saludo-mobile">
+      <b>HOLA</b>, {{infoUsu.usuario.nombres}}
     </div>
-  </mat-card>
+    <div class="direccion-mobile">
+      {{infoUsu.usuario.direccion}}
+    </div>
+    
+    <mat-card appearance="outlined" class="custom-card-mobile mt-3">
+      <mat-card-content>
+          <button type="button" class="btnAnimado btnPgPendientes" (click)="ir(1)">
+            Pagos Pendientes
+          </button>
+          <button type="button" class="btnAnimado btnPgHistoria" (click)="ir(2)">
+            Historial de pagos
+          </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
   }@else {
     <mat-card>
         <mat-card-header>
