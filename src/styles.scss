@@ -154,7 +154,7 @@ body {
     }
     .ventana{
       height: calc(100vh - 94px);
-      min-width: calc(100vw - 150px);
+      min-width: calc(100vw - 200px);
       max-width: calc(100vw - 40px);
       width: -webkit-fill-available;
     }
@@ -185,7 +185,7 @@ body {
       }
     }
     .complete{
-      width: 150px;
+      width: 200px;
       label{
         display: block;
       }
@@ -482,14 +482,16 @@ body {
     padding-bottom: 5px;
   }
   .contenedorPrincipal{
-    margin: 10px;
+    margin: 0px;
     max-height: calc(100vh - 178px);
     height: calc(100vh - 178px);
     overflow-y: auto;
     /*min-width: calc(100vw);
     max-width: calc(100vw);*/
-    width: -webkit-fill-available;
-    min-width: calc(100vw - 20px);
+    width: 100%;
+    /*min-width: 100vw;*/
+    box-sizing: border-box;
+    padding: 10px;
     .operacion{
       display: flex;
       flex-direction: row;

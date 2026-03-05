@@ -2,6 +2,32 @@
 .desktop-view {
   display: block;
 }
+
+.saludo-desktop {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--molina-green-primary);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.direccion-desktop {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.bienvenida-desktop {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  color: #333;
+}
+
 .mobile-view {
   display: none;
 }
@@ -36,6 +62,7 @@
 
   .btnAnimado {
       width: 100%;
+      box-sizing: border-box;
       margin-bottom: 10px;
       height: 60px;
       border: 1px solid var(--molina-green-primary);

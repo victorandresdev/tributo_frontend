@@ -3,38 +3,15 @@
 <div class="contenedorPrincipal" [class.fondoAmin] = "infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.ADMINISTRADOR">
   @if (infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE) {
   <div class="desktop-view">
-    <span>Bienvenido a la plataforma municipal de pagos. Aquí podrá gestionar sus trámites y realizar sus operaciones de manera rápida y segura.</span>
-    <mat-card appearance="outlined" class="custom-card mt-3">
-      <div class="row mt-2 mb-2">
-        <div class="col-12 mb-2 mt-2 listInLine">
-          <div class="row mb-3">
-            <div class="col-12">
-              <app-input-info
-                [etiqueta]="'Contribuyente'"
-                [valor]="infoUsu.usuario.nombres"
-              ></app-input-info>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <app-input-info
-                [etiqueta]="'Dirección:'"
-                [valor]="infoUsu.usuario.direccion"
-              ></app-input-info>
-            </div>
-          </div>
-        </div>
-        <!--
-        <div class="col-3">
-          Calendario del mes:
-          
-          <mat-card class="demo-inline-calendar-card">
-            <mat-calendar [(selected)]="selected"></mat-calendar>
-          </mat-card>
-        </div>
-        -->
-      </div>
-    </mat-card>
+    <div class="saludo-desktop">
+      Hola, {{infoUsu.usuario.nombres}}
+    </div>
+    <div class="direccion-desktop">
+      {{infoUsu.usuario.direccion}}
+    </div>
+    <div class="bienvenida-desktop">
+      <span>Bienvenido a la plataforma municipal de pagos. Aquí podrá gestionar sus trámites y realizar sus operaciones de manera rápida y segura.</span>
+    </div>
   </div>
 
   <div class="mobile-view">

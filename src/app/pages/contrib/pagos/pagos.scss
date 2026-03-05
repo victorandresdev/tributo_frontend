@@ -1,8 +1,23 @@
+.contenidoCentral{
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  padding-top: 30px;
+}
+
 .btnPgPendientes{
   background-image: url("/images/pgPendientes.svg");
   background-size: auto 70%;
+  padding-left: 70px;
+  font-size: 1.1rem;
+  width: 300px;
+  justify-content: flex-start;
 }
 .btnPgHistoria{
   background-image: url("/images/pgHistoria.svg");
   background-size: auto 70%;
+  padding-left: 70px;
+  font-size: 1.1rem;
+  width: 300px;
+  justify-content: flex-start;
 }

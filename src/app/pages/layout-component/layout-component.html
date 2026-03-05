@@ -10,13 +10,13 @@
             [matTooltipDisabled]="layoutService.myPanel() === VMENU.COMPLETO"
             [matTooltip]="item.ETIQUETA"
             matTooltipPosition="right">{{item.IMAGEN}}</mat-icon>
-          <label>{{item.ETIQUETA}}</label>
+          <label style="font-size: 19px; margin-left: 10px">{{item.ETIQUETA}}</label>
         </div>
       }
       @else {
         <div class="option bloqueado">
           <mat-icon>{{item.IMAGEN}}</mat-icon>
-          <label>{{item.ETIQUETA}}</label>
+          <label style="font-size: 19px; margin-left: 10px">{{item.ETIQUETA}}</label>
         </div>
       }
 
