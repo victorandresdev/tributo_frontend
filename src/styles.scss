@@ -144,7 +144,8 @@ body {
 
 @media only screen and (min-width: 700px) {
   .cuerpoSistema{
-    height: calc(100vh - 94px);
+    height: calc(100vh - 106px);
+    width: calc(100vw - 200px);
     display: flex;
     flex-direction: row;
     border-top: 1px solid var(--molina-green-dark) !important;
@@ -153,20 +154,20 @@ body {
       margin: 0px;
     }
     .ventana{
-      height: calc(100vh - 94px);
-      min-width: calc(100vw - 200px);
+      height: calc(100vh - 106px);
+      min-width: calc(100vw - 170px);
       max-width: calc(100vw - 40px);
       width: -webkit-fill-available;
     }
     .menu{
-      height: calc(100vh - 94px);
+      height: calc(100vh - 106px);
       background-color: var(--molina-green-primary);
       .option{
         color: var(--molina-white-primary);
         align-items: anchor-center;
         display: flex;
         gap: 5px;
-        padding: 5px 10px;
+        padding: 10px 15px;
         font-size: 12px;
         margin-top: 1px;
       }
@@ -185,15 +186,15 @@ body {
       }
     }
     .complete{
-      width: 200px;
+      width: 170px;
       label{
         display: block;
       }
     }
     .compact{
-      width: 40px;
+      width: 50px;
       .option{
-        padding: 5px 5px;
+        padding: 10px 15px;
       }
       label{
         display: none;
