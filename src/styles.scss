@@ -901,7 +901,9 @@ mat-form-field.mat-mdc-form-field {
       flex-direction: row;
       gap: 5px;
       width: -webkit-fill-available;
-
+      height: 50px;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 }
@@ -911,6 +913,10 @@ mat-form-field.mat-mdc-form-field {
   .input-group-sm{
     border:1px solid var(--molina-green-primary);
     border-radius: 5px;
+    height: 40px;
+    @media (max-width: 768px) {
+      width: 170px;
+    }
   }
   .fondo-custom{
     background-color: var(--molina-green-disabled);
