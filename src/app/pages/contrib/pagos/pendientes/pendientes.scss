@@ -1,0 +1,43 @@
+
+@media (max-width: 768px) {
+  mat-button-toggle-group[formControlName="tipo"] {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 15px;
+    border: none !important;
+    border-radius: 0 !important;
+
+    mat-button-toggle {
+      flex: 1;
+      border: 1px solid var(--molina-white-backHover) !important;
+      border-radius: 10px !important;
+      background-color: var(--molina-white-primary);
+      margin: 0 !important;
+      height: auto !important;
+      min-height: 48px;
+
+      // Fix for centering and text
+      ::ng-deep .mat-button-toggle-label-content {
+        line-height: 1.2;
+        padding: 5px !important;
+        white-space: normal;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      &.mat-button-toggle-checked {
+        background-color: var(--molina-green-primary) !important;
+        color: var(--molina-white-primary) !important;
+        border-color: var(--molina-green-primary) !important;
+
+        ::ng-deep .mat-button-toggle-label-content {
+           color: var(--molina-white-primary) !important;
+        }
+      }
+    }
+  }
+}

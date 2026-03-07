@@ -45,6 +45,8 @@ mat-cell.mat-mdc-cell {
 
 mat-header-cell.mat-mdc-header-cell {
   color: var(--molina-white-primary);
+  font-size: large;
+  font-weight: 600;
 }
 
 .mdc-icon-button {
@@ -111,4 +113,49 @@ mat-header-cell.mat-mdc-header-cell {
   flex: auto;
   padding: 5px 5px 5px 10px;
   justify-content: center;
+}
+
+.mobile-view {
+  display: none;
+}
+
+.desktop-view {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+  .mobile-view {
+    display: block;
+  }
+
+  .mobile-card {
+    margin-bottom: 10px;
+    
+    .card-header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding-top: 10px;
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      
+      .label {
+        font-weight: 500;
+        color: #666;
+      }
+      .value {
+        font-weight: bold;
+        text-align: right;
+      }
+    }
+  }
 }

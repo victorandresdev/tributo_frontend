@@ -1,9 +1,9 @@
 <ng-container>
   <div class="row">
     <div class="col-12 p-0">
-      <mat-card appearance="outlined" class="custom-card">
+      <mat-card appearance="outlined" class="custom-card desktop-view">
         <div class="custom-table">
-          <!--
+          
           <mat-table [dataSource]="dataResult" class="custom-table">
 
             <ng-container matColumnDef="select">
@@ -82,7 +82,8 @@
             <mat-row *matRowDef="let row; columns: displayedColumns; let odd = odd;"
                     [class]="{gray: odd}"></mat-row>
           </mat-table>
-          -->
+          
+          <!--
           <div class="custom-table-det">
             @for (item of infoGrilla; track $index) {
             <app-resumen-registro
@@ -92,6 +93,7 @@
             ></app-resumen-registro>
             }
           </div>
+        -->
           @if(length > 0){
           <hr>
           <app-paginator
@@ -103,6 +105,72 @@
           }
         </div>
       </mat-card>
+      
+      <div class="mobile-view">
+        @if(length > 0 && dataResult?.data){
+            @for (element of dataResult.data; track $index) {
+                <mat-card class="mobile-card" appearance="outlined">
+                    <mat-card-header>
+                        <div class="card-header-content">
+                            <div style="display: flex; align-items: center;">
+                                <mat-checkbox color="warn" (click)="$event.stopPropagation()" (change)="toggleRow(element)"
+                                    [checked]="selection.isSelected(element)" [disabled]="element?.TOTAL <= 0">
+                                </mat-checkbox>
+                                <span style="margin-left: 10px; font-weight: bold; font-size: 0.9rem;">{{element?.PERIODO}} - {{element?.TRIBUTDESC}}</span>
+                            </div>
+                        </div>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="card-row">
+                            <span class="label">Predio:</span>
+                            <span class="value">{{element?.CODCONTRI}}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="label">Emisión:</span>
+                            <span class="value">{{element?.EMISION}}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="label">Afecto:</span>
+                            <span class="value">{{element?.AFECTO.toFixed(2)}}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="label">Reajuste:</span>
+                            <span class="value">{{element?.REAJUSTE}}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="label">Mora:</span>
+                            <span class="value">{{element?.MORA.toFixed(2)}}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="label">Pagado:</span>
+                            <span class="value">{{element?.PAGADO.toFixed(2)}}</span>
+                        </div>
+                        <div class="card-row">
+                            <span class="label">Saldo:</span>
+                            <span class="value">{{element?.SALDO.toFixed(2)}}</span>
+                        </div>
+                        <hr style="margin: 5px 0;">
+                        <div class="card-row" style="font-size: 1.1rem; color: var(--molina-green-primary);">
+                            <span class="label">Total:</span>
+                            <span class="value">{{element?.TOTAL.toFixed(2)}}</span>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-button color="primary" [disabled]="element?.TOTAL <= 0" (click)="verDetalle(element)">
+                            <mat-icon>assignment</mat-icon> VER DETALLE
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            }
+            <app-paginator
+                [verPagina]="true"
+                [pageIndex]="indexIni"
+                [totalPaginas]="paginas"
+                (paginar)="pagina($event)"
+            ></app-paginator>
+        }
+      </div>
+
       @if(length == 0){
       <mat-card class="tarjeta-sin-registros" appearance="outlined">
         <mat-card-content>
