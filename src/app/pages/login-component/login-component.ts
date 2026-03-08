@@ -49,11 +49,13 @@ export class LoginComponent implements OnInit {
     this.nBloqueActivo = 1;
     this.frmDNI = this.fb.group({
       nro:['',[Validators.required,Validators.maxLength(8), Validators.minLength(8)]],
+      /*
       dig:['',[Validators.required,Validators.maxLength(1), Validators.minLength(1)]],
       nac:['',[Validators.required]]
+      */
     });
     this.frmCont = this.fb.group({
-      cod:['',[Validators.required,Validators.maxLength(6), Validators.minLength(12)]],
+      cod:['',[Validators.required,Validators.maxLength(12), Validators.minLength(6)]],
     });
     /* Oculta precarga */
     this.cargaService.hide();
@@ -83,22 +85,23 @@ export class LoginComponent implements OnInit {
     this.credencial = new PersonaRequest()
     if(this.nBloqueActivo == 1){
       if(this.frmDNI.valid){
-        this.credencial.nroDoc = this.frmDNI.get('nro')?.value;
-        this.credencial.fechaNacimiento = this.utilService.formatoFecha(this.frmDNI.get('nac')?.value,"fecha");
+        this.credencial.dato = this.frmDNI.get('nro')?.value;
+        this.credencial.tipo = APP_CONSTANTS.LOGIN_USUARIO.DNI;
       }else{
         this.frmDNI.markAllAsTouched();
         return;
       }
     }else{
       if(this.frmCont.valid){
-        this.credencial.codigoContribuyente = this.frmCont.get('cod')?.value;
+        this.credencial.dato = this.frmCont.get('cod')?.value;
+        this.credencial.tipo = APP_CONSTANTS.LOGIN_USUARIO.CONTRIBUYENTE;
       }else{
         this.frmCont.markAllAsTouched();
         return;
       }
     }
     this.cargaService.show();
-    this.usuarioService.getLoginContribuyente(this.nBloqueActivo, this.credencial).subscribe({
+    this.usuarioService.getLoginContribuyente(this.credencial).subscribe({
       next: (rstp:any) => {
         //console.log(rstp); return;
         if(rstp.token != undefined){
@@ -110,8 +113,7 @@ export class LoginComponent implements OnInit {
               usuarioDt = {
                 tipoUsuario: APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE,
                 login: "TAPIA",
-                nombres: rpta.apellidos + ', ' + rpta.nombres,
-                sexo: parseInt(rpta.sexo),
+                nombres: rpta.datosContribuyente,
                 direccion: rpta.direccion,
                 codigoContribuyente: rpta.codigoContribuyente,
                 idContribuyente: parseInt(rpta.idContribuyente)

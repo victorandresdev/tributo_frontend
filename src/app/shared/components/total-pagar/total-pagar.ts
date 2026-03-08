@@ -16,6 +16,7 @@ export class TotalPagar {
   @Input() montoTotal!:number;
   @Input() lstDetalle!:any[];
   @Input() tipoDeuda!:number;
+  @Input() lstIdentif!:Array<string>;
   @Output() lanza: EventEmitter<any> = new EventEmitter();
   constructor(
     private dialog: MatDialog,
@@ -28,11 +29,12 @@ export class TotalPagar {
     if(this.montoTotal > 0){
       let ventana:any = this.dialog.open(PasarelaPagos, {
         width: '600px',
-        height: '500px',
+        height: 'auto',
         data: {
           info: this.lstDetalle,
           total: this.montoTotal,
-          tipoDeuda: this.tipoDeuda
+          tipoDeuda: this.tipoDeuda,
+          lstIdentif: this.lstIdentif
         }
       });
       ventana.afterClosed().subscribe({

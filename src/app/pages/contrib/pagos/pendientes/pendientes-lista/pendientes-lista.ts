@@ -10,10 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Detalle } from '../detalle/detalle';
+import { ResumenRegistro } from '../../../../../shared/components/resumen-registro/resumen-registro';
 
 @Component({
   selector: 'app-pendientes-lista',
-  imports: [MatCardModule, MatTableModule, MatIconModule, Paginator, MatCheckboxModule, MatButtonModule, CommonModule],
+  imports: [MatCardModule, MatTableModule, MatIconModule, Paginator, MatCheckboxModule, MatButtonModule, CommonModule, ResumenRegistro],
   templateUrl: './pendientes-lista.html',
   styleUrl: './pendientes-lista.scss'
 })
@@ -106,6 +107,11 @@ export class PendientesLista implements OnInit, OnChanges {
       this.selection.select(...this.dataResult.data);
     }
     this.seleccionados.emit(this.selection.selected);
+  }
+
+  verMarcados(marcados:any){
+    console.log("Marcados en lista: ", marcados);
+    this.seleccionados.emit(marcados);
   }
 
   verDetalle(fila:any){

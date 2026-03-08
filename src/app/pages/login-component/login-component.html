@@ -9,6 +9,10 @@
     </div>
   </div>
   <div class="login">
+    <div class="logo-mobile d-md-none">
+      <img src="/images/logoMuni.svg" alt="Logo">
+      <span>MUNICIPALIDAD DE LA MOLINA</span>
+    </div>
     <mat-card class="block-login" appearance="outlined">
       <mat-card-header class="mb-4">IDENTIFICACION DEL VECINO</mat-card-header>
       <mat-card-content>
@@ -21,18 +25,17 @@
             <div [class]="'contenido' + (nBloqueActivo == 1?' activo':'')">
               <form [formGroup]="frmDNI">
                 <div class="row">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                     <div class="mb-4">
-                      <label class="d-flex justify-content-between">
-                        Número de DNI:
-                      </label>
+                      
                       <mat-form-field appearance="outline" class="w-100">
-                        <input matInput formControlName="nro" autocomplete="off" (keypress)="permitidoNumero($event)" maxlength="8">
+                        <input matInput formControlName="nro" autocomplete="off" (keypress)="permitidoNumero($event)" maxlength="8" placeholder="Ingrese número de documento">
                         @if(frmDNI.get('nro')?.invalid && frmDNI.get('nro')?.markAsTouched){
                           <mat-error>Indique DNI.</mat-error>
                         }
                       </mat-form-field>
                     </div>
+                    <!--
                     <div class="mb-4">
                       <label class="d-flex justify-content-between">
                         Dígito de Verificación:
@@ -59,9 +62,11 @@
                         }
                       </mat-form-field>
                     </div>
-
+                    -->
                   </div>
-                  <div class="col-sm-6">
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
                     <img src="/images/dni.svg"/>
                   </div>
                 </div>
@@ -70,20 +75,22 @@
             <div [class]="'contenido' + (nBloqueActivo == 2?' activo':'')">
               <form [formGroup]="frmCont">
                 <div class="row">
-                  <div class="col-sm-12 col-md-6">
+                  <div class="col-sm-12 col-md-12">
                     <div class="mb-4">
                       <label class="d-flex justify-content-between">
                         Código de contribuyente:
                       </label>
                       <mat-form-field appearance="outline" class="w-100">
-                        <input matInput formControlName="cod" autocomplete="off" (keypress)="permitidoNumero($event)" maxlength="8">
+                        <input matInput formControlName="cod" autocomplete="off" (keypress)="permitidoNumero($event)" maxlength="8" placeholder="Ingrese número de contribuyente">
                         @if(frmCont.get('cod')?.invalid){
                           <mat-error>Indique Código de contribuyente.</mat-error>
                         }
                       </mat-form-field>
                     </div>
                   </div>
-                  <div class="col-sm-12 col-md-6">
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-12">
                     <img src="/images/qrLogin.svg"/>
                   </div>
                 </div>
@@ -93,12 +100,12 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <div class="acciones">
-          <button type="button" class="btnAnimado btnLogin" (click)="validaUsuario()">
-            Validar Ingreso
-          </button>
-        </div>
-      </mat-card-actions>
+            <div class="acciones">
+              <button type="button" class="btnAnimado btnLogin" (click)="validaUsuario()">
+                INGRESAR
+              </button>
+            </div>
+          </mat-card-actions>
     </mat-card>
   </div>
 </div>

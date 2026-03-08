@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UtilService } from '../../services/util.services';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { APP_ROUTES } from '../../shared/constants/app.routes';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-layout-component',
@@ -21,7 +22,9 @@ export class LayoutComponent implements OnInit{
 
   constructor(
     private utilService: UtilService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    private usuarioService: UsuarioService,
+    private breakpointObserver: BreakpointObserver
   ){
 
   }
@@ -35,6 +38,10 @@ export class LayoutComponent implements OnInit{
   VMENU = APP_CONSTANTS.VAL_MENU;
 
   ngOnInit(): void {
+    if(this.breakpointObserver.isMatched('(max-width: 800px)')){
+      this.layoutService.myPanel.set(APP_CONSTANTS.VAL_MENU.COMPACTO);
+    }
+    
     if(this.utilService.getSesionStorage(APP_CONSTANTS.VAR_USUARIO) == undefined){
       this.utilService.removeAllStorage();
       this.utilService.link(APP_ROUTES.URL_LOGIN);
@@ -62,5 +69,9 @@ export class LayoutComponent implements OnInit{
     this.utilService.cambiaMenu(idPage);
     this.utilService.setLocalStorage(APP_CONSTANTS.VAR_PAGE_ACTIVA,idPage.toString());
     this.utilService.link(ruta);
+  }
+
+  salir(){
+    this.usuarioService.logout();
   }
 }

@@ -1,0 +1,32 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Respuesta de Pago</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (isSuccess === true) {
+        <div class="mt-4">
+          <mat-icon class="success-icon">check_circle</mat-icon>
+          <h3>¡Pago Exitoso!</h3>
+          <p>{{ message }}</p>
+        </div>
+      } @else if (isSuccess === false) {
+        <div class="mt-4">
+          <mat-icon class="error-icon">error</mat-icon>
+          <h3>Pago Fallido</h3>
+          <p>{{ message || 'Hubo un problema al procesar su pago.' }}</p>
+        </div>
+      } @else {
+        <div class="mt-4">
+          <p>Procesando la respuesta de Niubiz...</p>
+          <p>Su transacción está siendo validada.</p>
+        </div>
+      }
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-flat-button color="primary" (click)="volver()">
+        Volver a mis pagos
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

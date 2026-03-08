@@ -18,6 +18,10 @@ import { PendientesLista } from "./pendientes-lista/pendientes-lista";
 import { TotalPagar } from "../../../../shared/components/total-pagar/total-pagar";
 import { CargaService } from '../../../../services/carga.service';
 import { ImpuestoPredialResponse } from '../../../../shared/helpers/impuesto-predial-response';
+import { APP_CONSTANTS } from '../../../../shared/constants/app.constants';
+import { ContribuyenteService } from '../../../../services/contribuyente.service';
+import { DtImpuesto } from '../../../../shared/helpers/dtImpuestos';
+import { ListaResumenRegistro } from '../../../../shared/helpers/lista-resumen-registro';
 
 @Component({
   selector: 'app-pendientes',
@@ -31,18 +35,17 @@ export class Pendientes implements OnInit {
   public form!: FormGroup;
   public monto!: number;
   dtConsulta!:ImpuestoPredialRequest;
-  lstAnios:Options[] = [
-    {nId:2024, sDescripcion:'2024'},
-    {nId:2025, sDescripcion:'2025'},
-  ];
+  lstAnios:Array<Options> = [];
   idContriB!:number;
-  lstDatos?:Array<ImpuestoPredialResponse> = [];
+  lstDatos?:Array<DtImpuesto> = [];
   lstMarcados?:any[] = [];
+  lstIdentif?:Array<string> = [];
   constructor(
     private fb: FormBuilder,
     private utilService: UtilService,
     private cargaService: CargaService,
-    private impuestoPredialService: ImpuestoPredialService
+    private impuestoPredialService: ImpuestoPredialService,
+    private contribuyenteService: ContribuyenteService
   ){
 
   }
@@ -52,14 +55,15 @@ export class Pendientes implements OnInit {
     this.monto = 0;
     this.form = this.fb.group({
       impuesto:["opt1"],
-      tipo:["1"]
+      tipo:["I"]
     });
     this.idContriB = info.usuario.idContribuyente;
+    this.lstAnios = this.utilService.getListaAnios();
     this.form.get('impuesto')?.valueChanges.subscribe(val => {
       this.utilService.pestanaPagos(val,"opt1");
     });
     this.form.get('tipo')?.valueChanges.subscribe(val => {
-      let marcados:any;
+      let marcados:Array<string>;
       if(!Array.isArray(val)){
         marcados = [val];
       }else{
@@ -70,39 +74,50 @@ export class Pendientes implements OnInit {
         this.form.get('tipo')?.setValue(["1"]);
         return;
       }else{
-        this.dtConsulta.tipos = marcados;
+        let valFinal:string = (marcados.find((valMarcado:string) => valMarcado == APP_CONSTANTS.TIPO_IMPUESTO.IMPUESTOS) != undefined)?APP_CONSTANTS.TIPO_IMPUESTO.IMPUESTOS:APP_CONSTANTS.TIPO_IMPUESTO.TODOS;
+        this.dtConsulta.estado = valFinal;
         this.consultaImpuestos();
       }
     });
     let fecha:Date = new Date()
-    this.dtConsulta.anioInicio = fecha.getFullYear();
-    this.dtConsulta.anioFin = fecha.getFullYear();
-    this.dtConsulta.tipos = [this.form.get('tipo')?.value];
+    this.dtConsulta.anioInicio = fecha.getFullYear().toString();
+    this.dtConsulta.anioFin = fecha.getFullYear().toString();
+    this.dtConsulta.inicio = fecha.getFullYear();
+    this.dtConsulta.fin = fecha.getFullYear();
+    this.dtConsulta.estado = APP_CONSTANTS.TIPO_IMPUESTO.IMPUESTOS;
     this.consultaImpuestos();
   }
 
   seleccionaAnio(event:any, indicador:number){
+    console.log(event);
     if(indicador == 1){
       this.dtConsulta.anioInicio = event;
+      this.dtConsulta.inicio = event;
     }else{
       this.dtConsulta.anioFin = event;
+      this.dtConsulta.fin = event;
     }
     this.consultaImpuestos();
   }
 
   consultaImpuestos(){
     this.cargaService.show();
-    this.impuestoPredialService.getImpuestosPendientes(this.dtConsulta).subscribe({
-      next: (rpta:any) => {
+    this.contribuyenteService.getImpuestosPendientes(this.dtConsulta).subscribe({
+      next: (rpta:Array<DtImpuesto>) => {
         this.cargaService.hide();
-        console.log("Data Impuestos: ",rpta);
         this.lstDatos = rpta;
+
         this.lstDatos?.map((item:any) => {
-          item.PREDIO = '';
-          item.SALDO = (item.AFECTO + item.MORA) - item.PAGADO;
-          item.TOTALES = item.AFECTO + item.MORA;
-          item.ESTADO = (item.SALDO == 0)?'CANCELADO':'PENDIENTE';
+          item.SALDO = item.AFECTO - item.PAGADO;
+          item.ENVIO = this.utilService.formatoFecha(new Date(item.FECHVENC),"fecha");
+          let datosItem:ListaResumenRegistro = new ListaResumenRegistro();
+          datosItem.visibles?.push({concepto:"CODIGO",valor:item.ANYOIMP + '.' + item.TRIBUTCODI, tipo:'1', sentido:'1'});
+          datosItem.visibles?.push({concepto:"PERIODO",valor:item.PERIODO, tipo:'1',sentido:'1'});
+          datosItem.visibles?.push({concepto:"TRIBUTO",valor:item.TRIBUTDESC, tipo:'1',sentido:'2'});
+          datosItem.visibles?.push({concepto:"TOTAL",valor:item.TOTAL, tipo:'2',sentido:'2'});
+          item.DATOSITEM = datosItem;
         });
+
       },
       error: () => {
         this.cargaService.hide();
@@ -111,18 +126,21 @@ export class Pendientes implements OnInit {
   }
 
   muestraMarcados(dtFilas:any){
+    console.log("Ver: ",dtFilas)
     this.monto = 0;
     this.lstMarcados = [];
+    this.lstIdentif = [];
     if(dtFilas.length > 0){
-      dtFilas.forEach((item:ImpuestoPredialResponse) => {
-        this.monto += item.SALDO || 0;
+      dtFilas.forEach((item:DtImpuesto) => {
+        this.monto += item.TOTAL || 0;
         this.lstMarcados?.push(
           {
-            sConcepto: item.TRIBUTO,
-            nPagara: item.SALDO,
-            nIdDeuda: item.IDDEUDA
+            sConcepto: item.TRIBUTDESC + " - " + item.ANYOIMP + '.' + item.TRIBUTCODI,
+            nPagara: item.TOTAL,
+            nIdDeuda: item.RECIBO
           }
-        )
+        );
+        this.lstIdentif?.push(item.CTAIDENTIF);
       });
     }
   }
@@ -132,4 +150,12 @@ export class Pendientes implements OnInit {
       this.consultaImpuestos();
     }
   }
+
+  /*
+  testNumber(dato:string):number{
+    let rpta:number = 0;
+    rpta = Number.
+    return rpta;
+  }
+    */
 }

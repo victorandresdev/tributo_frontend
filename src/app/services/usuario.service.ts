@@ -49,28 +49,16 @@ export class UsuarioService {
     return this.http.post<any>(this.baseUrl + "/login-admin",data);
   }
 
-  getLoginContribuyente(tipo:number, data:PersonaRequest){
+  getLoginContribuyente(data:PersonaRequest){
     let info:any;
     this.util.removeAllStorage();
-    if(tipo == 1){
-      //info = this.http.post<any>(this.baseUrl + "/login-persona",data);
-      info = this.http.post<any>(this.baseUrl + "/login-persona",data,
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          })
-        }
-      );
-    }else{
-      //info = this.http.post<any>(this.baseUrl + "/login-contribuyente",data);
-      info = this.http.post<any>(this.baseUrl + "/login-contribuyente",data,
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          })
-        }
-      );
-    }
+    info = this.http.post<any>(this.baseUrl + "/loginGeneral",data,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      }
+    );
     return info;
   }
 

@@ -22,6 +22,7 @@ export class ImpuestoPredialService {
   ){ }
 
   getImpuestosPendientes(data:ImpuestoPredialRequest){
-    return this.http.post<any>(this.baseUrl + "/deuda",data);
+    /*return this.http.post<any>(this.baseUrl + "/deuda",data);*/
+    return this.http.post<any>(this.baseUrl + "/saldos",data);
   }
 }

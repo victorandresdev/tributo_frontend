@@ -8,10 +8,13 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatButtonModule } from '@angular/material/button';
 import { APP_CONSTANTS } from '../../../../../shared/constants/app.constants';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { Detalle } from '../../pendientes/detalle/detalle';
+import { ResumenRegistro } from '../../../../../shared/components/resumen-registro/resumen-registro';
 
 @Component({
   selector: 'app-fraccion-lista',
-  imports: [CommonModule, MatCardModule, MatTableModule, MatIconModule, Paginator, MatCheckboxModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatTableModule, MatIconModule, Paginator, MatCheckboxModule, MatButtonModule, ResumenRegistro],
   templateUrl: './fraccion-lista.html',
   styleUrl: './fraccion-lista.scss'
 })
@@ -44,8 +47,9 @@ export class FraccionLista implements OnInit, OnChanges{
   @Output() seleccionCambio: EventEmitter<boolean> = new EventEmitter();
   @Output() seleccionados: EventEmitter<any> = new EventEmitter();
 
-  constructor(){
-
+  constructor(
+    private dialog: MatDialog,
+  ){
   }
 
   ngOnInit(): void {
@@ -103,5 +107,17 @@ export class FraccionLista implements OnInit, OnChanges{
       this.selection.select(...this.dataResult.data);
     }
     this.seleccionados.emit(this.selection.selected);
+  }
+
+  verMarcados(marcados:any){
+    console.log("Marcados en lista: ", marcados);
+    this.seleccionados.emit(marcados);
+  }
+
+  verDetalle(fila:any){
+    this.dialog.open(Detalle, {
+      width: '400px',
+      height: 'auto'
+    });
   }
 }

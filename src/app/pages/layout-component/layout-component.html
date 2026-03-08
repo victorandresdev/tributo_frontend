@@ -10,17 +10,23 @@
             [matTooltipDisabled]="layoutService.myPanel() === VMENU.COMPLETO"
             [matTooltip]="item.ETIQUETA"
             matTooltipPosition="right">{{item.IMAGEN}}</mat-icon>
-          <label>{{item.ETIQUETA}}</label>
+          <label style="font-size: 17px; margin-left: 10px">{{item.ETIQUETA}}</label>
         </div>
       }
       @else {
         <div class="option bloqueado">
           <mat-icon>{{item.IMAGEN}}</mat-icon>
-          <label>{{item.ETIQUETA}}</label>
+          <label style="font-size: 17px; margin-left: 10px">{{item.ETIQUETA}}</label>
         </div>
       }
 
     }
+    <div class="option complete">
+      <button mat-flat-button class="mat-bg-error salir" (click)="salir()"> <!--  -->
+        <mat-icon>exit_to_app</mat-icon>
+        Salir
+      </button>
+    </div>
   </div>
   <div class="ventana">
     <router-outlet></router-outlet>

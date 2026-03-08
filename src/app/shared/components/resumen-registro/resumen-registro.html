@@ -1,0 +1,23 @@
+<div class="moduloRegistro">
+  <div class="bloqueItems">
+    @for (item of datosItem.visibles; track $index) {
+    <div class="itemVisible" [class.linea]="item.sentido == '1'">
+      <div class="concepto">{{item.concepto}}:</div>
+      @if (item.tipo == '1') {
+        <div class="valor">{{item.valor}}</div>
+      }@else {
+        <div class="valor" style="text-align: right;">S/ {{item.valor}}</div>
+      }
+    </div>
+    }
+  </div>
+
+  <div class="bloqueAcciones">
+    <mat-checkbox color="warn" (click)="$event.stopPropagation()" (change)="toggleRow(infoItem)"
+      >
+    </mat-checkbox>
+    <button tabindex="-1" mat-icon-button [disabled]="true" matTooltip="Ver Detalle">
+      <mat-icon>assignment</mat-icon>
+    </button>
+  </div>
+</div>
