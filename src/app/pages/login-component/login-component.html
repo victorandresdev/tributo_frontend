@@ -1,112 +1,220 @@
-<div class="cuerpo">
-  <div class="informativo">
-    <div>
-      Estimado contribuyente, este canal de pago muestra únicamente información sobre las deudas correspondientes a los años 2021 - 2025.
-      <br/><br>
-      Si necesita su estado de cuenta general, puede solicitarlo fácilmente a traves de la plataforma de atención al ciudadano de la Municipalidad de la Molida.
-      <br/><br>
-      ¡Estado aquí para ayudarte!
+<div class="flex min-h-screen flex-col lg:flex-row font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+  <!-- Left Side: Visual/Hero Section -->
+  <div class="relative hidden lg:flex lg:w-1/2 flex-col justify-between p-12 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        alt="La Molina Parks"
+        class="h-full w-full object-cover"
+        data-alt="Modern park with lush green landscapes in La Molina"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9BUhii1MWdMZq_tN6DYGwOn8T6ckMqfKT2T2moFBk8kVy3_115CAXt0baS0px-n1Tkw8qSYl05Z5OqbYZkYuUF_P0eDK5jBzJiK_pJ5wokYLg4d2HBJHzb_vtgrxk_P03e7LRg2xJMh5KiiVtMyyaSwnAeBd5l0nJ0UhNwjE9er1CRuqB_aj-awGchxNxPl2eAgLpHsvXcdXXa_7xPCOSBDylEdBLz1sxpjFfbGA9D_qMG9jtTkc7a8mUnJNbTjCv2ogaxvXMe1kX"
+      />
+      <div class="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-background-dark/40 to-transparent"
+      ></div>
+    </div>
+    <div class="relative z-10 flex items-center gap-3">
+      <div class="bg-white p-2 rounded-lg">
+        <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+      </div>
+      <h2 class="text-white text-2xl font-black tracking-tight">Municipalidad de La Molina</h2>
+    </div>
+    <div class="relative z-10 max-w-lg">
+      <h1 class="text-white text-5xl font-black leading-tight mb-6">
+        Plataforma Institucional Digital
+      </h1>
+      <p class="text-white/90 text-xl font-medium leading-relaxed">
+        Consulta tu información de deuda 2021-2025. Accede a tus tributos y arbitrios de forma
+        segura y rápida desde la comodidad de tu hogar.
+      </p>
+      <div class="mt-8 flex gap-4">
+        <div
+          class="flex items-center gap-2 text-white/80 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20"
+        >
+          <span class="material-symbols-outlined text-sm">verified_user</span>
+          <span class="text-sm font-semibold uppercase tracking-wider">Trámite Seguro</span>
+        </div>
+      </div>
+    </div>
+    <div class="relative z-10 text-white/60 text-sm">
+      © 2024 Municipalidad de La Molina. Todos los derechos reservados.
     </div>
   </div>
-  <div class="login">
-    <div class="logo-mobile d-md-none">
-      <img src="/images/logoMuni.svg" alt="Logo">
-      <span>MUNICIPALIDAD DE LA MOLINA</span>
-    </div>
-    <mat-card class="block-login" appearance="outlined">
-      <mat-card-header class="mb-4">IDENTIFICACION DEL VECINO</mat-card-header>
-      <mat-card-content>
-        <div class="agrupador">
-          <div class="bloques">
-            <div [class]="nBloqueActivo == 1?'activo':''" (click)="cambiaContenido(1)"><mat-icon>looks_one</mat-icon> Por DNI</div>
-            <div [class]="nBloqueActivo == 2?'activo':''" (click)="cambiaContenido(2)"><mat-icon>looks_two</mat-icon> C. Contribuyente</div>
-          </div>
-          <div class="contenidos">
-            <div [class]="'contenido' + (nBloqueActivo == 1?' activo':'')">
-              <form [formGroup]="frmDNI">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="mb-4">
-                      
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput formControlName="nro" autocomplete="off" (keypress)="permitidoNumero($event)" maxlength="8" placeholder="Ingrese número de documento">
-                        @if(frmDNI.get('nro')?.invalid && frmDNI.get('nro')?.markAsTouched){
-                          <mat-error>Indique DNI.</mat-error>
-                        }
-                      </mat-form-field>
-                    </div>
-                    <!--
-                    <div class="mb-4">
-                      <label class="d-flex justify-content-between">
-                        Dígito de Verificación:
-                      </label>
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput formControlName="dig" autocomplete="off" (keypress)="permitidoNumero($event)" maxlength="1">
-                        @if(frmDNI.get('dig')?.invalid){
-                          <mat-error>Indique Dígito de Verificación.</mat-error>
-                        }
-                      </mat-form-field>
-                    </div>
-                    <div>
-                      <label class="d-flex justify-content-between">
-                        Fecha de Nacimiento:
-                      </label>
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput [matDatepicker]="nac" formControlName="nac" autocomplete="off">
-                        <mat-datepicker-toggle matIconSuffix [for]="nac">
-                          <mat-icon fontIcon="fa-calendar-day"></mat-icon>
-                        </mat-datepicker-toggle>
-                        <mat-datepicker #nac></mat-datepicker>
-                        @if(frmDNI.get('nac')?.invalid){
-                          <mat-error>Indique Fecha de Nacimiento.</mat-error>
-                        }
-                      </mat-form-field>
-                    </div>
-                    -->
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <img src="/images/dni.svg"/>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div [class]="'contenido' + (nBloqueActivo == 2?' activo':'')">
-              <form [formGroup]="frmCont">
-                <div class="row">
-                  <div class="col-sm-12 col-md-12">
-                    <div class="mb-4">
-                      <label class="d-flex justify-content-between">
-                        Código de contribuyente:
-                      </label>
-                      <mat-form-field appearance="outline" class="w-100">
-                        <input matInput formControlName="cod" autocomplete="off" (keypress)="permitidoNumero($event)" maxlength="8" placeholder="Ingrese número de contribuyente">
-                        @if(frmCont.get('cod')?.invalid){
-                          <mat-error>Indique Código de contribuyente.</mat-error>
-                        }
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12 col-md-12">
-                    <img src="/images/qrLogin.svg"/>
-                  </div>
-                </div>
-              </form>
-            </div>
+  <!-- Right Side: Login Section -->
+  <div
+    class="flex flex-1 flex-col items-center justify-center p-6 lg:p-24 bg-background-light dark:bg-background-dark"
+  >
+    <div class="w-full max-w-[480px]">
+      <!-- Mobile Logo -->
+      <div class="flex lg:hidden items-center gap-3 mb-10">
+        <span class="material-symbols-outlined text-primary text-4xl">account_balance</span>
+        <h2 class="text-slate-900 dark:text-white text-xl font-black">La Molina</h2>
+      </div>
+      <div class="mb-10">
+        <h3 class="text-slate-900 dark:text-white text-4xl font-black tracking-tight mb-3">
+          Iniciar Sesión
+        </h3>
+        <p class="text-slate-500 dark:text-slate-400 text-lg">
+          Ingrese sus datos para consultar su estado de cuenta y trámites pendientes.
+        </p>
+      </div>
+      <!-- Tabs -->
+      <div class="flex border-b border-slate-200 dark:border-slate-800 mb-8">
+        <button
+          (click)="cambiaContenido(1)"
+          [class.border-primary]="nBloqueActivo == 1"
+          [class.text-primary]="nBloqueActivo == 1"
+          [class.border-transparent]="nBloqueActivo != 1"
+          [class.text-slate-400]="nBloqueActivo != 1"
+          class="flex-1 py-4 text-center border-b-2 font-bold text-sm uppercase tracking-wider transition-all"
+        >
+          Por DNI
+        </button>
+        <button
+          (click)="cambiaContenido(2)"
+          [class.border-primary]="nBloqueActivo == 2"
+          [class.text-primary]="nBloqueActivo == 2"
+          [class.border-transparent]="nBloqueActivo != 2"
+          [class.text-slate-400]="nBloqueActivo != 2"
+          class="flex-1 py-4 text-center border-b-2 font-bold text-sm uppercase tracking-wider transition-all hover:text-slate-600 dark:hover:text-slate-300"
+        >
+          C. Contribuyente
+        </button>
+      </div>
+
+      <!-- Form DNI -->
+      <form
+        *ngIf="nBloqueActivo == 1"
+        [formGroup]="frmDNI"
+        (ngSubmit)="validaUsuario()"
+        class="space-y-6"
+      >
+        <div>
+          <label
+            class="block text-slate-700 dark:text-slate-300 text-sm font-bold uppercase tracking-wider mb-2"
+            >Número de Documento (DNI)</label
+          >
+          <div class="relative">
+            <span
+              class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400"
+              >badge</span
+            >
+            <input
+              formControlName="nro"
+              (keypress)="permitidoNumero($event)"
+              class="w-full pl-12 pr-4 h-16 rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-primary focus:border-primary transition-all text-lg font-medium"
+              placeholder="Ej: 45829301"
+              type="text"
+              maxlength="8"
+            />
           </div>
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-            <div class="acciones">
-              <button type="button" class="btnAnimado btnLogin" (click)="validaUsuario()">
-                INGRESAR
-              </button>
+        <!-- Visual Aid Section -->
+        <div
+          class="bg-primary/5 dark:bg-primary/10 rounded-xl p-4 border border-primary/20 flex items-start gap-4"
+        >
+          <div
+            class="flex-shrink-0 w-24 h-16 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 overflow-hidden relative"
+          >
+            <img
+              alt="DNI Example"
+              class="opacity-40 grayscale"
+              data-alt="Close up of a Peruvian ID card highlighting the verification digit"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHac_VUZWRjxrY2OhUlQNhBc1xzb7rSF-ifD_2B5yzhVxoN2daNSgbx3RL-1uXbjFX6ik7Y2HUdkGD6b5j-Cmpc883QwLhK1AedvtpvGdlKoDau1a5ZCcIO-IajP7YeX0yysJkWfYoMKSVjeFelBkflE3H_2xEKJcDqU0XiUlxmBnVg3V5QD8es84suWglRYFQVSAzfTO3QX8n-O-6jL_sEDYYVF05fRTs2uPSpioLfDovDeTPN2t67fB5V1UkKejhbYiItTAiJBo4"
+            />
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-4 h-4 rounded-full border-2 border-primary animate-pulse"></div>
+              <div
+                class="absolute top-2 right-2 bg-primary text-[10px] text-white px-1 font-bold rounded"
+              >
+                DV
+              </div>
             </div>
-          </mat-card-actions>
-    </mat-card>
+          </div>
+          <div>
+            <p class="text-slate-800 dark:text-slate-200 text-sm font-semibold mb-1">
+              Dígito Verificador
+            </p>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">
+              El dígito verificador se encuentra después de su número de DNI separado por un guión.
+            </p>
+          </div>
+        </div>
+        <div class="pt-4">
+          <button
+            class="w-full bg-primary hover:bg-primary/90 text-white dark:text-background-dark font-black text-lg py-5 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group"
+            type="submit"
+          >
+            <span>INGRESAR A LA PLATAFORMA</span>
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform"
+              >arrow_forward</span
+            >
+          </button>
+        </div>
+      </form>
+
+      <!-- Form Contribuyente -->
+      <form
+        *ngIf="nBloqueActivo == 2"
+        [formGroup]="frmCont"
+        (ngSubmit)="validaUsuario()"
+        class="space-y-6"
+      >
+        <div>
+          <label
+            class="block text-slate-700 dark:text-slate-300 text-sm font-bold uppercase tracking-wider mb-2"
+            >Código de Contribuyente</label
+          >
+          <div class="relative">
+            <span
+              class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400"
+              >person</span
+            >
+            <input
+              formControlName="cod"
+              class="w-full pl-12 pr-4 h-16 rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-primary focus:border-primary transition-all text-lg font-medium"
+              placeholder="Ej: 01-123456"
+              type="text"
+            />
+          </div>
+        </div>
+        <div class="pt-4">
+          <button
+            class="w-full bg-primary hover:bg-primary/90 text-white dark:text-background-dark font-black text-lg py-5 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group"
+            type="submit"
+          >
+            <span>INGRESAR A LA PLATAFORMA</span>
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform"
+              >arrow_forward</span
+            >
+          </button>
+        </div>
+      </form>
+
+      <!-- Footer Links -->
+      <div class="mt-12 flex flex-col items-center gap-6">
+        <a class="text-primary font-bold text-sm hover:underline flex items-center gap-2" href="#">
+          <span class="material-symbols-outlined text-lg">help</span>
+          ¿Necesitas ayuda con tu acceso?
+        </a>
+        <div class="flex gap-8">
+          <a
+            class="text-slate-400 hover:text-slate-600 dark:text-slate-600 dark:hover:text-slate-400 text-xs font-medium uppercase tracking-widest"
+            href="#"
+            >Institucional</a
+          >
+          <a
+            class="text-slate-400 hover:text-slate-600 dark:text-slate-600 dark:hover:text-slate-400 text-xs font-medium uppercase tracking-widest"
+            href="#"
+            >Servicios</a
+          >
+          <a
+            class="text-slate-400 hover:text-slate-600 dark:text-slate-600 dark:hover:text-slate-400 text-xs font-medium uppercase tracking-widest"
+            href="#"
+            >Contacto</a
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<app-footer-component></app-footer-component>

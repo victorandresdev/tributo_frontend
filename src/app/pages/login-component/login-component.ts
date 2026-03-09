@@ -1,33 +1,21 @@
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { UsuarioService } from './../../services/usuario.service';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { FooterComponent } from '../../shared/components/footer-component/footer-component';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CargaService } from '../../services/carga.service';
 import { UtilService } from '../../services/util.services';
 import { APP_ROUTES } from '../../shared/constants/app.routes';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { APP_CONSTANTS, MY_DATE_FORMATS } from '../../shared/constants/app.constants';
+import { APP_CONSTANTS } from '../../shared/constants/app.constants';
 import { SesionData, UsuarioData } from '../../shared/helpers/sesionData';
 import { PersonaRequest } from '../../shared/helpers/login/persona-request';
 import { ContribuyenteService } from '../../services/contribuyente.service';
 
 @Component({
   selector: 'app-login-component',
-  imports: [FooterComponent, MatCardModule, MatIconModule,
-    CommonModule, ReactiveFormsModule, FormsModule, MatInputModule, MatDatepickerModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './login-component.html',
   styleUrl: './login-component.scss',
   standalone: true,
-  providers: [
-    { provide: MY_DATE_FORMATS, useValue: MY_DATE_FORMATS }
-  ]
-  /*changeDetection: ChangeDetectionStrategy.OnPush*/
 })
 export class LoginComponent implements OnInit {
   frmDNI!:FormGroup;
