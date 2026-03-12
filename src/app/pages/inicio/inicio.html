@@ -1,49 +1,179 @@
-<app-migaja-pan [verMigaja]="1"></app-migaja-pan>
-<app-title-page [titulo]="'BIENVENIDO'"></app-title-page>
-<div class="contenedorPrincipal" [class.fondoAmin] = "infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.ADMINISTRADOR">
-  @if (infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE) {
-  <div class="desktop-view">
-    <div class="saludo-desktop">
-      Hola, {{infoUsu.usuario.nombres}}
+<main class="flex-1 px-6 lg:px-20 py-8 max-w-[1440px] mx-auto w-full">
+  <!-- Welcome Section -->
+  <section class="flex flex-wrap justify-between items-end gap-4 mb-8">
+    <div class="flex flex-col gap-1">
+      <h1 class="text-slate-900 dark:text-slate-100 text-4xl lg:text-5xl font-black tracking-tight">¡Hola, {{infoUsu.usuario.nombres.split(' ').at(-1) | titlecase }}!</h1>
+      <p class="text-primary font-bold tracking-widest text-xs uppercase">Te damos la bienvenida al portal ciudadano</p>
     </div>
-    <div class="direccion-desktop">
-      {{infoUsu.usuario.direccion}}
+    <div
+      class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 min-w-[300px]">
+      <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+        <span class="material-symbols-outlined text-3xl">badge</span>
+      </div>
+      <div>
+        <p class="text-slate-400 text-xs font-medium uppercase tracking-tighter">Contribuyente</p>
+        <p class="text-slate-900 dark:text-slate-100 font-bold">{{infoUsu.usuario.nombres.split(' ').at(0) + ' ' +infoUsu.usuario.nombres.split(' ').at(1)  | titlecase }}
+          <br>{{infoUsu.usuario.nombres.split(' ').slice(2).join(' ')  | titlecase }}
+        </p>
+        <span
+          class="inline-flex items-center rounded-full bg-primary/20 px-2 py-0.5 text-xs font-medium text-primary mt-1">
+          <span class="size-1.5 rounded-full bg-primary mr-1.5"></span> Activo
+        </span>
+      </div>
     </div>
-    <div class="bienvenida-desktop">
-      <span>Bienvenido a la plataforma municipal de pagos. Aquí podrá gestionar sus trámites y realizar sus operaciones de manera rápida y segura.</span>
+  </section>
+  <!-- Grid Layout for Main Content -->
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <!-- Main Predio Section (Left and Middle) -->
+    <div class="lg:col-span-3 space-y-6">
+      <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">location_on</span>
+        Tu Predio Principal
+      </h2>
+      <div
+        class="bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 overflow-hidden">
+        <div class="p-8 md:p-10 flex flex-col gap-10">
+          <div
+            class="flex flex-col md:flex-row md:items-start justify-between gap-6 border-b border-slate-100 dark:border-slate-800 pb-8">
+            <div class="space-y-2">
+              <p class="text-primary font-bold text-sm tracking-wide uppercase">Dirección Registrada</p>
+              <h3 class="text-3xl font-black text-slate-900 dark:text-slate-100">{{infoUsu.usuario.direccion.split('Urb')[0]}}</h3>
+              <p class="text-slate-500 dark:text-slate-400 text-xl">{{ infoUsu.usuario.direccion.split('Urb')[1] ? 'Urb' + infoUsu.usuario.direccion.split('Urb')[1] : '' }}</p>
+            </div>
+            <div class="bg-primary/5 border border-primary/10 rounded-2xl p-4 flex items-center gap-4">
+              <div class="size-12 rounded-full bg-primary flex items-center justify-center text-white">
+                <span class="material-symbols-outlined text-2xl">home_work</span>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400 font-bold uppercase tracking-tighter">Código Contribuyente</p>
+                <p class="text-lg font-bold text-slate-800 dark:text-slate-100">{{ infoUsu.usuario.codigoContribuyente }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <span class="material-symbols-outlined text-primary mb-2">square_foot</span>
+              <p class="text-xs text-slate-400 font-bold uppercase mb-1">Área Total</p>
+              <p class="text-xl font-bold text-slate-800 dark:text-slate-100">120.5 m²</p>
+            </div>
+            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <span class="material-symbols-outlined text-primary mb-2">category</span>
+              <p class="text-xs text-slate-400 font-bold uppercase mb-1">Uso de Predio</p>
+              <p class="text-xl font-bold text-slate-800 dark:text-slate-100">Residencial</p>
+            </div>
+            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <span class="material-symbols-outlined text-primary mb-2">event</span>
+              <p class="text-xs text-slate-400 font-bold uppercase mb-1">Vencimiento</p>
+              <p class="text-xl font-bold text-red-500">30 de Sep</p>
+            </div>
+            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <span class="material-symbols-outlined text-primary mb-2">payments</span>
+              <p class="text-xs text-slate-400 font-bold uppercase mb-1">Monto Pendiente</p>
+              <p class="text-xl font-black text-slate-800 dark:text-slate-100">S/ 245.00</p>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+            <button
+              class="w-full sm:w-auto min-w-[240px] bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 text-lg" (click)="ir(1)">
+              <span class="material-symbols-outlined">credit_card</span>Pagar Arbitrios Ahora
+            </button>
+            <button
+              class="w-full sm:w-auto min-w-[200px] bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-4 px-8 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700 text-lg">
+              <span class="material-symbols-outlined">description</span> Ver Estado de Cuenta
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Side Section: Quick Actions -->
+    <div class="lg:col-span-1 space-y-6">
+      <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">bolt</span>
+        Trámites Rápidos
+      </h2>
+      <div class="grid grid-cols-1 gap-4">
+        <!-- Quick Action Card 1 -->
+        <a class="group bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:border-primary/50 hover:shadow-lg transition-all flex items-center gap-4"
+          href="#">
+          <div
+            class="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
+          </div>
+          <div class="flex-1" (click)="ir(1)">
+            <p class="font-bold text-slate-800 dark:text-slate-100">Pagar Arbitrios</p>
+            <p class="text-xs text-slate-400">Pagos en línea seguros</p>
+          </div>
+          <span
+            class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
+        </a>
+        <!-- Banner Card -->
+        <div
+          class="mt-4 p-6 bg-gradient-to-br from-primary to-green-600 rounded-2xl text-white shadow-lg relative overflow-hidden">
+          <div class="relative z-10">
+            <p class="font-black text-xl mb-2">¿Necesitas ayuda?</p>
+            <p class="text-sm opacity-90 mb-4">Estamos aquí para guiarte en cada paso de tus trámites municipales.
+            </p>
+            <button
+              class="bg-white text-primary font-bold px-4 py-2 rounded-lg text-sm hover:bg-slate-50 transition-colors">Contactar</button>
+          </div>
+          <span
+            class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/20 text-9xl rotate-12">help_outline</span>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="mobile-view">
-    <div class="saludo-mobile">
-      <b>HOLA</b>, {{infoUsu.usuario.nombres}}
+  <!-- Footer Section -->
+  <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 pt-10 pb-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div class="space-y-4">
+        <div class="flex items-center gap-2 text-primary">
+          <img src="/images/logoMuni.svg" alt="Logo" width="65">
+          <span class="text-xl font-black text-slate-900 dark:text-slate-100">Municipalidad De La Molina</span>
+        </div>
+        <p class="text-sm text-slate-500 leading-relaxed">Trabajando juntos por un distrito más ordenado, seguro y
+          sostenible. El portal oficial para todos tus servicios municipales.</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4 text-slate-900 dark:text-slate-100">Institucional</h4>
+        <ul class="space-y-2 text-sm text-slate-500">
+          <li><a class="hover:text-primary transition-colors" href="#">Nuestra Historia</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Transparencia</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Noticias</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Convocatorias</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4 text-slate-900 dark:text-slate-100">Servicios</h4>
+        <ul class="space-y-2 text-sm text-slate-500">
+          <li><a class="hover:text-primary transition-colors" href="#">Pago de Tributos</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Licencias de Funcionamiento</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Obras Privadas</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#">Defensa Civil</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4 text-slate-900 dark:text-slate-100">Contacto</h4>
+        <ul class="space-y-3 text-sm text-slate-500">
+          <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary">call</span>
+            (01) 313-4444</li>
+          <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary">mail</span>
+            consultas@munimolina.gob.pe</li>
+          <li class="flex items-center gap-2"><span
+              class="material-symbols-outlined text-sm text-primary">schedule</span> Lun - Vie: 08:00 - 17:00</li>
+        </ul>
+      </div>
     </div>
-    <div class="direccion-mobile">
-      {{infoUsu.usuario.direccion}}
+    <div
+      class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-xs text-slate-400">© 2026 Municipalidad de La Molina. Todos los derechos reservados.</p>
+      <div class="flex gap-6 text-slate-400">
+        <a class="hover:text-primary transition-colors" href="#"><span
+            class="material-symbols-outlined">social_leaderboard</span></a>
+        <a class="hover:text-primary transition-colors" href="#"><span
+            class="material-symbols-outlined">share</span></a>
+        <a class="hover:text-primary transition-colors" href="#"><span
+            class="material-symbols-outlined">public</span></a>
+      </div>
     </div>
-    
-    <mat-card appearance="outlined" class="custom-card-mobile mt-3">
-      <mat-card-content>
-          <button type="button" class="btnAnimado btnPgPendientes" (click)="ir(1)">
-            Pagos Pendientes
-          </button>
-          <button type="button" class="btnAnimado btnPgHistoria" (click)="ir(2)">
-            Historial de pagos
-          </button>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  }@else {
-    <mat-card>
-        <mat-card-header>
-           <mat-card-title>Hola</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-
-        </mat-card-content>
-        <mat-card-footer>
-
-        </mat-card-footer>
-    </mat-card>
-  }
-</div>
+  </footer>
+</main>

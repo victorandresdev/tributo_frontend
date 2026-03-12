@@ -108,6 +108,13 @@
               maxlength="8"
             />
           </div>
+          <div
+            class="text-red-500 text-sm mt-2"
+            style="min-height: 1.5rem;"
+            [style.visibility]="(frmDNI.controls['nro'].touched && frmDNI.controls['nro'].errors?.['required']) ? 'visible' : 'hidden'"
+          >
+            Este campo es requerido.
+          </div>
         </div>
         <div class="pt-4">
           <button
@@ -145,6 +152,13 @@
               placeholder="Ej: 01234567"
               type="text"
             />
+          </div>
+          <div
+            class="text-red-500 text-sm mt-2"
+            style="min-height: 1.5rem;"
+            [style.visibility]="(frmCont.controls['cod'].touched && frmCont.controls['cod'].errors?.['required']) ? 'visible' : 'hidden'"
+          >
+            Este campo es requerido.
           </div>
         </div>
         <div class="pt-4">

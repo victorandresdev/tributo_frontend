@@ -1,35 +1,6 @@
-<app-head-component></app-head-component>
-<div class="cuerpoSistema">
-  <div [class.complete]="layoutService.myPanel() === VMENU.COMPLETO"
-            [class.compact]="layoutService.myPanel() === VMENU.COMPACTO" class="menu complete">
-    @for (item of lstMenu; track $index) {
-      @if(item.ESTADO == 1){
-        <div [class.activated]="layoutService.myIndicador() === item.NRO"
-            [class.activ]="layoutService.myIndicador() != item.NRO" class="option" (click)="ir(item.NRO,item.RUTA)">
-          <mat-icon
-            [matTooltipDisabled]="layoutService.myPanel() === VMENU.COMPLETO"
-            [matTooltip]="item.ETIQUETA"
-            matTooltipPosition="right">{{item.IMAGEN}}</mat-icon>
-          <label style="font-size: 17px; margin-left: 10px">{{item.ETIQUETA}}</label>
-        </div>
-      }
-      @else {
-        <div class="option bloqueado">
-          <mat-icon>{{item.IMAGEN}}</mat-icon>
-          <label style="font-size: 17px; margin-left: 10px">{{item.ETIQUETA}}</label>
-        </div>
-      }
-
-    }
-    <div class="option complete">
-      <button mat-flat-button class="mat-bg-error salir" (click)="salir()"> <!--  -->
-        <mat-icon>exit_to_app</mat-icon>
-        Salir
-      </button>
-    </div>
-  </div>
-  <div class="ventana">
+<div class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 relative flex h-auto min-h-screen w-full flex-col">
+  <div class="layout-container flex h-full grow flex-col">
+    <app-head-component></app-head-component>
     <router-outlet></router-outlet>
   </div>
 </div>
-<app-footer-component></app-footer-component>

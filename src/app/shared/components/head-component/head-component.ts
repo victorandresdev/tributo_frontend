@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SesionData } from '../../helpers/sesionData';
 import { CommonModule } from '@angular/common';
+import { APP_ROUTES } from '../../constants/app.routes';
 
 @Component({
   selector: 'app-head-component',
@@ -25,6 +26,7 @@ export class HeadComponent implements OnInit {
   }
   usuSex!:number;
   usuNombre!:string;
+  
 
   ngOnInit(): void {
     let infoUsu:any = this.utilService.getSesionStorage(APP_CONSTANTS.VAR_USUARIO);
@@ -39,15 +41,16 @@ export class HeadComponent implements OnInit {
     }
   }
 
-  cambiaMenu(){
-    if(this.layoutService.myPanel() == APP_CONSTANTS.VAL_MENU.COMPACTO){
-      this.layoutService.myPanel.set(APP_CONSTANTS.VAL_MENU.COMPLETO);
-    }else{
-      this.layoutService.myPanel.set(APP_CONSTANTS.VAL_MENU.COMPACTO);
-    }
-  }
-
   salir(){
     this.usuarioService.logout();
+  }
+
+  ir(nro:number){
+    this.utilService.cambiaMenu(2)
+    if(nro == 1){
+      this.utilService.link(APP_ROUTES.URL_PAGOS.PENDIENTES.PREDIAL);
+    }else{
+      this.utilService.link(APP_ROUTES.URL_PAGOS.HISTORIA);
+    }
   }
 }
