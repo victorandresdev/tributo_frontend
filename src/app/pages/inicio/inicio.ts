@@ -45,7 +45,9 @@ export class Inicio implements OnInit {
 
   ir(nro:number){
     this.utilService.cambiaMenu(2)
-    if(nro == 1){
+    if(nro == 0){
+      this.utilService.link(APP_ROUTES.URL_PAGOS.INICIO);
+    }else if(nro == 1){
       this.utilService.link(APP_ROUTES.URL_PAGOS.PENDIENTES.PREDIAL);
     }else{
       this.utilService.link(APP_ROUTES.URL_PAGOS.HISTORIA);

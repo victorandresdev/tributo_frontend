@@ -1,12 +1,398 @@
-<app-migaja-pan [verMigaja]="2"></app-migaja-pan>
-<app-title-page [titulo]="'PAGOS'"></app-title-page>
-<div class="contenidoCentral">
-  <button type="button" class="btnAnimado btnPgPendientes"
-    (click)="ir(1)">
-    Pagos Pendientes
-  </button>
-  <button type="button" class="btnAnimado btnPgHistoria"
-    (click)="ir(2)">
-    Historial de pagos
-  </button>
+<div
+  class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden"
+>
+  <div class="layout-container flex h-full grow flex-col">
+    <main class="flex-1 flex justify-center py-8 px-6 lg:px-20">
+      <div class="max-w-[1200px] w-full flex flex-col gap-6">
+        <!-- Breadcrumb & Title -->
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2 text-sm font-medium text-slate-500">
+            <a class="hover:text-primary transition-colors" href="#/pages/inicio">Inicio</a>
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            <span class="text-primary">Pagos</span>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 items-end gap-6">
+            <div>
+              <h1 class="text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
+                Mis Pagos
+              </h1>
+              <p class="text-slate-500 mt-1">
+                Gestiona tus tributos y servicios municipales de forma segura.
+              </p>
+            </div>
+
+            <div class="lg:col-start-3">
+              <div
+                class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 w-full"
+              >
+                <div
+                  class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary"
+                >
+                  <span class="material-symbols-outlined text-3xl">badge</span>
+                </div>
+
+                <div>
+                  <p class="text-slate-400 text-xs font-medium uppercase tracking-tighter">
+                    Contribuyente
+                  </p>
+
+                  <p class="text-slate-900 dark:text-slate-100 font-bold">{{infoUsu.usuario.nombres.split(' ').at(0) + ' ' +infoUsu.usuario.nombres.split(' ').at(1) | titlecase }}
+                      <br>{{infoUsu.usuario.nombres.split(' ').slice(2).join(' ') | titlecase }}</p>
+
+                  <span
+                    class="inline-flex items-center rounded-full bg-primary/20 px-2 py-0.5 text-xs font-medium text-primary mt-1"
+                  >
+                    <span class="size-1.5 rounded-full bg-primary mr-1.5"></span>
+                    Activo
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Main Content Area (Left/Middle) -->
+          <div class="lg:col-span-2 flex flex-col gap-8">
+            <!-- Pagos Pendientes Section -->
+            <section
+              class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-100 dark:border-slate-800"
+            >
+              <div class="space-y-4">
+                <!-- Pending Item 1 -->
+                <div
+                  class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 hover:border-primary transition-colors"
+                >
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="size-12 rounded-lg bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm"
+                    >
+                      <span class="material-symbols-outlined text-primary"> home </span>
+                    </div>
+
+                    <p class="text-lg font-bold text-slate-900 dark:text-slate-100">Impuesto Predial</p>
+                  </div>
+                  <!-- monto -->
+                  <div class="text-center md:text-right md:ml-auto">
+                    <p class="text-lg font-black text-slate-900 dark:text-slate-100">S/ 245.50</p>
+                  </div>
+                  <!-- botón -->
+                  <button
+                    class="w-full md:w-auto bg-primary text-white px-6 py-3 md:py-2.5 rounded-xl font-bold text-sm hover:scale-[1.02] transition-transform"
+                  >
+                    Mostrar detalle
+                  </button>
+                </div>
+                <!-- Pending Item 2 -->
+                <div
+                  class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 hover:border-primary transition-colors"
+                >
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="size-12 rounded-lg bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm"
+                    >
+                      <span class="material-symbols-outlined text-primary"> apartment </span>
+                    </div>
+
+                    <p class="text-lg font-bold text-slate-900 dark:text-slate-100">
+                      Fraccionamiento
+                    </p>
+                  </div>
+                  <!-- monto -->
+                  <div class="text-center md:text-right md:ml-auto">
+                    <p class="text-lg font-black text-slate-900 dark:text-slate-100">S/ 0</p>
+                  </div>
+                  <!-- botón -->
+                  <button
+                    class="w-full md:w-auto bg-primary text-white px-6 py-3 md:py-2.5 rounded-xl font-bold text-sm hover:scale-[1.02] transition-transform"
+                  >
+                    Mostrar detalle
+                  </button>
+                </div>
+
+                <!-- Pending Item 3 -->
+                <div
+                  class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 hover:border-primary transition-colors"
+                >
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="size-12 rounded-lg bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm"
+                    >
+                      <span class="material-symbols-outlined text-primary"> data_check </span>
+                    </div>
+
+                    <p class="text-lg font-bold text-slate-900 dark:text-slate-100">Liquidación</p>
+                  </div>
+
+                  <!-- monto -->
+                  <div class="text-center md:text-right md:ml-auto">
+                    <p class="text-lg font-black text-slate-900 dark:text-slate-100">S/ 1,120.20</p>
+                  </div>
+                  <!-- botón -->
+                  <button
+                    class="w-full md:w-auto bg-primary text-white px-6 py-3 md:py-2.5 rounded-xl font-bold text-sm hover:scale-[1.02] transition-transform"
+                  >
+                    Mostrar detalle
+                  </button>
+                </div>
+              </div>
+            </section>
+            <!-- Historial de Pagos Section -->
+            <section
+              class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-100 dark:border-slate-800"
+            >
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                  <div class="p-2 bg-primary/10 rounded-lg">
+                    <span class="material-symbols-outlined text-primary">history</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">
+                    Historial de Pagos
+                  </h3>
+                </div>
+                <button class="text-primary text-sm font-bold hover:underline">Ver todo</button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                  <thead>
+                    <tr
+                      class="text-slate-400 text-xs font-bold uppercase tracking-wider border-b border-slate-100 dark:border-slate-800"
+                    >
+                      <th class="pb-3 px-2">Concepto</th>
+                      <th class="pb-3">Fecha</th>
+                      <th class="pb-3 text-right">Monto</th>
+                      <th class="pb-3 text-center">Estado</th>
+                      <th class="pb-3 text-right">Recibo</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-50 dark:divide-slate-800">
+                    <tr
+                      class="group hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
+                    >
+                      <td class="py-4 px-2">
+                        <p class="font-bold text-sm text-slate-900 dark:text-slate-100">
+                          Arbitrios Municipales 2024
+                        </p>
+                        <p class="text-xs text-slate-500">1er Trimestre</p>
+                      </td>
+                      <td class="py-4 text-sm text-slate-600 dark:text-slate-400">12 Feb 2024</td>
+                      <td class="py-4 text-right font-bold text-slate-900 dark:text-slate-100">
+                        S/ 245.50
+                      </td>
+                      <td class="py-4 text-center">
+                        <span
+                          class="inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-[10px] font-black px-2 py-1 rounded"
+                        >
+                          <span class="material-symbols-outlined text-[12px] font-black"
+                            >check_circle</span
+                          >
+                          COMPLETADO
+                        </span>
+                      </td>
+                      <td class="py-4 text-right">
+                        <button class="text-slate-400 hover:text-primary transition-colors">
+                          <span class="material-symbols-outlined">download</span>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr
+                      class="group hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
+                    >
+                      <td class="py-4 px-2">
+                        <p class="font-bold text-sm text-slate-900 dark:text-slate-100">
+                          Licencia de Funcionamiento
+                        </p>
+                        <p class="text-xs text-slate-500">Renovación Local Comercial</p>
+                      </td>
+                      <td class="py-4 text-sm text-slate-600 dark:text-slate-400">15 Ene 2024</td>
+                      <td class="py-4 text-right font-bold text-slate-900 dark:text-slate-100">
+                        S/ 480.00
+                      </td>
+                      <td class="py-4 text-center">
+                        <span
+                          class="inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-[10px] font-black px-2 py-1 rounded"
+                        >
+                          <span class="material-symbols-outlined text-[12px] font-black"
+                            >check_circle</span
+                          >
+                          COMPLETADO
+                        </span>
+                      </td>
+                      <td class="py-4 text-right">
+                        <button class="text-slate-400 hover:text-primary transition-colors">
+                          <span class="material-symbols-outlined">download</span>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr
+                      class="group hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
+                    >
+                      <td class="py-4 px-2">
+                        <p class="font-bold text-sm text-slate-900 dark:text-slate-100">
+                          Tasa de Serenazgo
+                        </p>
+                        <p class="text-xs text-slate-500">Aporte Extraordinario</p>
+                      </td>
+                      <td class="py-4 text-sm text-slate-600 dark:text-slate-400">05 Dic 2023</td>
+                      <td class="py-4 text-right font-bold text-slate-900 dark:text-slate-100">
+                        S/ 50.00
+                      </td>
+                      <td class="py-4 text-center">
+                        <span
+                          class="inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-[10px] font-black px-2 py-1 rounded"
+                        >
+                          <span class="material-symbols-outlined text-[12px] font-black"
+                            >check_circle</span
+                          >
+                          COMPLETADO
+                        </span>
+                      </td>
+                      <td class="py-4 text-right">
+                        <button class="text-slate-400 hover:text-primary transition-colors">
+                          <span class="material-symbols-outlined">download</span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+          <!-- Sidebar Area (Right) -->
+          <aside class="flex flex-col gap-6">
+            <!-- Summary Quick Stats -->
+            <div class="bg-primary rounded-xl p-6 text-white shadow-lg shadow-primary/20">
+              <p class="text-primary-100 opacity-90 text-sm font-semibold mb-1">Total a Pagar</p>
+              <h2 class="text-3xl font-black mb-4">S/ 1,365.50</h2>
+              <button
+                class="w-full bg-white text-primary py-3 rounded-lg font-bold hover:bg-slate-50 transition-colors shadow-sm"
+              >
+                Pagar Todo Ahora
+              </button>
+            </div>
+            <!-- Payment Methods / Centers -->
+            <div
+              class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-100 dark:border-slate-800"
+            >
+              <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">location_on</span> Centros de
+                Pago
+              </h4>
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <div class="size-2 bg-primary rounded-full mt-2"></div>
+                  <div>
+                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200">
+                      MAC La Molina
+                    </p>
+                    <p class="text-xs text-slate-500">C.C. Parque Arauco, Nivel 2</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="size-2 bg-primary rounded-full mt-2"></div>
+                  <div>
+                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200">
+                      Palacio Municipal
+                    </p>
+                    <p class="text-xs text-slate-500">Av. Ricardo Elías Aparicio 740</p>
+                  </div>
+                </div>
+                <div class="mt-4 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                  <p class="text-xs font-bold text-slate-400 mb-2 uppercase">Bancos Autorizados</p>
+                  <div
+                    class="flex gap-4 flex-wrap opacity-60 grayscale hover:grayscale-0 transition-all"
+                  >
+                    <div
+                      class="h-6 w-12 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"
+                      title="BCP Logo Placeholder"
+                    ></div>
+                    <div
+                      class="h-6 w-12 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"
+                      title="BBVA Logo Placeholder"
+                    ></div>
+                    <div
+                      class="h-6 w-12 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"
+                      title="Interbank Logo Placeholder"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ / Help Section -->
+            <div
+              class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-100 dark:border-slate-800"
+            >
+              <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">quiz</span> Ayuda al
+                Contribuyente
+              </h4>
+              <ul class="space-y-3">
+                <li>
+                  <a
+                    class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary flex items-center justify-between group"
+                    href="#"
+                  >
+                    ¿Cómo pagar con tarjeta?
+                    <span
+                      class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity"
+                      >arrow_forward</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary flex items-center justify-between group"
+                    href="#"
+                  >
+                    Calendario de beneficios
+                    <span
+                      class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity"
+                      >arrow_forward</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary flex items-center justify-between group"
+                    href="#"
+                  >
+                    ¿Dónde reclamar un pago?
+                    <span
+                      class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity"
+                      >arrow_forward</span
+                    >
+                  </a>
+                </li>
+              </ul>
+              <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+                <p class="text-xs text-slate-400 mb-2 font-bold uppercase">Asistencia en línea</p>
+                <button
+                  class="w-full flex items-center justify-center gap-2 border-2 border-primary text-primary font-bold py-2 rounded-lg hover:bg-primary/5 transition-colors"
+                >
+                  <span class="material-symbols-outlined text-[18px]">chat</span> Chat de Soporte
+                </button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+    <!-- Footer Footer (Minimal) -->
+    <footer
+      class="mt-auto border-t border-slate-200 dark:border-slate-800 py-6 px-10 bg-white dark:bg-slate-900"
+    >
+      <div
+        class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4"
+      >
+        <p class="text-sm text-slate-500">
+          © 2026 Municipalidad Distrital de La Molina. Todos los derechos reservados.
+        </p>
+        <div class="flex gap-6">
+          <a class="text-sm text-slate-500 hover:text-primary" href="#">Privacidad</a>
+          <a class="text-sm text-slate-500 hover:text-primary" href="#">Términos y condiciones</a>
+          <a class="text-sm text-slate-500 hover:text-primary" href="#">Transparencia</a>
+        </div>
+      </div>
+    </footer>
+  </div>
 </div>
