@@ -1,7 +1,5 @@
 import { ImpuestoPredialRequest } from './../../../../shared/helpers/impuesto-predial-request';
-import { ImpuestoPredialService } from './../../../../services/impuesto-predial.service';
 import { UtilService } from './../../../../services/util.services';
-import { APP_ROUTES } from './../../../../shared/constants/app.routes';
 import { Component, OnInit } from '@angular/core';
 import { TitlePage } from '../../../../shared/components/title-page/title-page';
 import { MigajaPan } from '../../../../shared/components/migaja-pan/migaja-pan';
@@ -17,7 +15,6 @@ import { Options } from '../../../../shared/helpers/options';
 import { PendientesLista } from "./pendientes-lista/pendientes-lista";
 import { TotalPagar } from "../../../../shared/components/total-pagar/total-pagar";
 import { CargaService } from '../../../../services/carga.service';
-import { ImpuestoPredialResponse } from '../../../../shared/helpers/impuesto-predial-response';
 import { APP_CONSTANTS } from '../../../../shared/constants/app.constants';
 import { ContribuyenteService } from '../../../../services/contribuyente.service';
 import { DtImpuesto } from '../../../../shared/helpers/dtImpuestos';
@@ -44,7 +41,6 @@ export class Pendientes implements OnInit {
     private fb: FormBuilder,
     private utilService: UtilService,
     private cargaService: CargaService,
-    private impuestoPredialService: ImpuestoPredialService,
     private contribuyenteService: ContribuyenteService
   ){
 
