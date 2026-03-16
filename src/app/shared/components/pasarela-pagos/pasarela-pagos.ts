@@ -72,10 +72,9 @@ export class PasarelaPagos implements OnInit {
     });
 
     this.niubizService.getSession(this.nMonto, this.lstIdentif).subscribe((res:any)=>{
-      console.log('PRUEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
       this.sessionResponse = res as SessionResponse;
-      // this.urlRespuestaNiubiz = "http://localhost:8085/pago-online/niubiz/callback/" + (this.sessionResponse?.purchaseNumber || '');
-      this.urlRespuestaNiubiz = "http://192.168.0.61:8085/pago-online/niubiz/callback/" + (this.sessionResponse?.purchaseNumber || '');
+      this.urlRespuestaNiubiz = "http://localhost:8085/pago-online/niubiz/callback/" + (this.sessionResponse?.purchaseNumber || '');
+      //this.urlRespuestaNiubiz = "http://192.168.0.61:8085/pago-online/niubiz/callback/" + (this.sessionResponse?.purchaseNumber || '');
       setTimeout(()=>{
         this.loadNiubizScript();
       }, 150)

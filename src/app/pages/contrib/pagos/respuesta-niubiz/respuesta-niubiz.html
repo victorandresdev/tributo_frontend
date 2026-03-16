@@ -23,13 +23,13 @@
         </div>
       }
     </mat-card-content>
-    <mat-card-actions align="end">
-      <button mat-flat-button color="primary" (click)="volver()">
+    <mat-card-actions class="flex justify-end gap-[10px]">
+      <button mat-flat-button color="primary" (click)="volver()" class="min-w-[220px]">
         Volver a mis pagos
       </button>
        @if (isSuccess === true) {
-        <button mat-flat-button color="primary" (click)="ticket()">
-          Ver ticket
+        <button mat-flat-button (click)="ticket()" class="min-w-[220px] bg-green-600 text-white hover:bg-green-700" >
+          Descargar comprobante de pago
         </button>
        }
        
