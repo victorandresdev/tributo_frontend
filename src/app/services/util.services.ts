@@ -3,7 +3,7 @@ import { inject, Inject, Injectable, LOCALE_ID } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/src/sweetalert2.scss';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import { APP_ROUTES } from "../shared/constants/app.routes";
 import { APP_CONSTANTS } from '../shared/constants/app.constants';
 import { FormGroup } from '@angular/forms';

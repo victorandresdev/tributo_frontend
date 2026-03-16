@@ -3,7 +3,7 @@ import { EnvironmentsInterface } from "./environments-interface";
 
 export const environment:EnvironmentsInterface = {
   production: true,
-  API_AUTH: 'http://localhost:8085',
+  API_AUTH: '/backend',
   HOST: 'TU_RUTA_PUBLICA',
   RETRY: 2,
   TOKEN_NAME: APP_CONSTANTS.VAR_TOKEN,
