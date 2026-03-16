@@ -100,12 +100,20 @@
     (seleccionados)="muestraMarcados($event)"
   >
   </app-pendientes-lista>
-
+  <app-total-pagar
+    [montoTotal]="monto"
+    [lstDetalle]="lstMarcados || []"
+    [tipoDeuda]="1"
+    [lstIdentif]="lstIdentif || []"
+    (lanza)="accion($event)"
+  ></app-total-pagar>
         </div>
       </div>
     </main>
   </div>
 </body>
+
+
 
 <footer
   class="mt-auto border-t border-slate-200 dark:border-slate-800 py-6 px-10 bg-white dark:bg-slate-900"
