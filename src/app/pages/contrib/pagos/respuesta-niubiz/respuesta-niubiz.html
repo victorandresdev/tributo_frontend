@@ -27,6 +27,12 @@
       <button mat-flat-button color="primary" (click)="volver()">
         Volver a mis pagos
       </button>
+       @if (isSuccess === true) {
+        <button mat-flat-button color="primary" (click)="ticket()">
+          Ver ticket
+        </button>
+       }
+       
     </mat-card-actions>
   </mat-card>
 </div>

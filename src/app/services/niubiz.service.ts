@@ -13,6 +13,7 @@ export class NiubizService {
   ) { }
 
   private sessionUrl = environment.API_AUTH + '/pago-online/niubiz/session';
+  private ticketUrl = environment.API_AUTH + '/pago-online/niubiz/ticket';
 
   getSession(importe: number, lstImpuestos:Array<string>): Observable<any> {
     const sessionRequest = new SessionRequest();
@@ -20,4 +21,10 @@ export class NiubizService {
     sessionRequest.ctaidentif = lstImpuestos
     return this.http.post(this.sessionUrl, sessionRequest);
   }
+
+  generarTicket(operacion: string): Observable<Blob> {
+    const url = `${this.ticketUrl}/${encodeURIComponent(operacion)}`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
 }
