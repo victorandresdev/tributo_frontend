@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NiubizService } from '../../../../services/niubiz.service';
+import { PagoService } from '../../../../services/pago.service';
 import { UtilService } from '../../../../services/util.services';
 
 @Component({
@@ -49,7 +49,7 @@ export class RespuestaNiubiz implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private niubizService: NiubizService,
+    private pagoService: PagoService,
     private utilService: UtilService
   ) {}
 
@@ -69,7 +69,27 @@ export class RespuestaNiubiz implements OnInit {
 
  
   ticket() {
-    
+    const operacion = this.operacion?.toString().trim();
+    if (!operacion) {
+      this.utilService.getAlert('Error', 'No se encontró el número de operación.', 'error', 'OK');
+      return;
+    }
+
+    this.pagoService.generarTicket(operacion).subscribe({
+      next: (pdfBlob) => {
+        const url = window.URL.createObjectURL(pdfBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ticket-${operacion}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.utilService.getAlert('Error', 'No se pudo generar el ticket.', 'error', 'OK');
+      }
+    });
   }
 
 
