@@ -1,6 +1,7 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json angular.json tsconfig*.json ./
+COPY .postcssrc.json ./
 COPY src ./src
 COPY public ./public
 RUN npm ci
