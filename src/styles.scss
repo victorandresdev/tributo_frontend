@@ -5,7 +5,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #17cf36;
+  --color-primary: #00AC68;
   --color-background-light: #f6f8f6;
   --color-background-dark: #112114;
   --font-display: "Public Sans", sans-serif;
@@ -1004,6 +1004,7 @@ mat-form-field.mat-mdc-form-field {
 * {
   scrollbar-color: var(--molina-green-primary) var(--molina-white-backHover);
   scrollbar-width: thin;
+  font-family: 'Public Sans';
 }
 
 /* Chrome, Edge, Safari */
