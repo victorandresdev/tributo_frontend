@@ -4,7 +4,7 @@
       Total a pagar:
     </div>
     <div class="monto">
-      S/ {{montoTotal.toFixed(2)}}
+      S/ {{montoTotal.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}}
     </div>
     <button mat-flat-button class="mat-bg-pagar" (click)="pagar()">
       <mat-icon>payment</mat-icon>

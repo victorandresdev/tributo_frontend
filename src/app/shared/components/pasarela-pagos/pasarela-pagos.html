@@ -30,14 +30,14 @@
                   <tr>
                     <td class="mat-mdc-cell mat-column-nro">{{($index + 1)}}</td>
                     <td class="mat-mdc-cell mat-column-concepto">{{item.sConcepto}}</td>
-                    <td class="mat-mdc-cell mat-column-monto">S/ {{item.nPagara.toFixed(2)}}</td>
+                    <td class="mat-mdc-cell mat-column-monto">S/ {{item.nPagara.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}}</td>
                   </tr>
                   }
                 </tbody>
                 <tfoot>
                   <tr>
                     <td colspan="2" class=" mat-column-monto">TOTAL A PAGAR:</td>
-                    <td class="mat-column-monto">S/ {{nMonto.toFixed(2)}}</td>
+                    <td class="mat-column-monto">S/ {{nMonto.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}}</td>
                   </tr>
                 </tfoot>
               </table>
