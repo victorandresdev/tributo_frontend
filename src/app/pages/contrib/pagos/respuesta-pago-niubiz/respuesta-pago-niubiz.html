@@ -24,7 +24,7 @@
   <button mat-flat-button class="bg-blue-500 hover:bg-blue-700 text-white rounded-lg px-4 py-2" mat-dialog-close>Volver</button>
   @if (data.params.isSuccess === 'true') {
   &nbsp;&nbsp;
-  <button mat-flat-button class="bg-green-600 hover:bg-green-700 text-white rounded-lg px-4 py-2" mat-dialog-close>Ver ticket</button>
+  <button mat-flat-button (click)="ticket()"  class="bg-green-600 hover:bg-green-700 text-white rounded-lg px-4 py-2" mat-dialog-close>Ver ticket</button>
   }
 </mat-dialog-actions>
 </div>
