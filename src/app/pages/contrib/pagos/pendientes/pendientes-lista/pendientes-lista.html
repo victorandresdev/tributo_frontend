@@ -1,7 +1,7 @@
 <ng-container>
   <div class="row">
     <div class="col-12 p-0">
-      <mat-card appearance="outlined" class="custom-card desktop-view">
+      <mat-card class="custom-card desktop-view bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 mb-6">
         <div class="custom-table">
           
           <mat-table [dataSource]="dataResult" class="custom-table">
@@ -109,7 +109,7 @@
       <div class="mobile-view">
         @if(length > 0 && dataResult?.data){
             @for (element of dataResult.data; track $index) {
-                <mat-card class="mobile-card" appearance="outlined">
+                <mat-card class="mobile-card bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 mb-6">
                     <mat-card-header>
                         <div class="card-header-content">
                             <div style="display: flex; align-items: center;">

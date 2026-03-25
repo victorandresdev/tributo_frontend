@@ -11,6 +11,8 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Detalle } from '../detalle/detalle';
 import { ResumenRegistro } from '../../../../../shared/components/resumen-registro/resumen-registro';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RespuestaPagoNiubiz } from '../../respuesta-pago-niubiz/respuesta-pago-niubiz';
 
 @Component({
   selector: 'app-pendientes-lista',
@@ -50,12 +52,30 @@ export class PendientesLista implements OnInit, OnChanges {
   @Output() seleccionados: EventEmitter<any> = new EventEmitter();
 
   constructor(
+    private route: ActivatedRoute,
     private dialog: MatDialog,
+    private router: Router,
   ){}
+
+  isSuccess: boolean | null = null;
+  messageNiubiz: string | null = null;
+  resultPago: any;
+  operacion: string | null = null;
 
   ngOnInit(): void {
     this.getLista();
     this.message = 'Cargando...';
+
+    this.route.queryParams.subscribe(params => {
+      console.log('Parámetros de respuesta Niubiz:', params);
+      if(params['isSuccess'] != undefined){
+        this.abrirModal(params);
+      }
+      //this.isSuccess = params['isSuccess'] === 'true' || params['isSuccess'] === true;
+      //this.messageNiubiz = params['message'] || null;
+      //this.operacion = params['operacion'] || null;
+    });
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -63,6 +83,21 @@ export class PendientesLista implements OnInit, OnChanges {
       this.getLista();
     }
   }
+
+abrirModal(params: any) {
+  const dialogRef = this.dialog.open(RespuestaPagoNiubiz, {
+    width: '400px',
+    data: { params },
+    disableClose: true 
+  });
+
+dialogRef.afterClosed().subscribe(() => {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate(['/pages/pagos/pendientes/ip1']);
+  });
+});
+
+}
 
   getLista(){
     this.message = 'Cargando...';

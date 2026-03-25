@@ -1,7 +1,7 @@
-<div class="row">
-  <div class="col-12 d-flex justify-content-center">
+<div class="mt-3 row">
+  <div style=" text-align: center;">
     @if(vPaginas){
-    <div class="align-content-center" style="font-size: 14px;">Página {{(pageIndex + 1)}} de {{totalPaginas | number:'1.0-0': 'en-US' }}</div>
+    <div style="font-size: 14px;">Página {{(pageIndex + 1)}} de {{totalPaginas | number:'1.0-0': 'en-US' }}</div>
     }
     <button mat-icon-button [disabled]="0 == pageIndex" (click)="goFirst()"><mat-icon>first_page</mat-icon></button>
     <button mat-icon-button [disabled]="0 == pageIndex" (click)="goPrev()"><mat-icon>chevron_left</mat-icon></button>

@@ -1,0 +1,30 @@
+<div class="container flex flex-col items-center text-center">
+<h2 mat-dialog-title class="font-publicsans text-xl font-black text-slate-900 dark:text-slate-100" style="font-family: 'Public Sans';">Respuesta de Pago</h2>
+<mat-dialog-content>
+      @if (data.params.isSuccess === 'true') {
+        <div class="mt-4">
+          <mat-icon class="success-icon text-green-500 text-7xl h-20 w-auto mb-5" style="color: green;height: 40px;width: 40px;font-size: 40px;">check_circle</mat-icon>
+          <h3>¡Pago Exitoso!</h3>
+          <p>{{ data.params.message }}</p>
+        </div>
+      } @else if (data.params.isSuccess === 'false') {
+        <div class="mt-4">
+          <mat-icon class="error-icon text-red-500 text-7xl h-20 w-20 mb-5" style="color: red;height: 40px;width: 40px;font-size: 40px;">error</mat-icon>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100">Pago Fallido</h3>
+          <p>{{ data.params.message || 'Hubo un problema al procesar su pago.' }}</p>
+        </div>
+      } @else {
+        <div class="mt-4">
+          <p>Procesando la respuesta de Niubiz...</p>
+          <p>Su transacción está siendo validada.</p>
+        </div>
+      }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button class="bg-blue-500 hover:bg-blue-700 text-white rounded-lg px-4 py-2" mat-dialog-close>Volver</button>
+  @if (data.params.isSuccess === 'true') {
+  &nbsp;&nbsp;
+  <button mat-flat-button class="bg-green-600 hover:bg-green-700 text-white rounded-lg px-4 py-2" mat-dialog-close>Ver ticket</button>
+  }
+</mat-dialog-actions>
+</div>
