@@ -37,17 +37,17 @@
 
             <ng-container matColumnDef="afecto">
               <mat-header-cell *matHeaderCellDef> Afecto </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.AFECTO.toFixed(2)}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.AFECTO.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="pagado">
               <mat-header-cell *matHeaderCellDef> Pagado </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element?.PAGADO.toFixed(2)}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element?.PAGADO.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}} </mat-cell>
             </ng-container>
 
               <ng-container matColumnDef="saldo">
                   <mat-header-cell *matHeaderCellDef> Saldo </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element?.SALDO.toFixed(2)}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element?.SALDO.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="reajuste">
@@ -57,7 +57,7 @@
 
               <ng-container matColumnDef="mora">
                   <mat-header-cell *matHeaderCellDef> Mora </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element?.MORA.toFixed(2)}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element?.MORA.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="emision" >
@@ -67,7 +67,7 @@
 
               <ng-container matColumnDef="totales" #usuUltMod >
                   <mat-header-cell *matHeaderCellDef class="text-center"> Total </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element?.TOTAL.toFixed(2)}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element?.TOTAL.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="detalle" #acciones stickyEnd>
