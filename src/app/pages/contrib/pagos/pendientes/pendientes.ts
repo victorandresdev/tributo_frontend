@@ -96,12 +96,20 @@ export class Pendientes implements OnInit {
     this.consultaImpuestos();
   }
 
+  private sumarTotales(items: Array<any> = []): number {
+    return (items ?? []).reduce((acumulado: number, item: any) => {
+      const total = Number(item?.TOTAL ?? 0);
+      return acumulado + (Number.isFinite(total) ? total : 0);
+    }, 0);
+  }
+
   consultaImpuestos(){
     this.cargaService.show();
     this.contribuyenteService.getImpuestosPendientes(this.dtConsulta).subscribe({
       next: (rpta:Array<DtImpuesto>) => {
         this.cargaService.hide();
         this.lstDatos = rpta;
+        this.monto = 0;
 
         this.lstDatos?.map((item:any) => {
           item.SALDO = item.AFECTO - item.PAGADO;
@@ -126,9 +134,10 @@ export class Pendientes implements OnInit {
     this.monto = 0;
     this.lstMarcados = [];
     this.lstIdentif = [];
-    if(dtFilas.length > 0){
+
+    if(dtFilas && dtFilas.length > 0){
       dtFilas.forEach((item:DtImpuesto) => {
-        this.monto += item.TOTAL || 0;
+        this.monto += Number(item.TOTAL || 0);
         this.lstMarcados?.push(
           {
             sConcepto: item.TRIBUTDESC + " - " + item.ANYOIMP + '.' + item.TRIBUTCODI,

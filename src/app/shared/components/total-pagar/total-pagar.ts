@@ -26,13 +26,14 @@ export class TotalPagar {
   }
 
   pagar(){
-    if(this.montoTotal > 0){
+    const totalSeleccionado = Number(this.montoTotal || 0);
+    if(totalSeleccionado > 0){
       let ventana:any = this.dialog.open(PasarelaPagos, {
         width: '600px',
         height: 'auto',
         data: {
           info: this.lstDetalle,
-          total: this.montoTotal,
+          total: totalSeleccionado,
           tipoDeuda: this.tipoDeuda,
           lstIdentif: this.lstIdentif
         }

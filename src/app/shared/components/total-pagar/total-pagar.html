@@ -4,9 +4,15 @@
       Total a pagar:
     </div>
     <div class="monto">
-      S/ {{montoTotal.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}}
+      S/ {{ (montoTotal || 0).toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
     </div>
-    <button mat-flat-button class="mat-bg-pagar" (click)="pagar()">
+    <button
+      mat-flat-button
+      class="mat-bg-pagar"
+      [disabled]="(montoTotal || 0) <= 0"
+      [class.disabled-button]="(montoTotal || 0) <= 0"
+      (click)="pagar()"
+    >
       <mat-icon>payment</mat-icon>
       Pagar
     </button>
