@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { UtilService } from '../../../services/util.services';
 import { APP_ROUTES } from '../../../shared/constants/app.routes';
 import { APP_CONSTANTS } from '../../../shared/constants/app.constants';
@@ -14,11 +15,12 @@ import { ImpuestoPredialRequest } from '../../../shared/helpers/impuesto-predial
 })
 export class Pagos {
   infoUsu!:any;
-  impuestoPredialMonto = 151.41;
+  impuestoPredialMonto = 0;
 
   constructor(
     private utilService:UtilService,
     private contribuyenteService: ContribuyenteService,
+    private changeDetectorRef: ChangeDetectorRef,
   ){}
 
   ngOnInit(): void {
@@ -35,25 +37,29 @@ export class Pagos {
 
   private normalizarListaRegistros(respuesta: any): any[] {
     if (Array.isArray(respuesta)) {
-      return respuesta;
-    }
+      if (respuesta.some((item: any) =>
+        item && Object.keys(item).some((key) => key.toUpperCase() === 'TOTAL'))
+      ) {
+        return respuesta;
+      }
 
-    if (Array.isArray(respuesta?.data)) {
-      return respuesta.data;
-    }
-
-    if (Array.isArray(respuesta?.result)) {
-      return respuesta.result;
-    }
-
-    if (Array.isArray(respuesta?.items)) {
-      return respuesta.items;
+      for (const item of respuesta) {
+        const registros = this.normalizarListaRegistros(item);
+        if (registros.length > 0) {
+          return registros;
+        }
+      }
     }
 
     if (respuesta && typeof respuesta === 'object') {
-      const valores = Object.values(respuesta);
-      const primerArreglo = valores.find((valor) => Array.isArray(valor));
-      return Array.isArray(primerArreglo) ? primerArreglo : [];
+      for (const valor of Object.values(respuesta)) {
+        const registros = this.normalizarListaRegistros(valor);
+        if (registros.length > 0 && registros.some((item: any) =>
+          item && Object.keys(item).some((key) => key.toUpperCase() === 'TOTAL'))
+        ) {
+          return registros;
+        }
+      }
     }
 
     return [];
@@ -71,15 +77,16 @@ export class Pagos {
     this.contribuyenteService.getImpuestosPendientes(consulta).subscribe({
       next: (respuesta: any) => {
         const registros = this.normalizarListaRegistros(respuesta);
-        if (registros.length > 0) {
-          this.impuestoPredialMonto = registros.reduce((total: number, item: any) => {
-            const valor = Number(item?.TOTAL ?? item?.total ?? 0);
-            return total + (Number.isFinite(valor) ? valor : 0);
-          }, 0);
-        }
+        this.impuestoPredialMonto = registros.reduce((total: number, item: any) => {
+          const claveTotal = Object.keys(item ?? {}).find((key) => key.toUpperCase() === 'TOTAL');
+          const valor = Number(String(item?.[claveTotal ?? ''] ?? 0).replace(/,/g, ''));
+          return total + (Number.isFinite(valor) ? valor : 0);
+        }, 0);
+        this.changeDetectorRef.markForCheck();
       },
       error: () => {
-        this.impuestoPredialMonto = 151.41;
+        this.impuestoPredialMonto = 0;
+        this.changeDetectorRef.markForCheck();
       }
     });
   }
