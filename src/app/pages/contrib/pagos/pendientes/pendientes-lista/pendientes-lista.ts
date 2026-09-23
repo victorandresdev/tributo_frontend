@@ -13,6 +13,7 @@ import { Detalle } from '../detalle/detalle';
 import { ResumenRegistro } from '../../../../../shared/components/resumen-registro/resumen-registro';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RespuestaPagoNiubiz } from '../../respuesta-pago-niubiz/respuesta-pago-niubiz';
+import { DetalleVentana } from '../../../../../shared/helpers/detalle-pendiente';
 
 @Component({
   selector: 'app-pendientes-lista',
@@ -88,7 +89,7 @@ abrirModal(params: any) {
   const dialogRef = this.dialog.open(RespuestaPagoNiubiz, {
     width: '400px',
     data: { params },
-    disableClose: true 
+    disableClose: true
   });
 
 dialogRef.afterClosed().subscribe(() => {
@@ -150,9 +151,13 @@ dialogRef.afterClosed().subscribe(() => {
   }
 
   verDetalle(fila:any){
+    let infoDetalle:DetalleVentana = new DetalleVentana();
+    infoDetalle.tributo = fila.TRIBUTDESC;
+    infoDetalle.total = fila.TOTAL;
     this.dialog.open(Detalle, {
       width: '400px',
-      height: 'auto'
+      height: 'auto',
+      data: infoDetalle
     });
   }
 }
