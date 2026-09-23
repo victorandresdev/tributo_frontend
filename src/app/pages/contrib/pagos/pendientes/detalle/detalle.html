@@ -21,7 +21,7 @@
         <td class="mat-mdc-cell mat-column-texto">
           {{item.texto}}
         </td>
-        <td class="mat-mdc-cell mat-column-monto">S/ {{item.monto.toFixed(2)}}</td>
+        <td class="mat-mdc-cell mat-column-monto">S/ {{item.monto.toLocaleString('es-PE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}}</td>
       </tr>
       }
     </table>
