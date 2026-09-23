@@ -155,7 +155,7 @@ dialogRef.afterClosed().subscribe(() => {
     infoDetalle.tributo = fila.TRIBUTDESC;
     infoDetalle.total = fila.TOTAL;
     this.dialog.open(Detalle, {
-      width: '400px',
+      width: '500px',
       height: 'auto',
       data: infoDetalle
     });
