@@ -1,10 +1,26 @@
+.popUpCard {
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.popUpCard mat-card-content {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.payment-scroll {
+  max-height: calc(90vh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .custom-card {
   overflow-x: hidden;
 }
 
 .custom-table {
-  overflow-y: hidden;
-  height: -webkit-fill-available;
+  height: auto;
   width: 100%;
 }
 

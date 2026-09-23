@@ -1,6 +1,6 @@
 import { PagoService } from './../../../services/pago.service';
 import { UtilService } from './../../../services/util.services';
-import {Component, Inject, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -26,7 +26,7 @@ import { LiquidacionPago } from '../../helpers/liquidacion-pago';
   templateUrl: './pasarela-pagos.html',
   styleUrl: './pasarela-pagos.scss'
 })
-export class PasarelaPagos implements OnInit {
+export class PasarelaPagos implements OnInit, AfterViewInit, OnDestroy {
   form!:FormGroup;
   formPago!:FormGroup;
   pest!:number;
@@ -35,6 +35,9 @@ export class PasarelaPagos implements OnInit {
   sessionResponse?:SessionResponse;
   urlRespuestaNiubiz: string = '';
   lstIdentif:Array<string> = [];
+  private vistaLista = false;
+  private scriptCargado = false;
+  @ViewChild('niubizPaymentForm') niubizPaymentForm?: ElementRef<HTMLFormElement>;
   constructor(
     private fb:FormBuilder,
     private utilService:UtilService,
@@ -46,7 +49,11 @@ export class PasarelaPagos implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private renderer: Renderer2,
     private contriService: ContribuyenteService
-  ){}
+  ){
+    document.querySelectorAll('form#niubiz-payment-form').forEach((form) => form.remove());
+    document.querySelectorAll('script[src*="vnforapps.com/env/sandbox/js/checkout.js"]')
+      .forEach((script) => script.remove());
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -75,11 +82,24 @@ export class PasarelaPagos implements OnInit {
       this.sessionResponse = res as SessionResponse;
       //this.urlRespuestaNiubiz = "http://localhost:8085/pago-online/niubiz/callback/" + (this.sessionResponse?.purchaseNumber || '');
       this.urlRespuestaNiubiz = "http://192.168.0.61:8085/pago-online/niubiz/callback/" + (this.sessionResponse?.purchaseNumber || '');
-      setTimeout(()=>{
-        this.loadNiubizScript();
-      }, 150)
+      this.cargarScriptCuandoEsteListo();
     });
 
+  }
+
+  ngAfterViewInit(): void {
+    this.vistaLista = true;
+    this.cargarScriptCuandoEsteListo();
+  }
+
+  ngOnDestroy(): void {
+    if (this.niubizPaymentForm?.nativeElement) {
+      this.niubizPaymentForm.nativeElement.innerHTML = '';
+    }
+
+    if ((window as any).onAuthorize) {
+      delete (window as any).onAuthorize;
+    }
   }
 
   cancelar(){
@@ -132,6 +152,21 @@ export class PasarelaPagos implements OnInit {
     }
   }
 
+  private cargarScriptCuandoEsteListo(intentos = 0): void {
+    if (this.scriptCargado || !this.sessionResponse || !this.vistaLista) {
+      return;
+    }
+
+    if (!this.niubizPaymentForm?.nativeElement) {
+      if (intentos < 20) {
+        setTimeout(() => this.cargarScriptCuandoEsteListo(intentos + 1), 50);
+      }
+      return;
+    }
+
+    this.loadNiubizScript();
+  }
+
   private loadNiubizScript(): void {
     console.log('1111111111111111111111111111');
     /*let info:LiquidacionPago = new LiquidacionPago();
@@ -147,7 +182,8 @@ export class PasarelaPagos implements OnInit {
     let amount = this.sessionResponse?.amount?.toFixed(2).toString() || '';
     const script = this.renderer.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://static-content-qas.vnforapps.com/env/sandbox/js/checkout.js';
+    script.src = 'https://static-content-qas.vnforapps.com/env/sandbox/js/checkout.js?v=' + Date.now();
+    script.async = false;
     script.setAttribute('data-sessiontoken', this.sessionResponse?.sessionKey || '');
     script.setAttribute('data-channel', 'web');
     script.setAttribute('data-merchantid', this.sessionResponse?.merchantId || '');
@@ -164,14 +200,17 @@ export class PasarelaPagos implements OnInit {
       this.procesarRespuestaNiubiz(response);
     };
 
-    const form = document.getElementById('niubiz-payment-form');
+    const form = this.niubizPaymentForm?.nativeElement;
     console.log('Loading Niubiz script with amount:', this.sessionResponse?.amount);
     console.log("script:", script);
     if (form) {
       console.log('Loading Niubiz script with session token:', this.sessionResponse?.sessionKey);
       form.innerHTML = ''; // Limpiar el formulario antes de inyectar el script
+      const scriptsAnteriores = form.querySelectorAll('script');
+      scriptsAnteriores.forEach((scriptAnterior) => scriptAnterior.remove());
       this.renderer.setAttribute(form, 'action', this.urlRespuestaNiubiz);
       this.renderer.appendChild(form, script);
+      this.scriptCargado = true;
     }
   }
 
