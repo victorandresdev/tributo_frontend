@@ -1,6 +1,7 @@
 export const APP_ROUTES = {
     URL_HOME: '/',
     URL_LOGIN: '/auth/login',
+    URL_INTRANET_LOGIN: '/auth/intranet/login',
     URL_INICIO: '/pages/inicio',
     URL_PAGOS: {
       INICIO: '/pages/pagos',
@@ -11,7 +12,6 @@ export const APP_ROUTES = {
       },
       HISTORIA: 'pages/pagos/historial'
     },
-    //URL_ADMIN_INICIO: 'pages/admin/'
     URL_ADMIN:{
       USUARIOS: '/pages/admin/usuarios',
       SEDES: '/pages/admin/sedes/',
