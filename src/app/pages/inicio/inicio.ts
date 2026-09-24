@@ -8,6 +8,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { APP_CONSTANTS } from '../../shared/constants/app.constants';
 import { APP_ROUTES } from '../../shared/constants/app.routes';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { LogsAuditoriaComponent } from '../shared/logs-auditoria/logs-auditoria.component';
 
 @Component({
   selector: 'app-inicio',
@@ -20,7 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class Inicio implements OnInit {
   constructor(
     private fb:FormBuilder,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private dialog: MatDialog
   ){
 
   }
@@ -40,6 +43,22 @@ export class Inicio implements OnInit {
       if(this.infoUsu.usuario.tipoUsuario == APP_CONSTANTS.TIPO_USUARIO.CONTRIBUYENTE){
 
       }
+    }
+  }
+
+  abrirLogsAuditoria(): void {
+    if (this.infoUsu?.usuario?.login === 'ADMIN') {
+      this.dialog.open(LogsAuditoriaComponent, {
+        width: '1200px',
+        height: '850px',
+        maxWidth: '98vw',
+        maxHeight: '92vh',
+        minWidth: '720px',
+        disableClose: false,
+        autoFocus: false,
+        restoreFocus: false,
+        panelClass: 'logs-auditoria-dialog-panel',
+      });
     }
   }
 

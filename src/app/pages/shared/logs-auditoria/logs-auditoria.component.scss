@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+::ng-deep .mdc-dialog__surface {
+  border-radius: 1.5rem !important;
+  overflow: hidden;
+  background: transparent !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+::ng-deep .logs-auditoria-dialog-panel .mat-mdc-dialog-surface,
+::ng-deep .logs-auditoria-dialog-panel.mdc-dialog__surface {
+  max-width: 98vw !important;
+  width: min(1200px, 98vw) !important;
+}
+
+::ng-deep .mat-mdc-dialog-content {
+  max-height: 65vh !important;
+}
+
+.logs-table-wrapper {
+  margin: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .logs-table-wrapper {
+    margin: 0 2.5rem;
+  }
+}

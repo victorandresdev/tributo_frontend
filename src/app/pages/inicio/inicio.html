@@ -5,7 +5,7 @@
       <h1 class="text-slate-900 dark:text-slate-100 text-4xl lg:text-5xl font-black tracking-tight">¡Hola, {{infoUsu.usuario.nombres.split(' ').at(-1) | titlecase }}!</h1>
       <p class="text-primary font-bold tracking-widest text-xs uppercase">Te damos la bienvenida al portal ciudadano</p>
     </div>
-    <div
+    <div *ngIf="infoUsu.usuario.login !== 'ADMIN'"
       class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 min-w-[300px]">
       <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
         <span class="material-symbols-outlined text-3xl">badge</span>
@@ -26,7 +26,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
     <!-- Main Predio Section (Left and Middle) -->
     <div class="lg:col-span-3 space-y-6">
-      <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+      <h2 *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
         <span class="material-symbols-outlined text-primary">location_on</span>
         Tu Predio Principal
       </h2>
@@ -40,39 +40,51 @@
               <h3 class="text-3xl font-black text-slate-900 dark:text-slate-100">{{infoUsu.usuario.direccion.split('Urb')[0]}}</h3>
               <p class="text-slate-500 dark:text-slate-400 text-xl">{{ infoUsu.usuario.direccion.split('Urb')[1] ? 'Urb' + infoUsu.usuario.direccion.split('Urb')[1] : '' }}</p>
             </div>
-            <div class="bg-primary/5 border border-primary/10 rounded-2xl p-4 flex items-center gap-4">
+            <div *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="bg-primary/5 border border-primary/10 rounded-2xl p-4 flex items-center gap-4">
               <div class="size-12 rounded-full bg-primary flex items-center justify-center text-white">
                 <span class="material-symbols-outlined text-2xl">home_work</span>
               </div>
-              <div>
+              <div >
                 <p class="text-xs text-slate-400 font-bold uppercase tracking-tighter">Código Contribuyente</p>
                 <p class="text-lg font-bold text-slate-800 dark:text-slate-100">{{ infoUsu.usuario.codigoContribuyente }}</p>
               </div>
             </div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <div id="auditoria" (click)="abrirLogsAuditoria()" class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all">
               <span class="material-symbols-outlined text-primary mb-2">square_foot</span>
-              <p class="text-xs text-slate-400 font-bold uppercase mb-1">Área Total</p>
-              <p class="text-xl font-bold text-slate-800 dark:text-slate-100">120.5 m²</p>
+              <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Área Total</p>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Reporte de logs</p>
+              <p *ngIf="infoUsu.usuario.login !== 'ADMIN'"class="text-xl font-bold text-slate-800 dark:text-slate-100">120.5 m²</p>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'"class="text-xl font-bold text-slate-800 dark:text-slate-100">Auditoría</p>
             </div>
-            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <div  class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
               <span class="material-symbols-outlined text-primary mb-2">category</span>
-              <p class="text-xs text-slate-400 font-bold uppercase mb-1">Uso de Predio</p>
-              <p class="text-xl font-bold text-slate-800 dark:text-slate-100">Residencial</p>
+              <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Uso de Predio</p>
+              <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Residencial</p>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'"class="text-xs text-slate-400 font-bold uppercase mb-1">Reporte</p>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Analítico 1</p>
+            </div>
+            <div   class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <span *ngIf="infoUsu.usuario.login == 'ADMIN'" class="material-symbols-outlined text-primary mb-2">category</span>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Reporte</p>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Analítico 2</p>
+              
+              <span *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="material-symbols-outlined text-primary mb-2">event</span>
+              <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Vencimiento</p>
+              <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xl font-bold text-red-500">30 de Sep</p>
             </div>
             <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
-              <span class="material-symbols-outlined text-primary mb-2">event</span>
-              <p class="text-xs text-slate-400 font-bold uppercase mb-1">Vencimiento</p>
-              <p class="text-xl font-bold text-red-500">30 de Sep</p>
-            </div>
-            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
-              <span class="material-symbols-outlined text-primary mb-2">payments</span>
-              <p class="text-xs text-slate-400 font-bold uppercase mb-1">Monto Pendiente</p>
-              <p class="text-xl font-black text-slate-800 dark:text-slate-100">S/ 245.00</p>
+              <span *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="material-symbols-outlined text-primary mb-2">payments</span>
+              <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Monto Pendiente</p>
+              <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xl font-black text-slate-800 dark:text-slate-100">S/ 245.00</p>
+
+              <span *ngIf="infoUsu.usuario.login == 'ADMIN'" class="material-symbols-outlined text-primary mb-2">category</span>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Reporte</p>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Analítico 3</p>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+          <div class="flex flex-col sm:flex-row items-center gap-4 pt-4" *ngIf="infoUsu.usuario.login !== 'ADMIN'">
             <button
               class="w-full sm:w-auto min-w-[240px] bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 text-lg" (click)="ir(0)">
               <span class="material-symbols-outlined">credit_card</span>Pagar Arbitrios Ahora
@@ -86,7 +98,7 @@
       </div>
     </div>
     <!-- Side Section: Quick Actions -->
-    <div class="lg:col-span-1 space-y-6">
+    <div class="lg:col-span-1 space-y-6" *ngIf="infoUsu.usuario.login !== 'ADMIN'">
       <h2 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
         <span class="material-symbols-outlined text-primary">bolt</span>
         Trámites Rápidos
