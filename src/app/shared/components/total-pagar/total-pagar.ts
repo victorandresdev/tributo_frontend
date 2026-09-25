@@ -40,6 +40,12 @@ export class TotalPagar {
       });
       ventana.afterClosed().subscribe({
         next: (rpta:any) => {
+          document.querySelectorAll('form#niubiz-payment-form').forEach((form) => form.remove());
+          document.querySelectorAll('script[src*="vnforapps.com/env/sandbox/js/checkout.js"]')
+            .forEach((script) => script.remove());
+          delete (window as any).onAuthorize;
+          delete (window as any).VisanetCheckout;
+
           if(rpta == true){
             this.lanza.emit(true);
           }

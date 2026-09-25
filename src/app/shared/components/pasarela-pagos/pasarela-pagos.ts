@@ -49,11 +49,7 @@ export class PasarelaPagos implements OnInit, AfterViewInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private renderer: Renderer2,
     private contriService: ContribuyenteService
-  ){
-    document.querySelectorAll('form#niubiz-payment-form').forEach((form) => form.remove());
-    document.querySelectorAll('script[src*="vnforapps.com/env/sandbox/js/checkout.js"]')
-      .forEach((script) => script.remove());
-  }
+  ){}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -100,6 +96,10 @@ export class PasarelaPagos implements OnInit, AfterViewInit, OnDestroy {
     if ((window as any).onAuthorize) {
       delete (window as any).onAuthorize;
     }
+
+    delete (window as any).VisanetCheckout;
+
+    this.scriptCargado = false;
   }
 
   cancelar(){
@@ -192,6 +192,9 @@ export class PasarelaPagos implements OnInit, AfterViewInit, OnDestroy {
     script.setAttribute('data-expirationminutes', '20');
     script.setAttribute('data-timeouturl', 'about:blank');
     script.setAttribute('data-formbuttoncolor', '#000000');
+    script.onload = () => {
+      this.scriptCargado = true;
+    };
 
     // Configurar el callback de respuesta
     (window as any).onAuthorize = (response: any) => {
@@ -210,7 +213,6 @@ export class PasarelaPagos implements OnInit, AfterViewInit, OnDestroy {
       scriptsAnteriores.forEach((scriptAnterior) => scriptAnterior.remove());
       this.renderer.setAttribute(form, 'action', this.urlRespuestaNiubiz);
       this.renderer.appendChild(form, script);
-      this.scriptCargado = true;
     }
   }
 
