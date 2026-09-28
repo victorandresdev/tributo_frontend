@@ -90,7 +90,7 @@
               <span class="material-symbols-outlined">credit_card</span>Pagar Arbitrios Ahora
             </button>
             <button
-              class="w-full sm:w-auto min-w-[200px] bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-4 px-8 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700 text-lg">
+              class="w-full sm:w-auto min-w-[200px] bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-4 px-8 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700 text-lg" (click)="ir(1)">
               <span class="material-symbols-outlined">description</span> Ver Estado de Cuenta
             </button>
           </div>
@@ -148,43 +148,55 @@
       <div>
         <h4 class="font-bold mb-4 text-slate-900 dark:text-slate-100">Institucional</h4>
         <ul class="space-y-2 text-sm text-slate-500">
-          <li><a class="hover:text-primary transition-colors" href="#">Nuestra Historia</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Transparencia</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Noticias</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Convocatorias</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#" (click)="$event.preventDefault()" aria-disabled="true">Nuestra Historia</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#" (click)="$event.preventDefault()" aria-disabled="true">Transparencia</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#" (click)="$event.preventDefault()" aria-disabled="true">Noticias</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#" (click)="$event.preventDefault()" aria-disabled="true">Convocatorias</a></li>
         </ul>
       </div>
       <div>
         <h4 class="font-bold mb-4 text-slate-900 dark:text-slate-100">Servicios</h4>
         <ul class="space-y-2 text-sm text-slate-500">
-          <li><a class="hover:text-primary transition-colors" href="#">Pago de Tributos</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Licencias de Funcionamiento</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Obras Privadas</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Defensa Civil</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#" (click)="$event.preventDefault()" aria-disabled="true">Pago de Tributos</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#" (click)="$event.preventDefault()" aria-disabled="true">Licencias de Funcionamiento</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#" (click)="$event.preventDefault()" aria-disabled="true">Obras Privadas</a></li>
+          <li><a class="hover:text-primary transition-colors" href="#" (click)="$event.preventDefault()" aria-disabled="true">Defensa Civil</a></li>
         </ul>
       </div>
       <div>
         <h4 class="font-bold mb-4 text-slate-900 dark:text-slate-100">Contacto</h4>
         <ul class="space-y-3 text-sm text-slate-500">
           <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary">call</span>
-            (01) 313-4444</li>
-          <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-primary">mail</span>
-            consultas@munimolina.gob.pe</li>
-          <li class="flex items-center gap-2"><span
-              class="material-symbols-outlined text-sm text-primary">schedule</span> Lun - Vie: 08:00 - 17:00</li>
+            (01) 754 4000</li>
+          
+          <li class="flex items-center gap-2">
+            <span
+              class="material-symbols-outlined text-sm text-primary">schedule</span> Lun - Vie: 08:10 - 17:20</li>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Sabado: 08:10 - 13:00</span>
         </ul>
+        <div class="mt-5">
+          <h5 class="font-medium text-slate-900 dark:text-slate-100 mb-2">Redes Sociales</h5>
+          <div class="flex items-center gap-2">
+            <a class="size-5 rounded-full bg-black text-white flex items-center justify-center" href="https://www.facebook.com/MunicipalidadDeLaMolina" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="bi bi-facebook text-[11px]"></i></a>
+            <a class="size-5 rounded-full bg-black text-white flex items-center justify-center" href="https://x.com/Munimolina" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="bi bi-twitter-x text-[10px]"></i></a>
+            <a class="size-5 rounded-full bg-black text-white flex items-center justify-center" href="https://www.instagram.com/munilamolina/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="bi bi-instagram text-[10px]"></i></a>
+            <a class="size-5 rounded-full bg-black text-white flex items-center justify-center" href="https://www.youtube.com/@munidelamolina" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="bi bi-youtube text-[11px]"></i></a>
+            <a class="size-5 rounded-full bg-black text-white flex items-center justify-center" href="https://www.tiktok.com/@munilamolina" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="bi bi-tiktok text-[10px]"></i></a>
+          </div>
+        </div>
       </div>
     </div>
     <div
       class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="text-xs text-slate-400">© 2026 Municipalidad de La Molina. Todos los derechos reservados.</p>
       <div class="flex gap-6 text-slate-400">
-        <a class="hover:text-primary transition-colors" href="#"><span
+        <!-- <a class="hover:text-primary transition-colors" href="#"><span
             class="material-symbols-outlined">social_leaderboard</span></a>
         <a class="hover:text-primary transition-colors" href="#"><span
             class="material-symbols-outlined">share</span></a>
         <a class="hover:text-primary transition-colors" href="#"><span
-            class="material-symbols-outlined">public</span></a>
+            class="material-symbols-outlined">public</span></a> -->
       </div>
     </div>
   </footer>
