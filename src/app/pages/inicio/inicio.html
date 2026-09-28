@@ -63,7 +63,7 @@
               <!-- <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Uso de Predio</p> -->
               <!-- <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Residencial</p> -->
               <p *ngIf="infoUsu.usuario.login == 'ADMIN'"class="text-xs text-slate-400 font-bold uppercase mb-1">Reporte</p>
-              <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Analítico 1</p>
+              <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Histórico Pagos</p>
             </div>
             <div *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
               <span *ngIf="infoUsu.usuario.login == 'ADMIN'" class="material-symbols-outlined text-primary mb-2">category</span>
@@ -74,15 +74,15 @@
               <!-- <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Vencimiento</p>
               <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xl font-bold text-red-500">30 de Sep</p> -->
             </div>
-            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <!-- <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800"> -->
               <!-- <span *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="material-symbols-outlined text-primary mb-2">payments</span>
               <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Monto Pendiente</p>
               <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xl font-black text-slate-800 dark:text-slate-100">S/ 245.00</p> -->
 
-              <span *ngIf="infoUsu.usuario.login == 'ADMIN'" class="material-symbols-outlined text-primary mb-2">category</span>
+              <!-- <span *ngIf="infoUsu.usuario.login == 'ADMIN'" class="material-symbols-outlined text-primary mb-2">category</span>
               <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Reporte</p>
               <p *ngIf="infoUsu.usuario.login == 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Analítico 3</p>
-            </div>
+            </div> -->
           </div>
           <div class="flex flex-col sm:flex-row items-center gap-4 pt-4" *ngIf="infoUsu.usuario.login !== 'ADMIN'">
             <button
