@@ -1,4 +1,4 @@
-<div class="bg-background-light dark:bg-background-dark" style="padding-left: 30px; padding-right: 30px; padding-top: 24px; padding-bottom: 24px;">
+<div class="bg-background-light dark:bg-background-dark" style="padding-left: 30px; padding-right: 30px; padding-top: 10px; padding-bottom: 24px;">
   <!-- Header -->
   <div mat-dialog-title class="border-b border-slate-200 dark:border-slate-800 pb-5 mb-6">
     <div class="flex items-center justify-between gap-4 flex-wrap">
@@ -42,51 +42,55 @@
         </h3>
       </div>
       <div class="card-body px-5 py-5">
-        <form [formGroup]="formFiltros" (ngSubmit)="buscar()" class="row g-4 align-items-end">
-          <div class="col-12 col-md-6 col-xl-3">
-            <label class="form-label fw-semibold text-sm text-slate-700 dark:text-slate-200 mb-2 d-flex align-items-center gap-2">
-              <span class="material-symbols-outlined text-base text-primary">calendar_today</span>
-              Fecha Desde
-            </label>
-            <input
-              type="date"
-              class="form-control border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all shadow-none"
-              formControlName="fechaDesde"
-              [max]="maxFecha | date:'yyyy-MM-dd'"
-            >
+        <form [formGroup]="formFiltros" (ngSubmit)="buscar()" class="flex flex-col gap-5">
+          <!-- 3 filtros en la MISMA LÍNEA (Tailwind flex-row, se envuelve en mobile) -->
+          <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+            <div class="flex-1 min-w-0 w-full sm:w-auto">
+              <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+                <span class="material-symbols-outlined text-base text-primary shrink-0">calendar_today</span>
+                Fecha Desde
+              </label>
+              <input
+                type="date"
+                class="w-full h-11 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+                formControlName="fechaDesde"
+                [max]="maxFecha | date:'yyyy-MM-dd'"
+              >
+            </div>
+
+            <div class="flex-1 min-w-0 w-full sm:w-auto">
+              <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+                <span class="material-symbols-outlined text-base text-primary shrink-0">event</span>
+                Fecha Hasta
+              </label>
+              <input
+                type="date"
+                class="w-full h-11 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+                formControlName="fechaHasta"
+                [max]="maxFecha | date:'yyyy-MM-dd'"
+              >
+            </div>
+
+            <div class="flex-1 min-w-0 w-full sm:w-auto">
+              <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+                <span class="material-symbols-outlined text-base text-primary shrink-0">person</span>
+                Usuario
+              </label>
+              <input
+                type="text"
+                class="w-full h-11 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+                formControlName="usuario"
+                placeholder="Buscar por nombre de usuario (opcional)"
+                autocomplete="off"
+              >
+            </div>
           </div>
 
-          <div class="col-12 col-md-6 col-xl-3">
-            <label class="form-label fw-semibold text-sm text-slate-700 dark:text-slate-200 mb-2 d-flex align-items-center gap-2">
-              <span class="material-symbols-outlined text-base text-primary">event</span>
-              Fecha Hasta
-            </label>
-            <input
-              type="date"
-              class="form-control border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all shadow-none"
-              formControlName="fechaHasta"
-              [max]="maxFecha | date:'yyyy-MM-dd'"
-            >
-          </div>
-
-          <div class="col-12 col-md-6 col-xl-4">
-            <label class="form-label fw-semibold text-sm text-slate-700 dark:text-slate-200 mb-2 d-flex align-items-center gap-2">
-              <span class="material-symbols-outlined text-base text-primary">person</span>
-              Usuario
-            </label>
-            <input
-              type="text"
-              class="form-control border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all shadow-none"
-              formControlName="usuario"
-              placeholder="Buscar por nombre de usuario (opcional)"
-              autocomplete="off"
-            >
-          </div>
-
-          <div class="col-12 col-md-6 col-xl-2 d-flex gap-2">
+          <!-- Botones debajo, centrados -->
+          <div class="flex justify-center items-center gap-3 pt-4 mt-1 border-t border-slate-200 dark:border-slate-800">
             <button
               type="submit"
-              class="btn btn-primary flex-grow-1 d-flex align-items-center justify-content-center gap-2 fw-bold text-uppercase tracking-wider rounded-lg px-4 py-2.5 shadow-md shadow-primary/20 border-0"
+              class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-primary text-white font-black uppercase tracking-wider text-sm shadow-lg shadow-primary/25 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 border-0"
               [disabled]="cargando()"
             >
               <span class="material-symbols-outlined text-lg">search</span>
@@ -94,11 +98,12 @@
             </button>
             <button
               type="button"
-              class="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2 fw-bold rounded-lg px-4 py-2.5 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200"
+              class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-black uppercase tracking-wider text-sm hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
               (click)="limpiarFiltros()"
               [disabled]="cargando()"
             >
               <span class="material-symbols-outlined text-lg">restart_alt</span>
+              <span>Limpiar</span>
             </button>
           </div>
         </form>
