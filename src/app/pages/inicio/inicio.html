@@ -58,7 +58,7 @@
               <!-- <p *ngIf="infoUsu.usuario.login !== 'ADMIN'"class="text-xl font-bold text-slate-800 dark:text-slate-100">120.5 m²</p> -->
               <p *ngIf="infoUsu.usuario.login == 'ADMIN'"class="text-xl font-bold text-slate-800 dark:text-slate-100">Auditoría</p>
             </div>
-            <div  class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <div id="analitico1" (click)="abrirReporte()" class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all">
               <span *ngIf="infoUsu.usuario.login == 'ADMIN'" class="material-symbols-outlined text-primary mb-2">category</span>
               <!-- <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Uso de Predio</p> -->
               <!-- <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xl font-bold text-slate-800 dark:text-slate-100">Residencial</p> -->

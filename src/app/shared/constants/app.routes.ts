@@ -3,6 +3,8 @@ export const APP_ROUTES = {
     URL_LOGIN: '/auth/login',
     URL_INTRANET_LOGIN: '/auth/intranet/login',
     URL_INICIO: '/pages/inicio',
+    URL_LOGS_AUDITORIA: '/pages/logs-auditoria',
+    URL_REPORTE: '/pages/reporte',
     URL_PAGOS: {
       INICIO: '/pages/pagos',
       PENDIENTES: {
