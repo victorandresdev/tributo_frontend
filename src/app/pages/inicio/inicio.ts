@@ -51,6 +51,12 @@ export class Inicio implements OnInit {
     }
   }
 
+  abrirReporte(): void {
+    if (this.infoUsu?.usuario?.login === 'ADMIN') {
+      this.router.navigate([APP_ROUTES.URL_REPORTE]);
+    }
+  }
+
   ir(nro:number){
     this.utilService.cambiaMenu(2)
     if(nro == 0){

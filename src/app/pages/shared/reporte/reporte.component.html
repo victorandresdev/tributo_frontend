@@ -1,0 +1,339 @@
+<div class="min-h-screen bg-background-light dark:bg-background-dark">
+  <div class="w-full mx-auto" style="padding-left: 30px; padding-right: 30px; padding-top: 10px; padding-bottom: 24px;">
+
+    <div class="border-b border-slate-200 dark:border-slate-800 pb-3 mb-6">
+      <div class="flex items-center justify-between gap-4 flex-wrap">
+        <div class="flex items-center gap-3">
+          <div>
+            <h1 class="text-2xl lg:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
+              Reporte de Pagos Realizados
+            </h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium leading-tight mt-1">
+              Historial de operaciones y pagos registrados
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="flex items-center gap-2 text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider"
+          >
+            <span class="size-2 rounded-full bg-primary"></span>
+            {{ totalRegistros() }} registros
+          </div>
+          <button
+            class="bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-300"
+            (click)="buscar()"
+            type="button"
+          >
+            <span class="material-symbols-outlined">refresh</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm mb-6 overflow-hidden">
+      <div class="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 px-5 py-3 flex items-center gap-2.5">
+        <span class="material-symbols-outlined text-primary text-base leading-none align-middle">filter_alt</span>
+        <h3 class="m-0 text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 leading-none align-middle">
+          Filtros de Búsqueda
+        </h3>
+      </div>
+      <div class="px-5 py-5">
+        <form [formGroup]="formFiltros" (ngSubmit)="buscar()" class="flex flex-col gap-5">
+          <div class="flex flex-col lg:flex-row gap-4 items-stretch">
+            <div class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+              <label
+                class="shrink-0 sm:w-[125px] flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 leading-none"
+              >
+                <span class="material-symbols-outlined text-base text-primary shrink-0">calendar_today</span>
+                <span class="whitespace-nowrap">Fecha Desde</span>
+              </label>
+              <input
+                type="date"
+                class="flex-1 min-w-0 h-11 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+                formControlName="fechaDesde"
+                [max]="maxFechaInput"
+              >
+            </div>
+
+            <div class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+              <label
+                class="shrink-0 sm:w-[125px] flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 leading-none"
+              >
+                <span class="material-symbols-outlined text-base text-primary shrink-0">event</span>
+                <span class="whitespace-nowrap">Fecha Hasta</span>
+              </label>
+              <input
+                type="date"
+                class="flex-1 min-w-0 h-11 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+                formControlName="fechaHasta"
+                [max]="maxFechaInput"
+              >
+            </div>
+          </div>
+
+          <div class="flex items-center justify-start gap-3 pt-4 mt-1 border-t border-slate-200 dark:border-slate-800 relative">
+            <button
+              type="button"
+              (click)="volver()"
+              class="shrink-0 h-11 px-5 flex items-center justify-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 font-black uppercase tracking-wider text-sm hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+              [disabled]="cargando()"
+            >
+              <span class="material-symbols-outlined text-lg">arrow_back</span>
+              <span>Volver al inicio</span>
+            </button>
+
+            <div class="flex-1 flex justify-center items-center gap-3">
+              <button
+                type="submit"
+                class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-primary text-white font-black uppercase tracking-wider text-sm shadow-lg shadow-primary/25 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 border-0"
+                [disabled]="cargando()"
+              >
+                <span class="material-symbols-outlined text-lg">search</span>
+                <span>Buscar</span>
+              </button>
+              <button
+                type="button"
+                class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-black uppercase tracking-wider text-sm hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+                (click)="limpiarFiltros()"
+                [disabled]="cargando()"
+              >
+                <span class="material-symbols-outlined text-lg">restart_alt</span>
+                <span>Limpiar</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    @if (cargando()) {
+      <div class="flex flex-col items-center justify-center py-24 gap-4 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl">
+        <mat-spinner diameter="56" color="primary"></mat-spinner>
+        <p class="text-slate-500 dark:text-slate-400 font-medium text-sm tracking-wide uppercase">
+          Cargando registros...
+        </p>
+      </div>
+    } @else if (reportes().length === 0) {
+      <div class="flex flex-col items-center justify-center py-24 gap-4 text-center px-4 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl">
+        <div class="size-24 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+          <span class="material-symbols-outlined text-5xl text-slate-400 dark:text-slate-500">inbox</span>
+        </div>
+        <div>
+          <h3 class="font-black text-slate-700 dark:text-slate-200 text-2xl mb-2">Sin registros</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            No se encontraron operaciones para los filtros seleccionados.
+          </p>
+        </div>
+      </div>
+    } @else {
+      <div class="flex flex-col gap-5">
+        <div class="flex items-center justify-between gap-4 flex-wrap bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-3">
+          <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+            <span class="material-symbols-outlined text-slate-400 text-base">filter_list</span>
+            Mostrar
+            <select
+              class="h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-sm font-semibold focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+              [value]="pageSize()"
+              (change)="cambiarPageSize(+$any($event.target).value)"
+            >
+              @for (opcion of opcionesPageSize; track opcion) {
+                <option [value]="opcion">{{ opcion }} registros</option>
+              }
+            </select>
+            por página
+          </label>
+          <div class="text-sm text-slate-500 dark:text-slate-400 font-medium">
+            Mostrando
+            <span class="font-bold text-slate-700 dark:text-slate-200 mx-1">
+              {{ rangoActual().inicio }} - {{ rangoActual().fin }}
+            </span>
+            de
+            <span class="font-bold text-slate-700 dark:text-slate-200 mx-1">{{ totalRegistros() }}</span>
+          </div>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 overflow-hidden shadow-sm"
+          style="max-height: 520px; overflow-y: auto; overflow-x: hidden;"
+        >
+          <table class="w-full text-left table-auto border-collapse">
+            <colgroup>
+              <col style="width: 20%; min-width: 180px;">
+              <col style="width: 14%; min-width: 140px;">
+              <col style="width: 16%; min-width: 150px;">
+              <col style="width: 10%; min-width: 100px;">
+              <col style="width: 14%; min-width: 130px;">
+              <col style="width: 16%; min-width: 130px;">
+            </colgroup>
+            <thead
+              class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10 backdrop-blur"
+            >
+              <tr>
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
+                  Contribuyente
+                </th>
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
+                  Fecha
+                </th>
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
+                  Operación
+                </th>
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
+                  Moneda
+                </th>
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
+                  Monto
+                </th>
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
+                  Estado
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              @for (reg of reportesPaginados(); track $index) {
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors align-top">
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <div class="flex items-start gap-2.5">
+                      <div
+                        class="size-8 shrink-0 rounded-full bg-primary/10 text-primary flex items-center justify-center font-black text-xs"
+                      >
+                        {{ (reg.codContri || '??').toString().trim().charAt(0).toUpperCase() }}
+                      </div>
+                      <span class="text-sm font-semibold text-slate-800 dark:text-slate-100 leading-relaxed break-words">
+                        {{ reg.codContri || '-' }}
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <div class="flex items-start gap-2.5">
+                      <span class="material-symbols-outlined text-sm text-slate-400 mt-0.5 shrink-0">schedule</span>
+                      <span class="text-sm font-medium text-slate-700 dark:text-slate-200 leading-relaxed break-words">
+                        {{ formatearFecha(reg.fecReg) }}
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <span class="text-sm font-semibold text-slate-700 dark:text-slate-200 leading-relaxed break-words">
+                      {{ reg.idOrderPago || '-' }}
+                    </span>
+                  </td>
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <span
+                      class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider break-words bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    >
+                      {{ reg.tipoMoneda || '-' }}
+                    </span>
+                  </td>
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <span class="text-sm font-black text-slate-900 dark:text-slate-100 leading-relaxed break-words">
+                      {{ formatearMonto(reg.monto) }}
+                    </span>
+                  </td>
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <span
+                      class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider break-words {{ badgeClassEstado(reg.estado) }}"
+                    >
+                      {{ estadoTexto(reg.estado) }}
+                    </span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="6" class="px-5 py-10 text-center text-slate-500 dark:text-slate-400 text-sm">
+                    No hay registros en esta página.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flex items-center justify-between gap-4 flex-wrap pt-2">
+          <div class="text-sm text-slate-500 dark:text-slate-400 font-medium">
+            Página
+            <span class="font-bold text-slate-700 dark:text-slate-200 mx-1">{{ paginaActual() }}</span>
+            de
+            <span class="font-bold text-slate-700 dark:text-slate-200 mx-1">{{ totalPaginas() }}</span>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <button
+              type="button"
+              (click)="irAPagina(1)"
+              [disabled]="paginaActual() === 1"
+              class="size-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            >
+              <span class="material-symbols-outlined text-lg">first_page</span>
+            </button>
+            <button
+              type="button"
+              (click)="irAPagina(paginaActual() - 1)"
+              [disabled]="paginaActual() === 1"
+              class="size-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            >
+              <span class="material-symbols-outlined text-lg">chevron_left</span>
+            </button>
+
+            <div class="flex items-center gap-1 px-2 flex-wrap">
+              @for (pag of paginasVisibles(); track pag) {
+                @if (pag === -1) {
+                  <span class="px-2 text-slate-400 font-bold">...</span>
+                } @else {
+                  <button
+                    type="button"
+                    (click)="irAPagina(pag)"
+                    class="size-10 flex items-center justify-center rounded-lg text-sm font-bold transition-all"
+                    [class]="
+                      pag === paginaActual()
+                        ? 'bg-primary text-white shadow-lg shadow-primary/20'
+                        : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                    "
+                  >
+                    {{ pag }}
+                  </button>
+                }
+              }
+            </div>
+
+            <button
+              type="button"
+              (click)="irAPagina(paginaActual() + 1)"
+              [disabled]="paginaActual() === totalPaginas()"
+              class="size-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            >
+              <span class="material-symbols-outlined text-lg">chevron_right</span>
+            </button>
+            <button
+              type="button"
+              (click)="irAPagina(totalPaginas())"
+              [disabled]="paginaActual() === totalPaginas()"
+              class="size-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            >
+              <span class="material-symbols-outlined text-lg">last_page</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+</div>
