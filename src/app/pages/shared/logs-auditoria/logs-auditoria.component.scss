@@ -12,20 +12,11 @@
 
 ::ng-deep .logs-auditoria-dialog-panel .mat-mdc-dialog-surface,
 ::ng-deep .logs-auditoria-dialog-panel.mdc-dialog__surface {
-  max-width: 98vw !important;
-  width: min(1200px, 98vw) !important;
+  width: 85vw !important;
+  max-width: 85vw !important;
+  min-width: min(85vw, 720px) !important;
 }
 
 ::ng-deep .mat-mdc-dialog-content {
-  max-height: 65vh !important;
-}
-
-.logs-table-wrapper {
-  margin: 0 1rem;
-}
-
-@media (min-width: 1024px) {
-  .logs-table-wrapper {
-    margin: 0 2.5rem;
-  }
+  max-height: none !important;
 }

@@ -1,11 +1,9 @@
-<div class="bg-background-light dark:bg-background-dark" style="padding-left: 30px; padding-right: 30px; padding-top: 24px; padding-bottom: 24px;">
+<div class="bg-background-light dark:bg-background-dark" style="padding-left: 30px; padding-right: 30px; padding-top: 10px; padding-bottom: 24px;">
   <!-- Header -->
   <div mat-dialog-title class="border-b border-slate-200 dark:border-slate-800 pb-5 mb-6">
     <div class="flex items-center justify-between gap-4 flex-wrap">
       <div class="flex items-center gap-3">
-        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-          <span class="material-symbols-outlined text-3xl">audit</span>
-        </div>
+
         <div>
           <h2 class="text-2xl lg:text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
             Logs de Auditoría
@@ -24,7 +22,7 @@
         </div>
         <button
           class="bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-300"
-          (click)="cargarLogs()"
+          (click)="buscar()"
           type="button"
         >
           <span class="material-symbols-outlined">refresh</span>
@@ -35,6 +33,83 @@
 
   <!-- Body -->
   <mat-dialog-content class="!max-h-none !px-0 !overflow-visible">
+    <!-- Bloque de filtros (estilos Bootstrap) -->
+    <div class="card bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm mb-5 overflow-hidden">
+      <div class="card-header bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 px-5 py-4 d-flex align-items-center gap-2">
+        <span class="material-symbols-outlined text-primary">filter_alt</span>
+        <h3 class="mb-0 text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200">
+          Filtros de Búsqueda
+        </h3>
+      </div>
+      <div class="card-body px-5 py-5">
+        <form [formGroup]="formFiltros" (ngSubmit)="buscar()" class="flex flex-col gap-5">
+          <!-- 3 filtros en la MISMA LÍNEA (Tailwind flex-row, se envuelve en mobile) -->
+          <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+            <div class="flex-1 min-w-0 w-full sm:w-auto">
+              <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+                <span class="material-symbols-outlined text-base text-primary shrink-0">calendar_today</span>
+                Fecha Desde
+              </label>
+              <input
+                type="date"
+                class="w-full h-11 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+                formControlName="fechaDesde"
+                [max]="maxFecha | date:'yyyy-MM-dd'"
+              >
+            </div>
+
+            <div class="flex-1 min-w-0 w-full sm:w-auto">
+              <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+                <span class="material-symbols-outlined text-base text-primary shrink-0">event</span>
+                Fecha Hasta
+              </label>
+              <input
+                type="date"
+                class="w-full h-11 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+                formControlName="fechaHasta"
+                [max]="maxFecha | date:'yyyy-MM-dd'"
+              >
+            </div>
+
+            <div class="flex-1 min-w-0 w-full sm:w-auto">
+              <label class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+                <span class="material-symbols-outlined text-base text-primary shrink-0">person</span>
+                Usuario
+              </label>
+              <input
+                type="text"
+                class="w-full h-11 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all outline-none"
+                formControlName="usuario"
+                placeholder="Buscar por nombre de usuario (opcional)"
+                autocomplete="off"
+              >
+            </div>
+          </div>
+
+          <!-- Botones debajo, centrados -->
+          <div class="flex justify-center items-center gap-3 pt-4 mt-1 border-t border-slate-200 dark:border-slate-800">
+            <button
+              type="submit"
+              class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-primary text-white font-black uppercase tracking-wider text-sm shadow-lg shadow-primary/25 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 border-0"
+              [disabled]="cargando()"
+            >
+              <span class="material-symbols-outlined text-lg">search</span>
+              <span>Buscar</span>
+            </button>
+            <button
+              type="button"
+              class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-black uppercase tracking-wider text-sm hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+              (click)="limpiarFiltros()"
+              [disabled]="cargando()"
+            >
+              <span class="material-symbols-outlined text-lg">restart_alt</span>
+              <span>Limpiar</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     @if (cargando()) {
       <div class="flex flex-col items-center justify-center py-16 gap-4">
         <mat-spinner diameter="48" color="primary"></mat-spinner>
@@ -82,75 +157,87 @@
           </div>
         </div>
 
-        <!-- Tabla con scroll vertical visible (altura fija en px) -->
+        <!-- Tabla con scroll vertical visible y columnas con wrap -->
         <div
           class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 overflow-hidden"
-          style="max-height: 420px; overflow-y: auto; overflow-x: auto;"
+          style="max-height: 420px; overflow-y: auto; overflow-x: hidden;"
         >
-          <table class="w-full min-w-[760px] text-left table-fixed">
+          <table class="w-full text-left table-auto border-collapse">
             <colgroup>
-              <col style="width: 18%;">
-              <col style="width: 15%;">
-              <col style="width: 15%;">
-              <col style="width: 52%;">
+              <col style="width: 18%; min-width: 150px;">
+              <col style="width: 14%; min-width: 130px;">
+              <col style="width: 15%; min-width: 140px;">
+              <col style="width: 53%; min-width: 300px;">
             </colgroup>
             <thead
               class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10"
             >
               <tr>
-                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
                   Fecha y Hora
                 </th>
-                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
                   Operación
                 </th>
-                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
                   Usuario
                 </th>
-                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <th class="px-5 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 align-middle">
                   Descripción
                 </th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
               @for (log of logsPaginados(); track $index) {
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center gap-2.5">
-                      <span class="material-symbols-outlined text-sm text-slate-400">schedule</span>
-                      <span class="text-sm font-medium text-slate-700 dark:text-slate-200">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors align-top">
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <div class="flex items-start gap-2.5">
+                      <span class="material-symbols-outlined text-sm text-slate-400 mt-0.5 shrink-0">schedule</span>
+                      <span class="text-sm font-medium text-slate-700 dark:text-slate-200 leading-relaxed break-words">
                         {{ formatearFecha(log.fecha) }}
                       </span>
                     </div>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
                     <span
-                      class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider {{ badgeClass(log.tipoOperacion) }}"
+                      class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider break-words {{ badgeClass(log.tipoOperacion) }}"
                     >
                       {{ log.tipoOperacion || 'SIN TIPO' }}
                     </span>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center gap-2.5">
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <div class="flex items-start gap-2.5">
                       <div
-                        class="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-black text-xs"
+                        class="size-8 shrink-0 rounded-full bg-primary/10 text-primary flex items-center justify-center font-black text-xs"
                       >
                         {{ (log.usuario || '??').toString().trim().charAt(0).toUpperCase() }}
                       </div>
-                      <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                      <span class="text-sm font-semibold text-slate-800 dark:text-slate-100 leading-relaxed break-words">
                         {{ log.usuario || '-' }}
                       </span>
                     </div>
                   </td>
-                  <td class="px-6 py-4 align-top">
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed break-words">
+                  <td
+                    class="px-5 py-4 align-top"
+                    style="word-break: break-word; overflow-wrap: anywhere;"
+                  >
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed break-words m-0">
                       {{ log.descripcion || '-' }}
                     </p>
                   </td>
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="4" class="px-6 py-10 text-center text-slate-500 dark:text-slate-400 text-sm">
+                  <td colspan="4" class="px-5 py-10 text-center text-slate-500 dark:text-slate-400 text-sm">
                     No hay registros en esta página.
                   </td>
                 </tr>

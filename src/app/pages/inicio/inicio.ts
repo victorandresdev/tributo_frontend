@@ -49,11 +49,11 @@ export class Inicio implements OnInit {
   abrirLogsAuditoria(): void {
     if (this.infoUsu?.usuario?.login === 'ADMIN') {
       this.dialog.open(LogsAuditoriaComponent, {
-        width: '1200px',
-        height: '850px',
-        maxWidth: '98vw',
+        width: '85vw',
+        height: '90vh',
+        maxWidth: '85vw',
+        minWidth: 'min(85vw, 720px)',
         maxHeight: '92vh',
-        minWidth: '720px',
         disableClose: false,
         autoFocus: false,
         restoreFocus: false,
