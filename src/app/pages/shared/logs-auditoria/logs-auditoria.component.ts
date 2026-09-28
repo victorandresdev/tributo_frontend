@@ -1,16 +1,43 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 import { finalize } from 'rxjs';
 import { LogsService } from '../../../services/logs.service';
 import { LogAuditoriaResponse } from '../../../shared/helpers/log-auditoria-response';
+import { LogAuditoriaFilterRequest } from '../../../shared/helpers/log-auditoria-filter-request';
 import { UtilService } from '../../../services/util.services';
+import { APP_CONSTANTS } from '../../../shared/constants/app.constants';
+
+type FiltroLogsRawValue = {
+  fechaDesde: Date | null;
+  fechaHasta: Date | null;
+  usuario: string | null;
+};
+
+type FiltroLogsFormControls = {
+  fechaDesde: FormControl<Date | null>;
+  fechaHasta: FormControl<Date | null>;
+  usuario: FormControl<string | null>;
+};
 
 @Component({
   selector: 'app-logs-auditoria',
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatProgressSpinnerModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './logs-auditoria.component.html',
   styleUrl: './logs-auditoria.component.scss',
   standalone: true,
@@ -67,20 +94,33 @@ export class LogsAuditoriaComponent implements OnInit {
     return result;
   });
 
+  readonly formFiltros: FormGroup<FiltroLogsFormControls>;
+  readonly maxFecha = new Date();
+
   constructor(
+    private fb: FormBuilder,
     private logsService: LogsService,
     private utilService: UtilService,
     private dialogRef: MatDialogRef<LogsAuditoriaComponent>
-  ) {}
-
-  ngOnInit(): void {
-    this.cargarLogs();
+  ) {
+    const hoy = new Date();
+    this.formFiltros = this.fb.group<FiltroLogsFormControls>({
+      fechaDesde: this.fb.control<Date | null>(hoy),
+      fechaHasta: this.fb.control<Date | null>(hoy),
+      usuario: this.fb.control<string | null>(null),
+    });
   }
 
-  cargarLogs(): void {
+  ngOnInit(): void {
+    this.buscar();
+  }
+
+  buscar(): void {
+    const filtro = this.buildFiltro();
+    if (!filtro) return;
     this.cargando.set(true);
     this.logsService
-      .listarLogsAuditoria()
+      .listarLogsAuditoria(filtro)
       .pipe(finalize(() => this.cargando.set(false)))
       .subscribe({
         next: (data) => {
@@ -97,6 +137,47 @@ export class LogsAuditoriaComponent implements OnInit {
           );
         },
       });
+  }
+
+  limpiarFiltros(): void {
+    const hoy = new Date();
+    this.formFiltros.reset({
+      fechaDesde: hoy,
+      fechaHasta: hoy,
+      usuario: null,
+    });
+    this.buscar();
+  }
+
+  private buildFiltro(): LogAuditoriaFilterRequest | null {
+    const raw: FiltroLogsRawValue = this.formFiltros.getRawValue();
+    const desde = raw.fechaDesde;
+    const hasta = raw.fechaHasta;
+
+    if (desde && hasta && desde > hasta) {
+      this.utilService.getAlert(
+        'Validación',
+        'La fecha "Desde" no puede ser mayor a la fecha "Hasta".',
+        'info',
+        'Corregir'
+      );
+      return null;
+    }
+
+    return {
+      fechaDesde: this.formatearFechaBack(desde ?? new Date(), true),
+      fechaHasta: this.formatearFechaBack(hasta ?? new Date(), false),
+      usuario: raw.usuario && raw.usuario.trim().length > 0 ? raw.usuario.trim() : null,
+    };
+  }
+
+  private formatearFechaBack(fecha: Date, esInicio: boolean): string {
+    const d = new Date(fecha);
+    const anio = d.getFullYear();
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const dia = String(d.getDate()).padStart(2, '0');
+    const hora = esInicio ? '00:00:00' : '23:59:59';
+    return `${anio}-${mes}-${dia}T${hora}`;
   }
 
   private normalizarLista(raw: unknown): LogAuditoriaResponse[] {
@@ -163,4 +244,6 @@ export class LogsAuditoriaComponent implements OnInit {
   cerrar(): void {
     this.dialogRef.close();
   }
+
+  protected readonly APP_CONSTANTS = APP_CONSTANTS;
 }
