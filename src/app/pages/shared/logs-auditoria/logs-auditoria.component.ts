@@ -1,28 +1,29 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { finalize } from 'rxjs';
+import { Router } from '@angular/router';
 import { LogsService } from '../../../services/logs.service';
 import { LogAuditoriaResponse } from '../../../shared/helpers/log-auditoria-response';
 import { LogAuditoriaFilterRequest } from '../../../shared/helpers/log-auditoria-filter-request';
 import { UtilService } from '../../../services/util.services';
 import { APP_CONSTANTS } from '../../../shared/constants/app.constants';
+import { APP_ROUTES } from '../../../shared/constants/app.routes';
 
 type FiltroLogsRawValue = {
-  fechaDesde: Date | null;
-  fechaHasta: Date | null;
+  fechaDesde: string | null;
+  fechaHasta: string | null;
   usuario: string | null;
 };
 
 type FiltroLogsFormControls = {
-  fechaDesde: FormControl<Date | null>;
-  fechaHasta: FormControl<Date | null>;
+  fechaDesde: FormControl<string | null>;
+  fechaHasta: FormControl<string | null>;
   usuario: FormControl<string | null>;
 };
 
@@ -31,7 +32,6 @@ type FiltroLogsFormControls = {
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatDialogModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
@@ -43,7 +43,7 @@ type FiltroLogsFormControls = {
   standalone: true,
 })
 export class LogsAuditoriaComponent implements OnInit {
-  readonly cargando = signal(true);
+  readonly cargando = signal(false);
   readonly logs = signal<LogAuditoriaResponse[]>([]);
 
   readonly pagina = signal(1);
@@ -96,26 +96,70 @@ export class LogsAuditoriaComponent implements OnInit {
 
   readonly formFiltros: FormGroup<FiltroLogsFormControls>;
   readonly maxFecha = new Date();
+  readonly maxFechaInput: string;
 
   constructor(
     private fb: FormBuilder,
     private logsService: LogsService,
     private utilService: UtilService,
-    private dialogRef: MatDialogRef<LogsAuditoriaComponent>
+    private router: Router
   ) {
-    const hoy = new Date();
+    const hoyString = this.formatearFechaInput(new Date());
+    this.maxFechaInput = hoyString;
     this.formFiltros = this.fb.group<FiltroLogsFormControls>({
-      fechaDesde: this.fb.control<Date | null>(hoy),
-      fechaHasta: this.fb.control<Date | null>(hoy),
-      usuario: this.fb.control<string | null>(null),
+      fechaDesde: this.fb.control<string | null>(hoyString),
+      fechaHasta: this.fb.control<string | null>(hoyString),
+      usuario: this.fb.control<string | null>(''),
     });
   }
 
   ngOnInit(): void {
-    this.buscar();
+    // Las fechas ya quedan inicializadas con la fecha actual EN EL CONSTRUCTOR.
+    // NO se llama a buscar() para no enviar petición inicial al backend.
+  }
+
+  /**
+   * Deja el formulario en su estado inicial:
+   *  - fechaDesde = HOY (yyyy-MM-dd)
+   *  - fechaHasta = HOY (yyyy-MM-dd)
+   *  - usuario = '' (vacio)
+   * No toca la tabla ni envía petición.
+   */
+  private reiniciarFormulario(): void {
+    const hoyString = this.formatearFechaInput(new Date());
+    this.formFiltros.setValue({
+      fechaDesde: hoyString,
+      fechaHasta: hoyString,
+      usuario: '',
+    });
+  }
+
+  /** Convierte Date → yyyy-MM-dd (lo que espera <input type="date">). */
+  private formatearFechaInput(fecha: Date): string {
+    const d = new Date(fecha);
+    const anio = d.getFullYear();
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const dia = String(d.getDate()).padStart(2, '0');
+    return `${anio}-${mes}-${dia}`;
   }
 
   buscar(): void {
+    console.log('form:', this.formFiltros.getRawValue())
+    // ⚠️ IMPORTANTE: este método NO modifica los valores de los inputs del formulario.
+    // Solo LEE fechaDesde, fechaHasta y usuario para armar la petición.
+    // Los valores de fechaDesde y fechaHasta solo se setean en ngOnInit() (fecha actual)
+    // y al presionar el botón LIMPIAR (reiniciarFormulario).
+    const raw = this.formFiltros.getRawValue();
+    if (!raw.fechaDesde || !raw.fechaHasta) {
+      this.utilService.getAlert(
+        'Filtros requeridos',
+        'Los campos "Fecha Desde" y "Fecha Hasta" son obligatorios para realizar la búsqueda.',
+        'info',
+        'Corregir'
+      );
+      return;
+    }
+
     const filtro = this.buildFiltro();
     if (!filtro) return;
     this.cargando.set(true);
@@ -139,22 +183,30 @@ export class LogsAuditoriaComponent implements OnInit {
       });
   }
 
+  /**
+   * Limpia TODOS los filtros:
+   *  - Formulario → fecha hoy + usuario vacío
+   *  - Tabla → vacía
+   *  - Paginación → página 1
+   * NO envía petición al backend.
+   */
   limpiarFiltros(): void {
-    const hoy = new Date();
-    this.formFiltros.reset({
-      fechaDesde: hoy,
-      fechaHasta: hoy,
-      usuario: null,
-    });
-    this.buscar();
+    this.reiniciarFormulario();
+    this.logs.set([]);
+    this.pagina.set(1);
+  }
+
+  volver(): void {
+    this.router.navigate([APP_ROUTES.URL_INICIO]);
   }
 
   private buildFiltro(): LogAuditoriaFilterRequest | null {
     const raw: FiltroLogsRawValue = this.formFiltros.getRawValue();
-    const desde = raw.fechaDesde;
-    const hasta = raw.fechaHasta;
+    // Precondición: raw.fechaDesde y raw.fechaHasta NO son null (validado antes en buscar())
+    const desde = raw.fechaDesde!;
+    const hasta = raw.fechaHasta!;
 
-    if (desde && hasta && desde > hasta) {
+    if (desde > hasta) {
       this.utilService.getAlert(
         'Validación',
         'La fecha "Desde" no puede ser mayor a la fecha "Hasta".',
@@ -164,9 +216,12 @@ export class LogsAuditoriaComponent implements OnInit {
       return null;
     }
 
+    const fechaDesdeDate = new Date(desde + 'T00:00:00');
+    const fechaHastaDate = new Date(hasta + 'T00:00:00');
+
     return {
-      fechaDesde: this.formatearFechaBack(desde ?? new Date(), true),
-      fechaHasta: this.formatearFechaBack(hasta ?? new Date(), false),
+      fechaDesde: this.formatearFechaBack(fechaDesdeDate, true),
+      fechaHasta: this.formatearFechaBack(fechaHastaDate, false),
       usuario: raw.usuario && raw.usuario.trim().length > 0 ? raw.usuario.trim() : null,
     };
   }
@@ -239,10 +294,6 @@ export class LogsAuditoriaComponent implements OnInit {
       return 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300';
     }
     return 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300';
-  }
-
-  cerrar(): void {
-    this.dialogRef.close();
   }
 
   protected readonly APP_CONSTANTS = APP_CONSTANTS;

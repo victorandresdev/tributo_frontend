@@ -8,8 +8,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { APP_CONSTANTS } from '../../shared/constants/app.constants';
 import { APP_ROUTES } from '../../shared/constants/app.routes';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
-import { LogsAuditoriaComponent } from '../shared/logs-auditoria/logs-auditoria.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -23,7 +22,7 @@ export class Inicio implements OnInit {
   constructor(
     private fb:FormBuilder,
     private utilService: UtilService,
-    private dialog: MatDialog
+    private router: Router
   ){
 
   }
@@ -48,17 +47,7 @@ export class Inicio implements OnInit {
 
   abrirLogsAuditoria(): void {
     if (this.infoUsu?.usuario?.login === 'ADMIN') {
-      this.dialog.open(LogsAuditoriaComponent, {
-        width: '85vw',
-        height: '90vh',
-        maxWidth: '85vw',
-        minWidth: 'min(85vw, 720px)',
-        maxHeight: '92vh',
-        disableClose: false,
-        autoFocus: false,
-        restoreFocus: false,
-        panelClass: 'logs-auditoria-dialog-panel',
-      });
+      this.router.navigate([APP_ROUTES.URL_LOGS_AUDITORIA]);
     }
   }
 

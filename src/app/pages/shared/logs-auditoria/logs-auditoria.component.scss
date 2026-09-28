@@ -1,22 +1,5 @@
 :host {
   display: block;
   width: 100%;
-}
-
-::ng-deep .mdc-dialog__surface {
-  border-radius: 1.5rem !important;
-  overflow: hidden;
-  background: transparent !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-}
-
-::ng-deep .logs-auditoria-dialog-panel .mat-mdc-dialog-surface,
-::ng-deep .logs-auditoria-dialog-panel.mdc-dialog__surface {
-  width: 85vw !important;
-  max-width: 85vw !important;
-  min-width: min(85vw, 720px) !important;
-}
-
-::ng-deep .mat-mdc-dialog-content {
-  max-height: none !important;
+  min-height: 100vh;
 }

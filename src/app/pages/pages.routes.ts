@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { Inicio } from './inicio/inicio';
 import { Pagos } from './contrib/pagos/pagos';
+import { LogsAuditoriaComponent } from './shared/logs-auditoria/logs-auditoria.component';
 
 export const routesPage: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: Inicio },
+  { path: 'logs-auditoria', component: LogsAuditoriaComponent },
   { path: 'pagos', component: Pagos },
   {
     path: 'pagos',
