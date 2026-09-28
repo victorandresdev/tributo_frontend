@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div *ngIf="infoUsu.usuario.login === 'ADMIN'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div id="auditoria" (click)="abrirLogsAuditoria()" class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all">
               <span *ngIf="infoUsu.usuario.login == 'ADMIN'" class="material-symbols-outlined text-primary mb-2">square_foot</span>
               <!-- <p *ngIf="infoUsu.usuario.login !== 'ADMIN'" class="text-xs text-slate-400 font-bold uppercase mb-1">Área Total</p> -->
