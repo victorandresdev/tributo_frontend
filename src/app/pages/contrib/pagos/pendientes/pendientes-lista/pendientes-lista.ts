@@ -126,9 +126,12 @@ dialogRef.afterClosed().subscribe(() => {
   }
 
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataResult.data.length;
-    return numSelected === numRows;
+    const rows = this.dataResult?.data ?? [];
+    return rows.length > 0 && rows.every((row) => this.selection.isSelected(row));
+  }
+
+  isSomeSelected() {
+    return (this.dataResult?.data ?? []).some((row) => this.selection.isSelected(row));
   }
 
   toggleRow(row: any) {
@@ -138,7 +141,7 @@ dialogRef.afterClosed().subscribe(() => {
 
   toggleAllRows() {
     if (this.isAllSelected()) {
-      this.selection.clear();
+      this.selection.deselect(...this.dataResult.data);
     } else {
       this.selection.select(...this.dataResult.data);
     }
