@@ -42,6 +42,7 @@ type FiltroReporteFormControls = {
 })
 export class ReporteComponent implements OnInit {
   readonly cargando = signal(false);
+  readonly descargandoExcel = signal(false);
   readonly reportes = signal<ReportePagoOnlineUserResponse[]>([]);
 
   readonly pagina = signal(1);
@@ -174,6 +175,85 @@ export class ReporteComponent implements OnInit {
     this.reiniciarFormulario();
     this.reportes.set([]);
     this.pagina.set(1);
+  }
+
+  exportarExcel(): void {
+    const raw = this.formFiltros.getRawValue();
+    if (!raw.fechaDesde || !raw.fechaHasta) {
+      this.utilService.getAlert(
+        'Filtros requeridos',
+        'Los campos "Fecha Desde" y "Fecha Hasta" son obligatorios para exportar el Excel.',
+        'info',
+        'Corregir'
+      );
+      return;
+    }
+
+    const filtro = this.buildFiltro();
+    if (!filtro) return;
+
+    this.descargandoExcel.set(true);
+    this.reportesService
+      .exportarPagosOnlineUsersExcel(filtro)
+      .pipe(finalize(() => this.descargandoExcel.set(false)))
+      .subscribe({
+        next: (resp) => {
+          if (!resp.body) {
+            this.utilService.getAlert(
+              'Error',
+              'El servicio de exportación no devolvió datos.',
+              'error',
+              'Entendido'
+            );
+            return;
+          }
+          const contentDisposition = resp.headers.get('Content-Disposition');
+          let filename = `Reporte_PagosOnline_${this.formatearFechaInput(new Date())}.xlsx`;
+          if (contentDisposition) {
+            const matchesFilename =
+              /filename\*=UTF-8''([^;]+)/i.exec(contentDisposition) ||
+              /filename="?([^";]+)"?/i.exec(contentDisposition);
+            if (matchesFilename && matchesFilename[1]) {
+              try {
+                filename = decodeURIComponent(matchesFilename[1].trim());
+              } catch {
+                filename = matchesFilename[1].trim();
+              }
+            }
+          }
+
+          const contentType =
+            resp.headers.get('Content-Type') ||
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+          try {
+            const blob = new Blob([resp.body], { type: contentType });
+            const url = window.URL.createObjectURL(blob);
+            const anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.download = filename;
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+            setTimeout(() => window.URL.revokeObjectURL(url), 1500);
+          } catch {
+            this.utilService.getAlert(
+              'Error',
+              'No se pudo generar la descarga del Excel.',
+              'error',
+              'Entendido'
+            );
+          }
+        },
+        error: () => {
+          this.utilService.getAlert(
+            'Error',
+            'No se pudo exportar el Excel. Revisa los filtros o intenta nuevamente.',
+            'error',
+            'Entendido'
+          );
+        },
+      });
   }
 
   volver(): void {

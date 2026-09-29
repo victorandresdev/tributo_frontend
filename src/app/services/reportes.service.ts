@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ReportePagoOnlineUserResponse } from '../shared/helpers/reporte-pago-online-user-response';
@@ -21,4 +21,14 @@ export class ReportesService {
       filtro
     );
   }
+
+  exportarPagosOnlineUsersExcel(
+    filtro: ReportePagoOnlineUserFilterRequest
+  ): Observable<HttpResponse<ArrayBuffer>> {
+    return this.http.post(this.baseUrl + '/pagosOnlineUsers/excel', filtro, {
+      responseType: 'arraybuffer',
+      observe: 'response',
+    });
+  }
 }
+

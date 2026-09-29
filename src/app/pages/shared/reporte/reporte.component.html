@@ -77,26 +77,42 @@
               type="button"
               (click)="volver()"
               class="shrink-0 h-11 px-5 flex items-center justify-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 font-black uppercase tracking-wider text-sm hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
-              [disabled]="cargando()"
+              [disabled]="cargando() || descargandoExcel()"
             >
               <span class="material-symbols-outlined text-lg">arrow_back</span>
               <span>Volver al inicio</span>
             </button>
 
-            <div class="flex-1 flex justify-center items-center gap-3">
+            <div class="flex-1 flex justify-center items-center gap-3 flex-wrap">
               <button
                 type="submit"
                 class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-primary text-white font-black uppercase tracking-wider text-sm shadow-lg shadow-primary/25 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 border-0"
-                [disabled]="cargando()"
+                [disabled]="cargando() || descargandoExcel()"
               >
                 <span class="material-symbols-outlined text-lg">search</span>
                 <span>Buscar</span>
               </button>
               <button
                 type="button"
+                (click)="exportarExcel()"
+                class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-emerald-600 text-white font-black uppercase tracking-wider text-sm shadow-lg shadow-emerald-600/25 hover:bg-emerald-500 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 border-0"
+                [disabled]="cargando() || descargandoExcel()"
+              >
+                @if (descargandoExcel()) {
+                  <svg class="animate-spin size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                  </svg>
+                } @else {
+                  <span class="material-symbols-outlined text-lg">download</span>
+                }
+                <span>Descargar Excel</span>
+              </button>
+              <button
+                type="button"
                 class="min-w-[220px] h-11 px-5 flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-black uppercase tracking-wider text-sm hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
                 (click)="limpiarFiltros()"
-                [disabled]="cargando()"
+                [disabled]="cargando() || descargandoExcel()"
               >
                 <span class="material-symbols-outlined text-lg">restart_alt</span>
                 <span>Limpiar</span>
