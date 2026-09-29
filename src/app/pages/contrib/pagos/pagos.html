@@ -141,7 +141,7 @@
               </div>
             </section>
             <!-- Historial de Pagos Section -->
-            <section
+            <!-- <section
               class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-100 dark:border-slate-800"
             >
               <div class="flex items-center justify-between mb-6">
@@ -259,7 +259,7 @@
                   </tbody>
                 </table>
               </div>
-            </section>
+            </section> -->
           </div>
           <!-- Sidebar Area (Right) -->
           <aside class="flex flex-col gap-6">
@@ -271,6 +271,7 @@
               </h2>
               <button
                 class="w-full bg-white text-primary py-3 rounded-lg font-bold hover:bg-slate-50 transition-colors shadow-sm"
+                (click)="ir(1)"
               >
                 Pagar Todo Ahora
               </button>
@@ -334,50 +335,29 @@
               </h4>
               <ul class="space-y-3">
                 <li>
-                  <a
-                    class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary flex items-center justify-between group"
-                    href="#"
-                  >
+                  <div class="text-sm text-slate-600 dark:text-slate-400">
                     ¿Cómo pagar con tarjeta?
-                    <span
-                      class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity"
-                      >arrow_forward</span
-                    >
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
-                    class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary flex items-center justify-between group"
-                    href="#"
-                  >
+                  <div class="text-sm text-slate-600 dark:text-slate-400">
                     Calendario de beneficios
-                    <span
-                      class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity"
-                      >arrow_forward</span
-                    >
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
-                    class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary flex items-center justify-between group"
-                    href="#"
-                  >
+                  <div class="text-sm text-slate-600 dark:text-slate-400">
                     ¿Dónde reclamar un pago?
-                    <span
-                      class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity"
-                      >arrow_forward</span
-                    >
-                  </a>
+                  </div>
                 </li>
               </ul>
-              <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+              <!-- <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
                 <p class="text-xs text-slate-400 mb-2 font-bold uppercase">Asistencia en línea</p>
                 <button
                   class="w-full flex items-center justify-center gap-2 border-2 border-primary text-primary font-bold py-2 rounded-lg hover:bg-primary/5 transition-colors"
                 >
                   <span class="material-symbols-outlined text-[18px]">chat</span> Chat de Soporte
                 </button>
-              </div>
+              </div> -->
             </div>
           </aside>
         </div>
