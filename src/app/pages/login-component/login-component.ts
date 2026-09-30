@@ -18,9 +18,7 @@ import { ContribuyenteService } from '../../services/contribuyente.service';
   standalone: true,
 })
 export class LoginComponent implements OnInit {
-  frmDNI!:FormGroup;
   frmCont!:FormGroup;
-  nBloqueActivo!:number;
   credencial!:PersonaRequest;
 
   constructor(
@@ -34,14 +32,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     /* Muestra precarga */
     this.cargaService.show();
-    this.nBloqueActivo = 1;
-    this.frmDNI = this.fb.group({
-      nro:['',[Validators.required,Validators.maxLength(8), Validators.minLength(8)]],
-      /*
-      dig:['',[Validators.required,Validators.maxLength(1), Validators.minLength(1)]],
-      nac:['',[Validators.required]]
-      */
-    });
     this.frmCont = this.fb.group({
       cod:['',[Validators.required,Validators.maxLength(12), Validators.minLength(6)]],
     });
@@ -49,44 +39,14 @@ export class LoginComponent implements OnInit {
     this.cargaService.hide();
   }
 
-  cambiaContenido(nBloque:number = 1){
-    if(nBloque != this.nBloqueActivo){
-      this.nBloqueActivo = nBloque;
-      if(this.nBloqueActivo == 1){
-        this.frmDNI.reset();
-      }else{
-        this.frmCont.reset();
-      }
-    }
-  }
-
-  permitidoNumero(event: KeyboardEvent){
-    const charCode = (event.which) ? event.which : event.keyCode;
-    const letra = String.fromCharCode(charCode);
-    let regPermitido:RegExp = /^[0-9]+$/;
-    if(!regPermitido.test(letra)){
-      event.preventDefault();
-    }
-  }
-
   validaUsuario(){
     this.credencial = new PersonaRequest()
-    if(this.nBloqueActivo == 1){
-      if(this.frmDNI.valid){
-        this.credencial.dato = this.frmDNI.get('nro')?.value;
-        this.credencial.tipo = APP_CONSTANTS.LOGIN_USUARIO.DNI;
-      }else{
-        this.frmDNI.markAllAsTouched();
-        return;
-      }
+    if(this.frmCont.valid){
+      this.credencial.dato = this.frmCont.get('cod')?.value;
+      this.credencial.tipo = APP_CONSTANTS.LOGIN_USUARIO.CONTRIBUYENTE;
     }else{
-      if(this.frmCont.valid){
-        this.credencial.dato = this.frmCont.get('cod')?.value;
-        this.credencial.tipo = APP_CONSTANTS.LOGIN_USUARIO.CONTRIBUYENTE;
-      }else{
-        this.frmCont.markAllAsTouched();
-        return;
-      }
+      this.frmCont.markAllAsTouched();
+      return;
     }
     this.cargaService.show();
     this.usuarioService.getLoginContribuyente(this.credencial).subscribe({

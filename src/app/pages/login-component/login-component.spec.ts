@@ -44,30 +44,14 @@ describe('LoginComponent', () => {
     expect(compiled.textContent).toContain('Municipalidad de La Molina');
   });
 
-  it('debe inicializar el formulario por DNI por defecto en el bloque 1', () => {
-    expect(component.nBloqueActivo).toBe(1);
-    expect(component.frmDNI).toBeDefined();
-    expect(component.frmDNI.get('nro')).toBeTruthy();
-
-    const compiled = fixture.nativeElement as HTMLElement;
-    const inputDni = compiled.querySelector('input[formControlName="nro"]');
-    expect(inputDni).toBeTruthy();
-  });
-
-  it('debe cambiar al bloque 2 de Contribuyente al hacer clic en la pestaña y mostrar el input de código', () => {
+  it('debe mostrar únicamente el acceso por código de contribuyente', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const tabButtons = compiled.querySelectorAll<HTMLButtonElement>('div.flex.border-b button');
 
-    if (tabButtons.length > 1) {
-      tabButtons[1].click();
-      fixture.detectChanges();
-    } else {
-      component.cambiaContenido(2);
-      fixture.detectChanges();
-    }
-
-    expect(component.nBloqueActivo).toBe(2);
+    expect(tabButtons.length).toBe(1);
+    expect(tabButtons[0].textContent).toContain('Código Contribuyente');
     const inputCod = compiled.querySelector('input[formControlName="cod"]');
     expect(inputCod).toBeTruthy();
+    expect(compiled.querySelector('input[formControlName="nro"]')).toBeFalsy();
   });
 });

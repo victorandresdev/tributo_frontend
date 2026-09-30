@@ -16,6 +16,8 @@ import { ImpuestoPredialRequest } from '../../../shared/helpers/impuesto-predial
 export class Pagos {
   infoUsu!:any;
   impuestoPredialMonto = 0;
+  cargandoMontoPredial = true;
+  errorMontoPredial = false;
 
   constructor(
     private utilService:UtilService,
@@ -82,10 +84,12 @@ export class Pagos {
           const valor = Number(String(item?.[claveTotal ?? ''] ?? 0).replace(/,/g, ''));
           return total + (Number.isFinite(valor) ? valor : 0);
         }, 0);
+        this.cargandoMontoPredial = false;
         this.changeDetectorRef.markForCheck();
       },
       error: () => {
-        this.impuestoPredialMonto = 0;
+        this.cargandoMontoPredial = false;
+        this.errorMontoPredial = true;
         this.changeDetectorRef.markForCheck();
       }
     });
