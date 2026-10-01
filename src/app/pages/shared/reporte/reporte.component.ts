@@ -18,11 +18,13 @@ import { APP_ROUTES } from '../../../shared/constants/app.routes';
 type FiltroReporteRawValue = {
   fechaDesde: string | null;
   fechaHasta: string | null;
+  nombre: string | null;
 };
 
 type FiltroReporteFormControls = {
   fechaDesde: FormControl<string | null>;
   fechaHasta: FormControl<string | null>;
+  nombre: FormControl<string | null>;
 };
 
 @Component({
@@ -108,6 +110,7 @@ export class ReporteComponent implements OnInit {
     this.formFiltros = this.fb.group<FiltroReporteFormControls>({
       fechaDesde: this.fb.control<string | null>(hoyString),
       fechaHasta: this.fb.control<string | null>(hoyString),
+      nombre: this.fb.control<string | null>(''),
     });
   }
 
@@ -118,6 +121,7 @@ export class ReporteComponent implements OnInit {
     this.formFiltros.setValue({
       fechaDesde: hoyString,
       fechaHasta: hoyString,
+      nombre: '',
     });
   }
 
@@ -281,6 +285,7 @@ export class ReporteComponent implements OnInit {
     return {
       fechaDesde: this.formatearFechaBack(fechaDesdeDate, true),
       fechaHasta: this.formatearFechaBack(fechaHastaDate, false),
+      nombre: raw.nombre && raw.nombre.trim().length > 0 ? raw.nombre.trim() : null,
     };
   }
 
