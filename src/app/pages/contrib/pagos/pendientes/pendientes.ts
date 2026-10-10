@@ -37,6 +37,7 @@ export class Pendientes implements OnInit {
   lstDatos?:Array<DtImpuesto> = [];
   lstMarcados?:any[] = [];
   lstIdentif?:Array<string> = [];
+  mensajeError: string = '';
   constructor(
     private fb: FormBuilder,
     private utilService: UtilService,
@@ -84,8 +85,36 @@ export class Pendientes implements OnInit {
     this.consultaImpuestos();
   }
 
+
+  validarRangoAnios(): boolean {
+    this.mensajeError = '';
+
+    if (this.dtConsulta.inicio === null || this.dtConsulta.fin === null) {
+      this.mensajeError = 'Debe seleccionar ambos años.';
+      return false;
+    }
+
+    if (Number(this.dtConsulta.inicio)  > Number(this.dtConsulta.fin)) {
+      this.mensajeError =
+        'El año Desde debe ser menor o igual al año Hasta.';
+      return false;
+    }
+
+    this.dtConsulta.anioInicio = this.dtConsulta.inicio?.toString();
+    this.dtConsulta.anioFin = this.dtConsulta.fin?.toString();
+
+    return true;
+  }
+
+  onCambioAnio(): void {
+    if (!this.validarRangoAnios()) {
+      return;
+    }
+
+    this.consultaImpuestos();
+  }
+
   seleccionaAnio(event:any, indicador:number){
-    console.log(event);
     if(indicador == 1){
       this.dtConsulta.anioInicio = event;
       this.dtConsulta.inicio = event;
@@ -130,7 +159,6 @@ export class Pendientes implements OnInit {
   }
 
   muestraMarcados(dtFilas:any){
-    console.log("Ver: ",dtFilas)
     this.monto = 0;
     this.lstMarcados = [];
     this.lstIdentif = [];
